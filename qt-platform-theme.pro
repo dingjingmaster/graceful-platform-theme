@@ -1,4 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    platform-theme
+    lib                 \
+    styles              \
+    platform-theme      \

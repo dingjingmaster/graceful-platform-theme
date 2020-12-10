@@ -1,0 +1,11 @@
+#ifndef LIBGLOBAL_H
+#define LIBGLOBAL_H
+#include <QtCore/qglobal.h>
+
+#if defined(LIBQT5UKUISTYLE_LIBRARY)
+#  define QT_THEME_LIBRARY_SHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define QT_THEME_LIBRARY_SHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // LIBGLOBAL_H
