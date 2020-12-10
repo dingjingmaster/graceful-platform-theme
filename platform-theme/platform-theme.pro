@@ -17,18 +17,21 @@ DEFINES         += QT_PLATFORM_THEME_LIBRARY
 
 PKGCONFIG       += gsettings-qt
 
+HEADERS         += \
+qt-platform-theme.h                             \
+    qt-platform-theme-global.h                  \
+
+
 SOURCES         += \
-    $PWD/main.cpp \
-    qt-platform-theme.cpp
+    $PWD/main.cpp                               \
+    $$PWD/qt-platform-theme.cpp
+
 
 DISTFILES       += \
     $PWD/platfrom-theme.json
+
 
 unix {
     target.path = $$[QT_INSTALL_PLUGINS]/platformthemes
     INSTALLS    += target
 }
-
-HEADERS += \
-    qt-platform-theme-global.h \
-    qt-platform-theme.h

@@ -1,12 +1,17 @@
-TEMPLATE = lib
-TARGET = qt-style
+TEMPLATE    = lib
+TARGET      = qt-style
 
-DEFINES += QT_NO_DEBUG_OUTPUT
-DEFINES += QT_DEPRECATED_WARNINGS
-DEFINES += LIBQT5UKUISTYLE_LIBRARY
+QT          += widgets concurrent
+
+DEFINES += \
+    QT_NO_DEBUG_OUTPUT          \
+    QT_DEPRECATED_WARNINGS      \
+    LIB_PLATFORM_THEME_LIBRARY
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += gsettings-qt
+
+include($$PWD/animations/animations.pri)
 
 HEADERS += \
     lib-global.h
