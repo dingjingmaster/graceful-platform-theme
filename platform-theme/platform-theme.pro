@@ -18,17 +18,17 @@ DEFINES         += QT_PLATFORM_THEME_LIBRARY
 PKGCONFIG       += gsettings-qt
 
 HEADERS         += \
-qt-platform-theme.h                             \
-    qt-platform-theme-global.h                  \
+    $$PWD/qt-platform-theme.h                   \
+    $$PWD/qt-platform-theme-global.h            \
 
 
 SOURCES         += \
-    $PWD/main.cpp                               \
+    $$PWD/main.cpp                              \
     $$PWD/qt-platform-theme.cpp
 
 
 DISTFILES       += \
-    $PWD/platfrom-theme.json
+    $$PWD/platfrom-theme.json
 
 
 unix {

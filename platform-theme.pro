@@ -1,7 +1,12 @@
-TEMPLATE = subdirs
+TEMPLATE    = subdirs
 
-SUBDIRS += \
-    lib                 \
-    test                \
-    styles              \
-    platform-theme      \
+CONFIG      += \
+    c++11 no_keywords
+
+DEFINES     += \
+    QT_DEPRECATED_WARNINGS
+
+SUBDIRS     += \
+    $$PWD/test              \
+    $$PWD/styles            \
+    $$PWD/platform-theme    \

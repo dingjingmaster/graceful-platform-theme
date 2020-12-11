@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    $$PWD/highlighted-icon-button/highlighted-icon-button.pro       \
+    $$PWD/highlighted-icon-button
 #    mps-style-application

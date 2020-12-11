@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMenu>
-#include <QListWidget>
 #include <QMainWindow>
+
+class QMenu;
+class QListWidget;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

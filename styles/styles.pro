@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    qt-styles           \
-    proxy-style         \
+#    qt-styles           \
+#    proxy-style         \
