@@ -11,13 +11,14 @@ DEFINES += \
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += gsettings-qt
 
+include($$PWD/effects/effects.pri)
 include($$PWD/animations/animations.pri)
 
 HEADERS += \
-    lib-global.h
+    $$PWD/lib-global.h
 
 DISTFILES += \
-    org.qt.theme.style.gschema.xml
+    $$PWD/org.qt.theme.style.gschema.xml
 
 unix {
     target.path = $$[QT_INSTALL_LIBS]
