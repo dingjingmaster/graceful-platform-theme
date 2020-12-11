@@ -45,6 +45,10 @@ SOURCES         += \
     qgnomeplatformtheme.cpp                                 \
 
 
+OTHER_FILES     += \
+    $$PWD/gracefulplatformtheme.json                        \
+
+
 target.path     += \
     $$[QT_INSTALL_PLUGINS]/platformthemes                   \
 
