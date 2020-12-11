@@ -1,5 +1,5 @@
 TEMPLATE        = lib
-TARGET = gracefulplatformtheme
+TARGET          = gracefulplatformtheme
 
 lessThan(QT_MINOR_VERSION, 9): error("Qt 5.9 and newer is required.")
 
