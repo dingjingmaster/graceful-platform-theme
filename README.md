@@ -1,4 +1,4 @@
-# qt-platform-theme
+# graceful-platform-theme
 
 > 基于 QT 的主题框架
 
@@ -7,7 +7,7 @@
 1. 使用
 
 ```
-wxport QT_QPA_PLATFORMTHEME=
+wxport QT_QPA_PLATFORMTHEME='graceful'
 ```
 
 2. 
