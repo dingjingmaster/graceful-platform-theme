@@ -12,6 +12,7 @@ CONFIG += c++11 link_pkgconfig
 PKGCONFIG += gsettings-qt
 
 include($$PWD/effects/effects.pri)
+include($$PWD/settings/settings.pri)
 include($$PWD/animations/animations.pri)
 
 HEADERS += \
