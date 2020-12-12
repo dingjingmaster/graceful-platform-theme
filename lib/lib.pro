@@ -31,9 +31,12 @@ PKGCONFIG       += \
 
 HEADERS         += \
     csyslog.h                                   \
+    graceful.h                                  \
+    graceful-export.h                           \
 
 
 SOURCES         += \
     csyslog.cpp                                 \
+    graceful.cpp                                \
 
 
