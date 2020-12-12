@@ -32,10 +32,11 @@ PKGCONFIG       += \
 
 HEADERS         += \
     csyslog.h                                               \
-    graceful-add-event-filter.h \
-    graceful-colors.h \
     graceful.h                                              \
+    graceful-colors.h                                       \
     graceful-export.h                                       \
+    graceful-mnemonics.h                                    \
+    graceful-add-event-filter.h                             \
     animations/graceful-datamap.h                           \
     animations/graceful-dial-data.h                         \
     animations/graceful-animation.h                         \
@@ -66,9 +67,10 @@ HEADERS         += \
 
 SOURCES         += \
     csyslog.cpp                                             \
-    graceful-add-event-filter.cpp \
-    graceful-colors.cpp \
     graceful.cpp                                            \
+    graceful-colors.cpp                                     \
+    graceful-mnemonics.cpp                                  \
+    graceful-add-event-filter.cpp                           \
     animations/graceful-dial-data.cpp                       \
     animations/graceful-animation.cpp                       \
     animations/graceful-animations.cpp                      \
