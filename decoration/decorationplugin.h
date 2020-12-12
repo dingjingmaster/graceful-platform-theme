@@ -27,7 +27,7 @@ using namespace QtWaylandClient;
 class QGnomePlatformDecorationPlugin : public QWaylandDecorationPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID QWaylandDecorationFactoryInterface_iid FILE "qgnomeplatformdecoration.json")
+    Q_PLUGIN_METADATA(IID QWaylandDecorationFactoryInterface_iid FILE "gracefulplatformtheme.json")
 public:
     QWaylandAbstractDecoration *create(const QString &key, const QStringList &paramList) override;
 };

@@ -386,6 +386,7 @@ void GnomeHintsSettings::loadTheme()
 
     styleNames << QStringLiteral("adwaita")
                << QStringLiteral("fusion")
+               << QStringLiteral("graceful")
                << QStringLiteral("windows");
     m_hints[QPlatformTheme::StyleNames] = styleNames;
 }

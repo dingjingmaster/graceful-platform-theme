@@ -35,7 +35,7 @@ QGnomePlatformTheme::QGnomePlatformTheme()
 {
     if (QGuiApplication::platformName() != QStringLiteral("xcb")) {
         if (!qEnvironmentVariableIsSet("QT_WAYLAND_DECORATION"))
-            qputenv("QT_WAYLAND_DECORATION", "gnome");
+            qputenv("QT_WAYLAND_DECORATION", "graceful");
     }
 
     loadSettings();
