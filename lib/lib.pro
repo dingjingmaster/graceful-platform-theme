@@ -36,6 +36,7 @@ HEADERS         += \
     graceful-colors.h                                       \
     graceful-export.h                                       \
     graceful-mnemonics.h                                    \
+    graceful-window-manager.h                               \
     graceful-splitter-proxy.h                               \
     graceful-widget-explorer.h                              \
     graceful-add-event-filter.h                             \
@@ -73,6 +74,7 @@ SOURCES         += \
     graceful-colors.cpp                                     \
     graceful-mnemonics.cpp                                  \
     graceful-splitter-proxy.cpp                             \
+    graceful-window-manager.cpp                             \
     graceful-widget-explorer.cpp                            \
     graceful-add-event-filter.cpp                           \
     animations/graceful-dial-data.cpp                       \
