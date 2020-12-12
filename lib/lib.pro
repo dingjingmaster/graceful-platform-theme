@@ -1,18 +1,19 @@
 TEMPLATE        = lib
+TARGET          = graceful
 
 QT              += \
     core                                                    \
     dbus                                                    \
-    theme_support-private                                   \
     widgets                                                 \
+    theme_support-private                                   \
 
 
 CONFIG          += \
     c++11                                                   \
-    staticlib                                               \
+    plugin                                                  \
+    no_keywords                                             \
     link_pkgconfig                                          \
     debug_and_release                                       \
-    no_keywords                                             \
 
 
 CONFIG(debug, debug|release) {
@@ -26,7 +27,6 @@ DEFINES         += \
 
 PKGCONFIG       += \
     gtk+-3.0                                                \
-    adwaita-qt                                              \
     gtk+-x11-3.0                                            \
 
 
@@ -103,3 +103,10 @@ SOURCES         += \
     animations/graceful-busy-indicator-engine.cpp           \
     animations/graceful-stacked-widget-engine.cpp           \
 
+
+graceful_plugin.path    = /usr/lib/qt/plugins/styles/
+graceful_plugin.files   = $$OUT_PWD/*.so
+
+
+INSTALLS        += \
+    graceful_plugin                                         \

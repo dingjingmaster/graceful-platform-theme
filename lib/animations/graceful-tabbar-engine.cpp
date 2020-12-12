@@ -53,4 +53,4 @@ DataMap<TabBarData>::Value TabBarEngine::data(const QObject *object, AnimationMo
     }
 }
 
-} // namespace Adwaita
+}

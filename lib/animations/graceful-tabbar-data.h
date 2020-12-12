@@ -146,6 +146,5 @@ private:
     Data _previous;
 };
 
-} // namespace Adwaita
-
-#endif // ADWAITA_TABBAR_DATA_H
+}
+#endif

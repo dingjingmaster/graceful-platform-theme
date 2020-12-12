@@ -53,7 +53,7 @@ bool WidgetExplorer::eventFilter(QObject *object, QEvent *event)
 //             QString type( _eventTypes[event->type()] );
 //             if( !type.isEmpty() )
 //             {
-//                 QTextStream( stdout ) << "Adwaita::WidgetExplorer::eventFilter - widget: " << object << " (" << object->metaObject()->className() << ")";
+//                 QTextStream( stdout ) << "Graceful::WidgetExplorer::eventFilter - widget: " << object << " (" << object->metaObject()->className() << ")";
 //                 QTextStream( stdout ) << " type: " << type  << endl;
 //             }
 //         }

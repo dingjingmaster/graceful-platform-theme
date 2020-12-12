@@ -108,11 +108,11 @@ static bool isDarkMode()
     return false;
 }
 
-static QPalette paletteAdwaita()
+static QPalette paletteGraceful()
 {
     QPalette palette;
 
-    // Colors defined in GTK adwaita style in _colors.scss
+    // Colors defined in GTK Graceful style in _colors.scss
     QColor base_color = QColor("white");
     QColor text_color = QColor("black");
     QColor bg_color = QColor("#f6f5f4");
@@ -207,11 +207,11 @@ static QPalette paletteAdwaita()
 }
 
 // private
-static QPalette paletteAdwaitaDark()
+static QPalette paletteGracefulDark()
 {
     QPalette palette;
 
-    // Colors defined in GTK adwaita style in _colors.scss
+    // Colors defined in GTK Graceful style in _colors.scss
     QColor base_color = Colors::lighten(Colors::desaturate(QColor("#241f31"), 1.0), 0.02);
     QColor text_color = QColor("white");
     QColor bg_color = Colors::darken(Colors::desaturate(QColor("#3d3846"), 1.0), 0.04);
@@ -307,7 +307,7 @@ static QPalette paletteAdwaitaDark()
 }
 
 // private
-static QPalette paletteAdwaitaHighContrast()
+static QPalette paletteGracefulHighContrast()
 {
     QPalette palette;
 
@@ -329,14 +329,14 @@ QPalette Colors::disabledPalette(const QPalette &source, qreal ratio)
 QPalette Colors::palette(ColorVariant variant)
 {
     if (variant == ColorVariant::Unknown) {
-        return isDarkMode() ? paletteAdwaitaDark() : paletteAdwaita();
-    } else if (variant == ColorVariant::Adwaita) {
-        return paletteAdwaita();
-    } else if (variant == ColorVariant::AdwaitaDark) {
-        return paletteAdwaitaDark();
+        return isDarkMode() ? paletteGracefulDark() : paletteGraceful();
+    } else if (variant == ColorVariant::Graceful) {
+        return paletteGraceful();
+    } else if (variant == ColorVariant::GracefulDark) {
+        return paletteGracefulDark();
     } else {
         // TODO
-        return paletteAdwaitaHighContrast();
+        return paletteGracefulHighContrast();
     }
 }
 
@@ -391,10 +391,10 @@ QColor Colors::buttonOutlineColor(const StyleOptions &options)
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
-        variant = isDarkMode() ? ColorVariant::AdwaitaDark : ColorVariant::Adwaita;
+        variant = isDarkMode() ? ColorVariant::GracefulDark : ColorVariant::Graceful;
     }
 
-    if (variant == ColorVariant::AdwaitaDark) {
+    if (variant == ColorVariant::GracefulDark) {
         return darken(options.palette().color(QPalette::Window), 0.1);
     } else {
         return darken(options.palette().color(QPalette::Window), 0.18);
@@ -408,14 +408,14 @@ QColor Colors::indicatorOutlineColor(const StyleOptions &options)
         ColorVariant variant = options.colorVariant();
 
         if (variant == ColorVariant::Unknown) {
-            variant = isDarkMode() ? ColorVariant::AdwaitaDark : ColorVariant::Adwaita;
+            variant = isDarkMode() ? ColorVariant::GracefulDark : ColorVariant::Graceful;
         }
 
         if (isDisabled) {
             return buttonOutlineColor(options);
         }
 
-        if (variant == ColorVariant::AdwaitaDark) {
+        if (variant == ColorVariant::GracefulDark) {
             return darken(options.palette().color(QPalette::Window), 0.18);
         } else {
             return darken(options.palette().color(QPalette::Window), 0.24);
@@ -492,10 +492,10 @@ QColor Colors::buttonBackgroundColor(const StyleOptions &options)
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
-        variant = isDarkMode() ? ColorVariant::AdwaitaDark : ColorVariant::Adwaita;
+        variant = isDarkMode() ? ColorVariant::GracefulDark : ColorVariant::Graceful;
     }
 
-    const bool darkMode = variant == ColorVariant::AdwaitaDark;
+    const bool darkMode = variant == ColorVariant::GracefulDark;
     const QPalette &palette = options.palette();
 
     if (isDisabled && (options.animationMode() == AnimationPressed || options.sunken())) {
@@ -575,11 +575,11 @@ QColor Colors::indicatorBackgroundColor(const StyleOptions &options)
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
-        variant = isDarkMode() ? ColorVariant::AdwaitaDark : ColorVariant::Adwaita;
+        variant = isDarkMode() ? ColorVariant::GracefulDark : ColorVariant::Graceful;
     }
 
     const QPalette &palette = options.palette();
-    const bool darkMode = variant == ColorVariant::AdwaitaDark;
+    const bool darkMode = variant == ColorVariant::GracefulDark;
 
     bool isDisabled = palette.currentColorGroup() == QPalette::Disabled;
     QColor background(palette.color(QPalette::Window));
@@ -648,7 +648,7 @@ QColor Colors::scrollBarHandleColor(const StyleOptions &options)
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
-        variant = isDarkMode() ? ColorVariant::AdwaitaDark : ColorVariant::Adwaita;
+        variant = isDarkMode() ? ColorVariant::GracefulDark : ColorVariant::Graceful;
     }
 
     QColor fgColor = options.palette().color(QPalette::Text);
@@ -657,7 +657,7 @@ QColor Colors::scrollBarHandleColor(const StyleOptions &options)
 
     QColor color(Colors::mix(fgColor, bgColor, 0.4));
     QColor hoverColor(Colors::mix(fgColor, bgColor, 0.2));
-    QColor activeColor(variant == ColorVariant::AdwaitaDark ? Colors::lighten(selectedBgColor, 0.1) : Colors::darken(selectedBgColor, 0.1));
+    QColor activeColor(variant == ColorVariant::GracefulDark ? Colors::lighten(selectedBgColor, 0.1) : Colors::darken(selectedBgColor, 0.1));
 
     // hover takes precedence over focus
     if (options.animationMode() == AnimationPressed) {

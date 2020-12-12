@@ -160,6 +160,6 @@ public:
     }
 };
 
-} // namespace Adwaiat
+}
 
-#endif // ADWAITA_DATAMAP_H
+#endif

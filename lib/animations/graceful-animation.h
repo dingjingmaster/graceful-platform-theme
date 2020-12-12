@@ -43,6 +43,6 @@ public:
     }
 };
 
-} // namespace Adwaita
+}
 
-#endif // ADWAITA_ANIMATION_H
+#endif

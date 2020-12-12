@@ -76,4 +76,4 @@ private:
 
 }
 
-#endif // ADWAITA_BASE_ENGINE_H
+#endif

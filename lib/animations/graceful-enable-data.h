@@ -29,4 +29,4 @@ public:
 
 }
 
-#endif // ADWAITA_ENABLE_DATA_H
+#endif

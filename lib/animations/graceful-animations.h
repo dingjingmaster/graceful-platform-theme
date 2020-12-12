@@ -165,6 +165,6 @@ private:
     QList<BaseEngine::Pointer> _engines;
 };
 
-} // namespace Adwaita
+}
 
-#endif // ADWAITA_ANIMATIONS_H
+#endif

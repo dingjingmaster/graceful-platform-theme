@@ -310,9 +310,9 @@ enum ButtonType
 enum ColorVariant
 {
     Unknown,
-    Adwaita,
-    AdwaitaDark,
-    AdwaitaHighcontrast
+    Graceful,
+    GracefulDark,
+    GracefulHighcontrast
 };
 
 class StyleOptionsPrivate;

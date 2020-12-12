@@ -47,4 +47,4 @@ public:
 
 }
 
-#endif // ADWAITA_DIAL_ENGINE_H
+#endif

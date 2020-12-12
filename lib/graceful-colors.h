@@ -18,7 +18,7 @@ public:
     static QColor mix(const QColor &c1, const QColor &c2, qreal bias = 0.5);
 
     static QPalette disabledPalette(const QPalette &source, qreal ratio);
-    // Color palette for each Adwaita variant
+
     static QPalette palette(ColorVariant variant = ColorVariant::Unknown);
 
     // Generic colors

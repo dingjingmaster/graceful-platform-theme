@@ -49,6 +49,6 @@ private:
     QPoint _position;
 };
 
-} // namespace Adwaita
+}
 
-#endif // ADWAITA_DIAL_DATA_H
+#endif

@@ -16,4 +16,4 @@ void AnimationData::setupAnimation(const Animation::Pointer &animation, const QB
     animation.data()->setPropertyName(property);
 }
 
-} // namespace Adwaita
+}
