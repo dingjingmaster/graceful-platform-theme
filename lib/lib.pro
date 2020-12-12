@@ -1,6 +1,5 @@
 TEMPLATE        = lib
 
-
 QT              += \
     core                                        \
     dbus                                        \
@@ -12,6 +11,16 @@ CONFIG          += \
     c++11                                       \
     staticlib                                   \
     link_pkgconfig                              \
+    debug_and_release                           \
+
+
+CONFIG(debug, debug|release) {
+DEFINES         += \
+    CSYSLOG_LOG_LEVEL=LOG_DEBUG
+} else {
+DEFINES         += \
+    CSYSLOG_LOG_LEVEL=LOG_INFO
+}
 
 
 PKGCONFIG       += \
@@ -21,14 +30,10 @@ PKGCONFIG       += \
 
 
 HEADERS         += \
-    gnomehintssettings.h                        \
-    qgtk3dialoghelpers.h                        \
-    qxdgdesktopportalfiledialog_p.h             \
+    csyslog.h                                   \
 
 
 SOURCES         += \
-    gnomehintssettings.cpp                      \
-    qgtk3dialoghelpers.cpp                      \
-    qxdgdesktopportalfiledialog.cpp             \
+    csyslog.cpp                                 \
 
 
