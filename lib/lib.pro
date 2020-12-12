@@ -12,6 +12,7 @@ CONFIG          += \
     staticlib                                               \
     link_pkgconfig                                          \
     debug_and_release                                       \
+    no_keywords                                             \
 
 
 CONFIG(debug, debug|release) {
@@ -31,6 +32,8 @@ PKGCONFIG       += \
 
 HEADERS         += \
     csyslog.h                                               \
+    graceful-add-event-filter.h \
+    graceful-colors.h \
     graceful.h                                              \
     graceful-export.h                                       \
     animations/graceful-datamap.h                           \
@@ -63,6 +66,8 @@ HEADERS         += \
 
 SOURCES         += \
     csyslog.cpp                                             \
+    graceful-add-event-filter.cpp \
+    graceful-colors.cpp \
     graceful.cpp                                            \
     animations/graceful-dial-data.cpp                       \
     animations/graceful-animation.cpp                       \
