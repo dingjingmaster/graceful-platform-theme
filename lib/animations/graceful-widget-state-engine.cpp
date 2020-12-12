@@ -39,26 +39,26 @@ BaseEngine::WidgetList WidgetStateEngine::registeredWidgets(AnimationModes mode)
     using Value = DataMap<WidgetStateData>::Value;
 
     if (mode & AnimationHover) {
-        foreach (const Value &value, _hoverData) {
-            if (value) out.insert(value.data()->target().data());
+        for (auto value = _hoverData.constBegin(); value != _hoverData.constEnd(); ++value) {
+            if (*value) out.insert(value->data()->target().data());
         }
     }
 
     if (mode & AnimationFocus) {
-        foreach (const Value &value, _focusData) {
-            if (value) out.insert(value.data()->target().data());
+        for (auto value = _focusData.constBegin(); value != _focusData.constEnd(); ++value) {
+            if (*value) out.insert(value->data()->target().data());
         }
     }
 
     if (mode & AnimationEnable) {
-        foreach (const Value &value, _enableData) {
-            if (value) out.insert(value.data()->target().data());
+        for (auto value = _enableData.constBegin(); value != _enableData.constEnd(); ++value) {
+            if (*value) out.insert(value->data()->target().data());
         }
     }
 
     if (mode & AnimationPressed) {
-        foreach (const Value &value, _pressedData) {
-            if (value) out.insert(value.data()->target().data());
+        for (auto value = _pressedData.constBegin(); value != _pressedData.constEnd(); ++value) {
+            if (*value) out.insert(value->data()->target().data());
         }
     }
 

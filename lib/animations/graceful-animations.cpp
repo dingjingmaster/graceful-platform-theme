@@ -61,9 +61,9 @@ void Animations::setupEngines()
     _toolBoxEngine->setDuration(animationsDuration);
 
     // registered engines
-    foreach (const BaseEngine::Pointer &engine, _engines) {
-        engine.data()->setEnabled(animationsEnabled);
-        engine.data()->setDuration(animationsDuration);
+    for (auto engine = _engines.constBegin(); engine != _engines.constEnd(); ++engine) {
+        engine->data()->setEnabled(animationsEnabled);
+        engine->data()->setDuration(animationsDuration);
     }
 
     // stacked widget transition has an extra flag for animations
@@ -176,8 +176,8 @@ void Animations::unregisterWidget(QWidget *widget) const
     // the following allows some optimization of widget unregistration
     // it assumes that a widget can be registered atmost in one of the
     // engines stored in the list.
-    foreach (const BaseEngine::Pointer &engine, _engines) {
-        if (engine && engine.data()->unregisterWidget(widget)) {
+    for (auto engine = _engines.constBegin(); engine != _engines.constEnd(); ++engine) {
+        if (*engine && engine->data()->unregisterWidget(widget)) {
             break;
         }
     }
