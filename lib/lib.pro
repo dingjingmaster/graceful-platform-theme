@@ -104,9 +104,9 @@ SOURCES         += \
     animations/graceful-stacked-widget-engine.cpp           \
 
 
-graceful_plugin.path    = /usr/lib/qt/plugins/styles/
-graceful_plugin.files   = $$OUT_PWD/*.so
+graceful_plugin1.path    = /usr/lib/qt/plugins/styles/
+graceful_plugin1.files   = $$OUT_PWD/*.so
 
 
 INSTALLS        += \
-    graceful_plugin                                         \
+    graceful_plugin1                                        \
