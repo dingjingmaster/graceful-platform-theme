@@ -36,6 +36,7 @@ HEADERS         += \
     graceful-colors.h                                       \
     graceful-export.h                                       \
     graceful-mnemonics.h                                    \
+    graceful-splitter-proxy.h                               \
     graceful-add-event-filter.h                             \
     animations/graceful-datamap.h                           \
     animations/graceful-dial-data.h                         \
@@ -70,6 +71,7 @@ SOURCES         += \
     graceful.cpp                                            \
     graceful-colors.cpp                                     \
     graceful-mnemonics.cpp                                  \
+    graceful-splitter-proxy.cpp                             \
     graceful-add-event-filter.cpp                           \
     animations/graceful-dial-data.cpp                       \
     animations/graceful-animation.cpp                       \
