@@ -2,6 +2,7 @@ TEMPLATE            = subdirs
 
 SUBDIRS             += \
     lib                                 \
+    theme/graceful-theme.pro            \
 
 
 #decoration.depends  = common

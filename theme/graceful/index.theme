@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=graceful
+Comment=graceful theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=graceful
+MetacityTheme=graceful
+IconTheme=Qogir-manjaro
+CursorTheme=Qogir-manjaro
+ButtonLayout=menu:minimize,maximize,close
