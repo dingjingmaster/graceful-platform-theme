@@ -1,4 +1,7 @@
 doc/
+src/
+build/
+*.tar.gz
 # C++ objects and libs
 *.slo
 *.lo
