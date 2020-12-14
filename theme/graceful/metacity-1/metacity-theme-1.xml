@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <metacity_theme>
 <info>
-	<name>Matcha</name>
-	<author>VinceLiuice</author>
-	<copyright>VinceLiuice</copyright>
+        <name>graceful</name>
+        <author>DingJing</author>
+        <copyright>MTI</copyright>
 	<date>2017</date>
-	<description>Matcha Metacity theme</description>
+        <description>graceful theme</description>
 </info>
 
 <!-- meaningfull constants -->

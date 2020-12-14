@@ -2,7 +2,9 @@ TEMPLATE            = subdirs
 
 SUBDIRS             += \
     lib                                 \
+    icon/graceful-icon.pro              \
     theme/graceful-theme.pro            \
+    terminator/graceful-terminator.pro  \
 
 
 #decoration.depends  = common
