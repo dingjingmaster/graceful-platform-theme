@@ -2,6 +2,7 @@ doc/
 src/
 build/
 *.tar.gz
+*.pkg.tar.zst
 # C++ objects and libs
 *.slo
 *.lo
