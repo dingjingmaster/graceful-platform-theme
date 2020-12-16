@@ -32,7 +32,7 @@ build() {
     msg "build"
     cd "${srcdir}/${pkgname}-${pkgver}"
     qmake
-    make
+    make -j32
 }
 
 package_graceful-platform-theme() {
@@ -40,5 +40,5 @@ package_graceful-platform-theme() {
     cd "${srcdir}/${pkgname}-${pkgver}"
     make install
     install -Dm644 ../README.md "${pkgdir}/usr/share/doc/${pkgname}/README"
-    install -Dm644 ../LICENSE.LGPL2 "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    install -Dm644 ../LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
