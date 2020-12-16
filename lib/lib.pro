@@ -9,7 +9,8 @@ QT              += \
 
 
 CONFIG          += \
-    c++11                                                   \
+    gnu++11                                                 \
+    gnu99                                                   \
     plugin                                                  \
     no_keywords                                             \
     link_pkgconfig                                          \

@@ -1,7 +1,6 @@
 # graceful-platform-theme
    
 [![GitHub release](https://img.shields.io/github/release/graceful-linux/graceful-platform-theme.svg)](https://github.com/graceful-linux/graceful-platform-theme/releases)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/22288/badge.svg)](https://scan.coverity.com/projects/dingjingmaster-graceful-platform-theme)
 [![GitHub license](https://img.shields.io/github/license/graceful-linux/graceful-platform-theme.svg)](https://github.com/graceful-linux/graceful-platform-theme/blob/graceful-platform-theme/LICENSE)
 
 
