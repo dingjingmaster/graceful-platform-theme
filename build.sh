@@ -2,10 +2,11 @@
 
 set -e -u
 
-app_version=1.0.1
+app_version=1.0.2
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
 app_name="graceful-platform-theme"
 yay_name="graceful-platform-theme"
+sha256sumsStr=""
 
 ############################################## 常用函數 ###############################################
 # 输出信息
@@ -57,6 +58,15 @@ _msg_error()
     fi
 }
 
+# 开始下载release包并生成hash
+_download_package()
+{
+    cd ${work_dir}
+    wget "https://github.com/graceful-linux/graceful-platform-theme/archive/${app_version}.tar.gz"
+    sha256sumsStr=$(sha256sum -- 1.0.2.tar.gz | awk '{print $1}')
+    echo ${sha256sumsStr}
+}
+
 # 创建PKGBUILD
 _pkgbuild()
 {
@@ -85,7 +95,7 @@ source=(
 )
 
 sha256sums=(
-    "c50684e0e153420a944342ebbf9d19dc1e089063351de76490a6456e39ddfe21"
+    "${sha256sumsStr}"
 )
     
 prepare() {
@@ -98,7 +108,7 @@ build() {
     qmake
     make -j32
 }
-    
+
 package_graceful-platform-theme() {
     msg "graceful-platform-theme package"
     cd "\${srcdir}/\${pkgname}-\${pkgver}"
@@ -112,6 +122,7 @@ package_graceful-platform-theme() {
     install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
     install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
 }
+
 END_TEXT
 }
 
@@ -119,14 +130,14 @@ END_TEXT
 _clean()
 {
     cd -- "${work_dir}"
+    _msg_info "rm -rf ${work_dir}/${app_version}.tar.gz"
+    rm -rf "${work_dir}/${app_version}.tar.gz"
+
     _msg_info "rm -rf ${work_dir}/src"
     rm -rf "${work_dir}/src"
 
     _msg_info "rm -rf ${work_dir}/pkg"
     rm -rf "${work_dir}/pkg"
-
-    _msg_info "rm -rf ${work_dir}/${app_version}.tar.gz"
-    rm -rf "${work_dir}/*.tar.gz"
 
     _msg_info "rm -rf ${work_dir}/PKGBUILD"
     rm -rf "${work_dir}/PKGBUILD"
@@ -168,6 +179,9 @@ _main()
 
     _msg_info "开始清空上次安装的内容"
     _clean
+
+    _msg_info "开始生成hash"
+    _download_package
 
     _msg_info "开始生成PKGBUILD文件"
     _pkgbuild
