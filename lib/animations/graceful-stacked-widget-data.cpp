@@ -3,12 +3,12 @@
 namespace Graceful
 {
 
-//______________________________________________________
 StackedWidgetData::StackedWidgetData(QObject *parent, QStackedWidget *target, int duration)
     : TransitionData(parent, target, duration)
     , _target(target)
     , _index(target->currentIndex())
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // configure transition
     connect(_target.data(), SIGNAL(destroyed()), SLOT(targetDestroyed()));
     connect(_target.data(), SIGNAL(currentChanged(int)), SLOT(animate()));
@@ -20,9 +20,9 @@ StackedWidgetData::StackedWidgetData(QObject *parent, QStackedWidget *target, in
     setMaxRenderTime(50);
 }
 
-//___________________________________________________________________
 bool StackedWidgetData::initializeAnimation()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check enability
     if (!(_target && _target.data()->isVisible())) {
         return false;
@@ -55,9 +55,9 @@ bool StackedWidgetData::initializeAnimation()
     }
 }
 
-//___________________________________________________________________
 bool StackedWidgetData::animate()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check enability
     if (!enabled()) {
         return false;
@@ -75,9 +75,9 @@ bool StackedWidgetData::animate()
     return true;
 }
 
-//___________________________________________________________________
 void StackedWidgetData::finishAnimation()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // disable updates on currentWidget
     if (_target && _target.data()->currentWidget()) {
         _target.data()->currentWidget()->setUpdatesEnabled(false);
@@ -96,9 +96,9 @@ void StackedWidgetData::finishAnimation()
     transition().data()->resetStartPixmap();
 }
 
-//___________________________________________________________________
 void StackedWidgetData::targetDestroyed()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     setEnabled(false);
     _target.clear();
 }

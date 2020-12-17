@@ -24,12 +24,14 @@ public:
     //* true if mnemonics are enabled
     const bool &enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 
     //* alignment flag
     int textFlags() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled ? Qt::TextShowMnemonic : Qt::TextHideMnemonic;
     }
 

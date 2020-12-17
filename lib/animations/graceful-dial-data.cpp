@@ -6,16 +6,16 @@
 namespace Graceful
 {
 
-DialData::DialData(QObject *parent, QWidget *target, int duration)
-    : WidgetStateData(parent, target, duration)
-    , _position(-1, -1)
+DialData::DialData(QObject *parent, QWidget *target, int duration) : WidgetStateData(parent, target, duration), _position(-1, -1)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     target->installEventFilter(this);
 }
 
 
 bool DialData::eventFilter(QObject *object, QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (object != target().data()) {
         return WidgetStateData::eventFilter(object, event);
     }
@@ -36,9 +36,9 @@ bool DialData::eventFilter(QObject *object, QEvent *event)
     return WidgetStateData::eventFilter(object, event);
 }
 
-//______________________________________________
 void DialData::hoverMoveEvent(QObject *object, QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // try cast object to dial
     QDial *scrollBar(qobject_cast<QDial *>(object));
     if (!scrollBar || scrollBar->isSliderDown()) {
@@ -55,9 +55,9 @@ void DialData::hoverMoveEvent(QObject *object, QEvent *event)
     updateState(_handleRect.contains(_position));
 }
 
-//______________________________________________
 void DialData::hoverLeaveEvent(QObject *, QEvent *)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // reset hover state
     updateState(false);
 

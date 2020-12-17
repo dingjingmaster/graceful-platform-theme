@@ -29,9 +29,9 @@ WidgetExplorer::WidgetExplorer(QObject *parent)
     // _eventTypes.insert( QEvent::Paint, "Paint" );
 }
 
-//________________________________________________
 void WidgetExplorer::setEnabled(bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (value == _enabled) {
         return;
     }
@@ -44,9 +44,9 @@ void WidgetExplorer::setEnabled(bool value)
     }
 }
 
-//________________________________________________
 bool WidgetExplorer::eventFilter(QObject *object, QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 
 //         if( object->isWidgetType() )
 //         {
@@ -111,9 +111,9 @@ bool WidgetExplorer::eventFilter(QObject *object, QEvent *event)
     return false;
 }
 
-//________________________________________________
 QString WidgetExplorer::eventType(const QEvent::Type &type) const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (type) {
     case QEvent::MouseButtonPress:
         return QStringLiteral("MouseButtonPress");
@@ -126,9 +126,9 @@ QString WidgetExplorer::eventType(const QEvent::Type &type) const
     }
 }
 
-//________________________________________________
 QString WidgetExplorer::widgetInformation(const QWidget *widget) const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QRect r(widget->geometry());
     const char *className(widget->metaObject()->className());
     QString out;

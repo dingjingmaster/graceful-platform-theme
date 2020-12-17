@@ -8,16 +8,18 @@ namespace Graceful {
 
 Mnemonics::Mnemonics(QObject *parent) : QObject(parent), _enabled(true)
 {
-
+    CT_SYSLOG(LOG_DEBUG, "");
 }
 
 Mnemonics::~Mnemonics()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 
 }
 
 void Mnemonics::setMode(int mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (mode) {
     case Graceful::MN_NEVER:
         qApp->removeEventFilter(this);
@@ -39,9 +41,9 @@ void Mnemonics::setMode(int mode)
     return;
 }
 
-//____________________________________________________
 bool Mnemonics::eventFilter(QObject *, QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (event->type()) {
     case QEvent::KeyPress:
         if (static_cast<QKeyEvent *>(event)->key() == Qt::Key_Alt) {
@@ -63,9 +65,9 @@ bool Mnemonics::eventFilter(QObject *, QEvent *event)
     return false;
 }
 
-//____________________________________________________
 void Mnemonics::setEnabled(bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (_enabled == value) {
         return;
     }

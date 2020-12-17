@@ -17,9 +17,9 @@ public:
     using Pointer = WeakPointer<Animation>;
 
     //* constructor
-    Animation(int duration, QObject *parent)
-        : QPropertyAnimation(parent)
+    Animation(int duration, QObject *parent) : QPropertyAnimation(parent)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         setDuration(duration);
     }
 
@@ -29,12 +29,13 @@ public:
     //* true if running
     bool isRunning() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return state() == Animation::Running;
     }
 
-    //* restart
     void restart()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (isRunning()) {
             stop();
         }

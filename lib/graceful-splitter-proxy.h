@@ -70,6 +70,7 @@ public:
     //* enable state
     bool enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 

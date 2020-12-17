@@ -24,6 +24,7 @@ public:
     //* destructor
     virtual ~WindowManager()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* initialize
@@ -59,48 +60,56 @@ protected:
     //* enable state
     bool enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 
     //* enable state
     void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _enabled = value;
     }
 
     //* returns true if window manager is used for moving
     bool useWMMoveResize() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return supportWMMoveResize() && _useWMMoveResize;
     }
 
     //* use window manager for moving, when available
     void setUseWMMoveResize(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _useWMMoveResize = value;
     }
 
     //* drag mode
     int dragMode() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _dragMode;
     }
 
     //* drag mode
     void setDragMode(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _dragMode = value;
     }
 
     //* drag distance (pixels)
     void setDragDistance(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _dragDistance = value;
     }
 
     //* drag delay (msec)
     void setDragDelay(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _dragDelay = value;
     }
 
@@ -157,12 +166,14 @@ protected:
 
     void setLocked(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _locked = value;
     }
 
     //* lock
     bool isLocked() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _locked;
     }
 
@@ -196,6 +207,7 @@ private:
         //* constructor
         explicit ExceptionId(const QString &value)
         {
+            CT_SYSLOG(LOG_DEBUG, "");
             const QStringList args(value.split(QChar::fromLatin1('@')));
             if (args.isEmpty()) {
                 return;
@@ -209,11 +221,13 @@ private:
 
         const QString &appName() const
         {
+            CT_SYSLOG(LOG_DEBUG, "");
             return first;
         }
 
         const QString &className() const
         {
+            CT_SYSLOG(LOG_DEBUG, "");
             return second;
         }
     };
@@ -266,9 +280,9 @@ private:
     friend class AppEventFilter;
 };
 
-//____________________________________________________________________
 template<typename T> T WindowManager::findParent(const QWidget *widget) const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (!widget) {
         return 0L;
     }

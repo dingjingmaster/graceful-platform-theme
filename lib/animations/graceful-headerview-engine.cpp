@@ -5,9 +5,9 @@
 namespace Graceful
 {
 
-//____________________________________________________________
 bool HeaderViewEngine::registerWidget(QWidget *widget)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (!widget) {
         return false;
     }
@@ -22,9 +22,9 @@ bool HeaderViewEngine::registerWidget(QWidget *widget)
     return true;
 }
 
-//____________________________________________________________
 bool HeaderViewEngine::updateState(const QObject *object, const QPoint &position, bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     DataMap<HeaderViewData>::Value data(_data.find(object));
     return (data && data.data()->updateState(position, value));
 }

@@ -5,9 +5,9 @@
 namespace Graceful
 {
 
-//____________________________________________________________
 bool DialEngine::registerWidget(QWidget *widget, AnimationModes mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check widget
     if (!widget) {
         return false;

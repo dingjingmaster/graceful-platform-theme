@@ -1,4 +1,5 @@
 #include "graceful-animation-data.h"
+#include "csyslog.h"
 
 namespace Graceful
 {
@@ -6,9 +7,9 @@ namespace Graceful
 const qreal AnimationData::OpacityInvalid = -1;
 int AnimationData::_steps = 0;
 
-//_________________________________________________________________________________
 void AnimationData::setupAnimation(const Animation::Pointer &animation, const QByteArray &property)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // setup animation
     animation.data()->setStartValue(0.0);
     animation.data()->setEndValue(1.0);

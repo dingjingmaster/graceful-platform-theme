@@ -5,9 +5,9 @@
 namespace Graceful
 {
 
-//____________________________________________________________
 bool WidgetStateEngine::registerWidget(QWidget *widget, AnimationModes mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (!widget) {
         return false;
     }
@@ -31,9 +31,9 @@ bool WidgetStateEngine::registerWidget(QWidget *widget, AnimationModes mode)
     return true;
 }
 
-//____________________________________________________________
 BaseEngine::WidgetList WidgetStateEngine::registeredWidgets(AnimationModes mode) const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     WidgetList out;
 
     using Value = DataMap<WidgetStateData>::Value;
@@ -65,23 +65,23 @@ BaseEngine::WidgetList WidgetStateEngine::registeredWidgets(AnimationModes mode)
     return out;
 }
 
-//____________________________________________________________
 bool WidgetStateEngine::updateState(const QObject *object, AnimationMode mode, bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     DataMap<WidgetStateData>::Value data(WidgetStateEngine::data(object, mode));
     return (data && data.data()->updateState(value));
 }
 
-//____________________________________________________________
 bool WidgetStateEngine::isAnimated(const QObject *object, AnimationMode mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     DataMap<WidgetStateData>::Value data(WidgetStateEngine::data(object, mode));
     return (data && data.data()->animation() && data.data()->animation().data()->isRunning());
 }
 
-//____________________________________________________________
 DataMap<WidgetStateData>::Value WidgetStateEngine::data(const QObject *object, AnimationMode mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (mode) {
     case AnimationHover:
         return _hoverData.find(object).data();
@@ -96,9 +96,9 @@ DataMap<WidgetStateData>::Value WidgetStateEngine::data(const QObject *object, A
     }
 }
 
-//____________________________________________________________
 DataMap<WidgetStateData> &WidgetStateEngine::dataMap(AnimationMode mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 
     switch (mode) {
     default:

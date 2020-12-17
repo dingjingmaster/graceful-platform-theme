@@ -17,17 +17,16 @@ class GRACEFUL_EXPORT AnimationData : public QObject
     Q_OBJECT
 public:
     //* constructor
-    AnimationData(QObject *parent, QWidget *target)
-        : QObject(parent)
-        , _target(target)
-        , _enabled(true)
+    AnimationData(QObject *parent, QWidget *target) : QObject(parent), _target(target), _enabled(true)
     {
         Q_ASSERT(_target);
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~AnimationData()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* duration
@@ -36,24 +35,28 @@ public:
     //* steps
     static void setSteps(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _steps = value;
     }
 
     //* enability
     virtual bool enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 
     //* enability
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _enabled = value;
     }
 
     //* target
     const WeakPointer<QWidget> &target() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _target;
     }
 
@@ -67,6 +70,7 @@ protected:
     //* apply step
     virtual qreal digitize(const qreal &value) const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (_steps > 0) {
             return std::floor(value * _steps) / _steps;
         } else {
@@ -77,6 +81,7 @@ protected:
     //* trigger target update
     virtual void setDirty() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (_target) {
             _target.data()->update();
         }

@@ -13,6 +13,7 @@ static const qreal arrowShade = 0.15;
 
 QColor Colors::alphaColor(QColor color, qreal alpha)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (alpha >= 0 && alpha < 1.0) {
         color.setAlphaF(alpha * color.alphaF());
     }
@@ -21,6 +22,7 @@ QColor Colors::alphaColor(QColor color, qreal alpha)
 
 QColor Colors::darken(const QColor &color, qreal amount)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     qreal h, s, l, a;
     color.getHslF(&h, &s, &l, &a);
 
@@ -34,6 +36,7 @@ QColor Colors::darken(const QColor &color, qreal amount)
 
 QColor Colors::desaturate(const QColor &color, qreal amount)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     qreal h, s, l, a;
     color.getHslF(&h, &s, &l, &a);
 
@@ -46,6 +49,7 @@ QColor Colors::desaturate(const QColor &color, qreal amount)
 
 QColor Colors::lighten(const QColor &color, qreal amount)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     qreal h, s, l, a;
     color.getHslF(&h, &s, &l, &a);
 
@@ -58,6 +62,7 @@ QColor Colors::lighten(const QColor &color, qreal amount)
 
 QColor Colors::mix(const QColor &c1, const QColor &c2, qreal bias)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     auto mixQreal = [](qreal a, qreal b, qreal bias) {
         return a + (b - a) * bias;
     };
@@ -85,6 +90,7 @@ QColor Colors::mix(const QColor &c1, const QColor &c2, qreal bias)
 
 QColor Colors::transparentize(const QColor &color, qreal amount)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     qreal h, s, l, a;
     color.getHslF(&h, &s, &l, &a);
 
@@ -98,6 +104,7 @@ QColor Colors::transparentize(const QColor &color, qreal amount)
 
 static bool isDarkMode()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     const QColor textColor = QGuiApplication::palette().color(QPalette::Text);
     if (qSqrt(((textColor.red() * textColor.red()) * 0.299) +
               ((textColor.green() * textColor.green()) * 0.587) +
@@ -110,6 +117,7 @@ static bool isDarkMode()
 
 static QPalette paletteGraceful()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QPalette palette;
 
     // Colors defined in GTK Graceful style in _colors.scss
@@ -209,6 +217,7 @@ static QPalette paletteGraceful()
 // private
 static QPalette paletteGracefulDark()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QPalette palette;
 
     // Colors defined in GTK Graceful style in _colors.scss
@@ -309,6 +318,7 @@ static QPalette paletteGracefulDark()
 // private
 static QPalette paletteGracefulHighContrast()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QPalette palette;
 
     return palette;
@@ -316,6 +326,7 @@ static QPalette paletteGracefulHighContrast()
 
 QPalette Colors::disabledPalette(const QPalette &source, qreal ratio)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QPalette copy(source);
 
     const QList<QPalette::ColorRole> roles = { QPalette::Background, QPalette::Highlight, QPalette::WindowText, QPalette::ButtonText, QPalette::Text, QPalette::Button };
@@ -328,6 +339,7 @@ QPalette Colors::disabledPalette(const QPalette &source, qreal ratio)
 
 QPalette Colors::palette(ColorVariant variant)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (variant == ColorVariant::Unknown) {
         return isDarkMode() ? paletteGracefulDark() : paletteGraceful();
     } else if (variant == ColorVariant::Graceful) {
@@ -342,16 +354,19 @@ QPalette Colors::palette(ColorVariant variant)
 
 QColor Colors::hoverColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return options.palette().highlight().color();
 }
 
 QColor Colors::focusColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return options.palette().highlight().color();
 }
 
 QColor Colors::negativeText(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_UNUSED(options)
 
     return Qt::red;
@@ -359,21 +374,25 @@ QColor Colors::negativeText(const StyleOptions &options)
 
 QColor Colors::shadowColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return alphaColor(options.palette().color(QPalette::Shadow), 0.15);
 }
 
 QColor Colors::titleBarColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return options.palette().color(options.active() ? QPalette::Active : QPalette::Inactive, QPalette::Window);
 }
 
 QColor Colors::titleBarTextColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return options.palette().color(options.active() ? QPalette::Active : QPalette::Inactive, QPalette::WindowText);
 }
 
 QColor Colors::arrowOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (options.colorRole()) {
     case QPalette::Text:
         return mix(options.palette().color(options.colorGroup(), QPalette::Text), options.palette().color(options.colorGroup(), QPalette::Base), arrowShade);
@@ -388,6 +407,7 @@ QColor Colors::arrowOutlineColor(const StyleOptions &options)
 
 QColor Colors::buttonOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
@@ -403,6 +423,7 @@ QColor Colors::buttonOutlineColor(const StyleOptions &options)
 
 QColor Colors::indicatorOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     bool isDisabled = options.palette().currentColorGroup() == QPalette::Disabled;
     if (options.inMenu() || options.checkboxState() == CheckBoxState::CheckOff) {
         ColorVariant variant = options.colorVariant();
@@ -427,11 +448,13 @@ QColor Colors::indicatorOutlineColor(const StyleOptions &options)
 
 QColor Colors::frameOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return inputOutlineColor(options);
 }
 
 QColor Colors::inputOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QColor outline(buttonOutlineColor(options));
 
     // focus takes precedence over hover
@@ -446,6 +469,7 @@ QColor Colors::inputOutlineColor(const StyleOptions &options)
 
 QColor Colors::sidePanelOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QColor outline(options.palette().color(QPalette::Inactive, QPalette::Highlight));
     QColor focus(options.palette().color(QPalette::Active, QPalette::Highlight));
 
@@ -460,6 +484,7 @@ QColor Colors::sidePanelOutlineColor(const StyleOptions &options)
 
 QColor Colors::sliderOutlineColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QColor outline(mix(options.palette().color(QPalette::Window), options.palette().color(QPalette::Shadow), 0.5));
 
     // hover takes precedence over focus
@@ -485,6 +510,7 @@ QColor Colors::sliderOutlineColor(const StyleOptions &options)
 
 QColor Colors::buttonBackgroundColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     bool isDisabled = options.palette().currentColorGroup() == QPalette::Disabled;
     QColor buttonBackground(options.palette().color(QPalette::Button));
     QColor background(options.palette().color(QPalette::Window));
@@ -545,6 +571,7 @@ QColor Colors::buttonBackgroundColor(const StyleOptions &options)
 
 QColor Colors::checkBoxIndicatorColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (options.inMenu()) {
         return options.palette().color(QPalette::Text);
     } else {
@@ -558,6 +585,7 @@ QColor Colors::checkBoxIndicatorColor(const StyleOptions &options)
 
 QColor Colors::headerTextColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QColor col(options.palette().color(QPalette::WindowText));
 
     if (options.state() & QStyle::State_Enabled) {
@@ -572,6 +600,7 @@ QColor Colors::headerTextColor(const StyleOptions &options)
 
 QColor Colors::indicatorBackgroundColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
@@ -640,11 +669,13 @@ QColor Colors::indicatorBackgroundColor(const StyleOptions &options)
 
 QColor Colors::frameBackgroundColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return Colors::mix(options.palette().color(options.colorGroup(), QPalette::Window), options.palette().color(options.colorGroup(), QPalette::Base), 0.3);
 }
 
 QColor Colors::scrollBarHandleColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     ColorVariant variant = options.colorVariant();
 
     if (variant == ColorVariant::Unknown) {
@@ -679,11 +710,13 @@ QColor Colors::scrollBarHandleColor(const StyleOptions &options)
 
 QColor Colors::separatorColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     return buttonOutlineColor(options);
 }
 
 QColor Colors::toolButtonColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (options.sunken() || (options.animationMode() != AnimationNone && options.animationMode() != AnimationHover)) {
         return buttonBackgroundColor(options);
     }
@@ -693,6 +726,7 @@ QColor Colors::toolButtonColor(const StyleOptions &options)
 
 QColor Colors::tabBarColor(const StyleOptions &options)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     QColor background(Colors::mix(options.palette().window().color(), options.palette().shadow().color(), 0.15));
     if (!(options.state() & QStyle::State_Enabled)) {
         background = background.lighter(115);

@@ -1,5 +1,6 @@
 #ifndef GRACEFULEXPORT_H
 #define GRACEFULEXPORT_H
+#include "csyslog.h"
 
 #if defined(_WIN32)
 #define GRACEFUL_EXPORT     __declspec(dllexport)

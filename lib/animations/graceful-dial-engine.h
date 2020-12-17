@@ -12,15 +12,14 @@ class GRACEFUL_EXPORT DialEngine : public WidgetStateEngine
 {
     Q_OBJECT
 public:
-    //* constructor
-    explicit DialEngine(QObject *parent)
-        : WidgetStateEngine(parent)
+    explicit DialEngine(QObject *parent) : WidgetStateEngine(parent)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
-    //* destructor
     virtual ~DialEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* register dial
@@ -29,6 +28,7 @@ public:
     //* control rect
     virtual void setHandleRect(const QObject *object, const QRect &rect)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             static_cast<DialData *>(data.data())->setHandleRect(rect);
         }
@@ -37,6 +37,7 @@ public:
     //* mouse position
     virtual QPoint position(const QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             return static_cast<const DialData *>(data.data())->position();
         } else {

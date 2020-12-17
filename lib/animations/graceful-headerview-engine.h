@@ -13,14 +13,15 @@ class GRACEFUL_EXPORT HeaderViewEngine : public BaseEngine
     Q_OBJECT
 public:
     //* constructor
-    explicit HeaderViewEngine(QObject *parent)
-        : BaseEngine(parent)
+    explicit HeaderViewEngine(QObject *parent) : BaseEngine(parent)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~HeaderViewEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* register headerview
@@ -32,6 +33,7 @@ public:
     //* true if widget is animated
     virtual bool isAnimated(const QObject *object, const QPoint &point)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (DataMap<HeaderViewData>::Value data = _data.find(object)) {
             if (Animation::Pointer animation = data.data()->animation(point)) {
                 return animation.data()->isRunning();
@@ -44,12 +46,14 @@ public:
     //* animation opacity
     virtual qreal opacity(const QObject *object, const QPoint &point)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return isAnimated(object, point) ? _data.find(object).data()->opacity(point) : AnimationData::OpacityInvalid;
     }
 
     //* enability
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setEnabled(value);
         _data.setEnabled(value);
     }
@@ -57,6 +61,7 @@ public:
     //* duration
     virtual void setDuration(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setDuration(value);
         _data.setDuration(value);
     }
@@ -66,6 +71,7 @@ public Q_SLOTS:
     //* remove widget from map
     virtual bool unregisterWidget(QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _data.unregisterWidget(object);
     }
 

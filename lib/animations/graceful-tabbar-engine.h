@@ -18,11 +18,13 @@ public:
     explicit TabBarEngine(QObject *parent)
         : BaseEngine(parent)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~TabBarEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* register tabbar
@@ -37,12 +39,14 @@ public:
     //* animation opacity
     virtual qreal opacity(const QObject *object, const QPoint &point, AnimationMode mode)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return isAnimated(object, point, mode) ? data(object, mode).data()->opacity(point) : AnimationData::OpacityInvalid;
     }
 
     //* enability
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setEnabled(value);
         _hoverData.setEnabled(value);
         _focusData.setEnabled(value);
@@ -51,6 +55,7 @@ public:
     //* duration
     virtual void setDuration(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setDuration(value);
         _hoverData.setDuration(value);
         _focusData.setDuration(value);
@@ -61,6 +66,7 @@ public Q_SLOTS:
     //* remove widget from map
     virtual bool unregisterWidget(QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (!object) {
             return false;
         }

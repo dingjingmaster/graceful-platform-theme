@@ -24,18 +24,21 @@ public:
     //* enability
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _enabled = value;
     }
 
     //* enability
     virtual bool enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 
     //* duration
     virtual void setDuration(int duration)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (_transition) {
             _transition.data()->setDuration(duration);
         }
@@ -44,18 +47,21 @@ public:
     //* max render time
     void setMaxRenderTime(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _maxRenderTime = value;
     }
 
     //* max renderTime
     const int &maxRenderTime() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _maxRenderTime;
     }
 
     //* start clock
     void startClock()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (!_clock.isValid()) {
             _clock.start();
         } else {
@@ -66,6 +72,7 @@ public:
     //* check if rendering is two slow
     bool slow() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return !(!_clock.isValid() || _clock.elapsed() <= maxRenderTime());
     }
 
@@ -84,18 +91,21 @@ protected:
     //* transition widget
     virtual const TransitionWidget::Pointer &transition() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _transition;
     }
 
     //* used to avoid recursion when grabbing widgets
     void setRecursiveCheck(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _recursiveCheck = value;
     }
 
     //* used to avoid recursion when grabbing widgets
     bool recursiveCheck() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _recursiveCheck;
     }
 
@@ -117,9 +127,9 @@ private:
     TransitionWidget::Pointer _transition;
 };
 
-//_____________________________________________________________________________________
 bool TransitionData::hasParent(const QWidget *widget, const char *className) const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (!widget) {
         return false;
     }

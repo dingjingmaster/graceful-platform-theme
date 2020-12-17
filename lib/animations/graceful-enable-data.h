@@ -11,16 +11,16 @@ class GRACEFUL_EXPORT EnableData : public WidgetStateData
 {
     Q_OBJECT
 public:
-    //* constructor
-    EnableData(QObject *parent, QWidget *target, int duration, bool state = true)
-        : WidgetStateData(parent, target, duration, state)
+    EnableData(QObject *parent, QWidget *target, int duration, bool state = true) : WidgetStateData(parent, target, duration, state)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         target->installEventFilter(this);
     }
 
     //* destructor
     virtual ~EnableData()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* event filter

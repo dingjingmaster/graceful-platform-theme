@@ -18,12 +18,11 @@ class GRACEFUL_EXPORT BusyIndicatorEngine : public BaseEngine
     Q_PROPERTY(int value READ value WRITE setValue)
 
 public:
-    //* constructor
     explicit BusyIndicatorEngine(QObject *);
 
-    //* destructor
     virtual ~BusyIndicatorEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //*@name accessors
@@ -35,6 +34,7 @@ public:
     //* value
     virtual int value() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _value;
     }
 

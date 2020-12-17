@@ -18,11 +18,13 @@ public:
     explicit WidgetStateEngine(QObject *parent)
         : BaseEngine(parent)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~WidgetStateEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* register widget
@@ -42,6 +44,7 @@ public:
     //* animation opacity
     virtual qreal opacity(const QObject *object, AnimationMode mode)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return isAnimated(object, mode) ? data(object, mode).data()->opacity() : AnimationData::OpacityInvalid;
     }
 
@@ -49,6 +52,7 @@ public:
     /** precedence on focus */
     virtual AnimationMode frameAnimationMode(const QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (isAnimated(object, AnimationEnable)) {
             return AnimationEnable;
         } else if (isAnimated(object, AnimationFocus)) {
@@ -64,6 +68,7 @@ public:
     /** precedence on focus */
     virtual qreal frameOpacity(const QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (isAnimated(object, AnimationEnable)) {
             return data(object, AnimationEnable).data()->opacity();
         } else if (isAnimated(object, AnimationFocus)) {
@@ -79,6 +84,7 @@ public:
     /** precedence on mouseOver */
     virtual AnimationMode buttonAnimationMode(const QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (isAnimated(object, AnimationEnable)) {
             return AnimationEnable;
         } else if (isAnimated(object, AnimationPressed)) {
@@ -96,6 +102,7 @@ public:
     /** precedence on mouseOver */
     virtual qreal buttonOpacity(const QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (isAnimated(object, AnimationEnable)) {
             return data(object, AnimationEnable).data()->opacity();
         } else if (isAnimated(object, AnimationPressed)) {
@@ -112,6 +119,7 @@ public:
     //* duration
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setEnabled(value);
         _hoverData.setEnabled(value);
         _focusData.setEnabled(value);
@@ -122,6 +130,7 @@ public:
     //* duration
     virtual void setDuration(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         BaseEngine::setDuration(value);
         _hoverData.setDuration(value);
         _focusData.setDuration(value);
@@ -133,6 +142,7 @@ public Q_SLOTS:
     //* remove widget from map
     virtual bool unregisterWidget(QObject *object)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         if (!object) {
             return false;
         }

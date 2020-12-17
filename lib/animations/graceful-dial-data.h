@@ -11,12 +11,11 @@ class GRACEFUL_EXPORT DialData : public WidgetStateData
 {
     Q_OBJECT
 public:
-    //* constructor
     DialData(QObject *parent, QWidget *target, int);
 
-    //* destructor
     virtual ~DialData()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* event filter
@@ -25,12 +24,14 @@ public:
     //* subcontrol rect
     virtual void setHandleRect(const QRect &rect)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _handleRect = rect;
     }
 
     //* mouse position
     QPoint position() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _position;
     }
 

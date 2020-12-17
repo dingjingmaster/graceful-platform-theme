@@ -17,11 +17,13 @@ public:
         , _initialized(false)
         , _state(state)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~WidgetStateData()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     /**

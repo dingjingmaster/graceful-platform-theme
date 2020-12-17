@@ -8,15 +8,18 @@ namespace Graceful {
 SplitterFactory::SplitterFactory(QObject *parent) : QObject(parent) , _enabled(false)
 {
 
+    CT_SYSLOG(LOG_DEBUG, "");
 }
 
 SplitterFactory::~SplitterFactory()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 
 }
 
 void SplitterFactory::setEnabled(bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (_enabled != value) {
         // store
         _enabled = value;
@@ -28,9 +31,9 @@ void SplitterFactory::setEnabled(bool value)
     }
 }
 
-//____________________________________________________________________
 bool SplitterFactory::registerWidget(QWidget *widget)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check widget type
     if (qobject_cast<QMainWindow *>(widget)) {
         WidgetMap::iterator iter(_widgets.find(widget));
@@ -68,9 +71,9 @@ bool SplitterFactory::registerWidget(QWidget *widget)
     }
 }
 
-//____________________________________________________________________
 void SplitterFactory::unregisterWidget(QWidget *widget)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     WidgetMap::iterator iter(_widgets.find(widget));
     if (iter != _widgets.end()) {
         if (iter.value()) iter.value().data()->deleteLater();
@@ -78,12 +81,12 @@ void SplitterFactory::unregisterWidget(QWidget *widget)
     }
 }
 
-//____________________________________________________________________
 SplitterProxy::SplitterProxy(QWidget *parent, bool enabled):
     QWidget(parent),
     _enabled(enabled),
     _timerId(0)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     setAttribute(Qt::WA_TranslucentBackground, true);
     setAttribute(Qt::WA_OpaquePaintEvent, false);
     hide();
@@ -91,11 +94,14 @@ SplitterProxy::SplitterProxy(QWidget *parent, bool enabled):
 
 //____________________________________________________________________
 SplitterProxy::~SplitterProxy(void)
-{}
+{
+    CT_SYSLOG(LOG_DEBUG, "");
+}
 
 //____________________________________________________________________
 void SplitterProxy::setEnabled(bool value)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // make sure status has changed
     if (_enabled != value) {
         _enabled = value;
@@ -106,6 +112,7 @@ void SplitterProxy::setEnabled(bool value)
 //____________________________________________________________________
 bool SplitterProxy::eventFilter(QObject *object, QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // do nothing if disabled
     if (!_enabled) {
         return false;
@@ -149,9 +156,9 @@ bool SplitterProxy::eventFilter(QObject *object, QEvent *event)
     }
 }
 
-//____________________________________________________________________
 bool SplitterProxy::event(QEvent *event)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     switch (event->type()) {
 #if 0
     case QEvent::Paint: {
@@ -237,9 +244,9 @@ bool SplitterProxy::event(QEvent *event)
     }
 }
 
-//____________________________________________________________________
 void SplitterProxy::setSplitter(QWidget *widget)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check if changed
     if (_splitter.data() == widget) {
         return;
@@ -268,9 +275,9 @@ void SplitterProxy::setSplitter(QWidget *widget)
     }
 }
 
-//____________________________________________________________________
 void SplitterProxy::clearSplitter(void)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     // check if changed
     if (!_splitter) {
         return;

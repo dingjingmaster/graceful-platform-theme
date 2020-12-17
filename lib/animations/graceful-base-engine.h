@@ -17,40 +17,42 @@ class GRACEFUL_EXPORT BaseEngine : public QObject
 public:
     using Pointer = WeakPointer<BaseEngine>;
 
-    //* constructor
-    explicit BaseEngine(QObject *parent)
-        : QObject(parent)
-        , _enabled(true)
-        , _duration(200)
+    explicit BaseEngine(QObject *parent) : QObject(parent), _enabled(true), _duration(200)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* destructor
     virtual ~BaseEngine()
     {
+        CT_SYSLOG(LOG_DEBUG, "");
     }
 
     //* enability
     virtual void setEnabled(bool value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _enabled = value;
     }
 
     //* enability
     virtual bool enabled() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _enabled;
     }
 
     //* duration
     virtual void setDuration(int value)
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         _duration = value;
     }
 
     //* duration
     virtual int duration() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return _duration;
     }
 
@@ -63,6 +65,7 @@ public:
     //* returns registered widgets
     virtual WidgetList registeredWidgets() const
     {
+        CT_SYSLOG(LOG_DEBUG, "");
         return WidgetList();
     }
 

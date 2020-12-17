@@ -10,9 +10,15 @@ class StyleOptionsPrivate
 public:
     explicit StyleOptionsPrivate(const QPalette &palette)
         : mPalette(palette)
-    { }
+    {
+
+        CT_SYSLOG(LOG_DEBUG, "");
+    }
     virtual ~StyleOptionsPrivate()
-    { }
+    {
+
+        CT_SYSLOG(LOG_DEBUG, "");
+    }
 
     QPalette mPalette;
     QPalette::ColorGroup mColorGroup = QPalette::ColorGroup::Normal;
@@ -32,14 +38,17 @@ public:
 StyleOptions::StyleOptions(const QPalette &palette)
     : d_ptr(new StyleOptionsPrivate(palette))
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 }
 
 StyleOptions::~StyleOptions()
 {
+    CT_SYSLOG(LOG_DEBUG, "");
 }
 
 QPalette StyleOptions::palette() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mPalette;
@@ -47,6 +56,7 @@ QPalette StyleOptions::palette() const
 
 void StyleOptions::setColorGroup(QPalette::ColorGroup group)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mColorGroup = group;
@@ -54,6 +64,7 @@ void StyleOptions::setColorGroup(QPalette::ColorGroup group)
 
 QPalette::ColorGroup StyleOptions::colorGroup() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mColorGroup;
@@ -61,6 +72,7 @@ QPalette::ColorGroup StyleOptions::colorGroup() const
 
 void StyleOptions::setColorRole(QPalette::ColorRole role)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mColorRole = role;
@@ -68,6 +80,7 @@ void StyleOptions::setColorRole(QPalette::ColorRole role)
 
 QPalette::ColorRole StyleOptions::colorRole() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mColorRole;
@@ -75,6 +88,7 @@ QPalette::ColorRole StyleOptions::colorRole() const
 
 void StyleOptions::setColorVariant(ColorVariant variant)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mColorVariant = variant;
@@ -82,6 +96,7 @@ void StyleOptions::setColorVariant(ColorVariant variant)
 
 ColorVariant StyleOptions::colorVariant() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mColorVariant;
@@ -89,6 +104,7 @@ ColorVariant StyleOptions::colorVariant() const
 
 void StyleOptions::setActive(bool active)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mActive = active;
@@ -96,6 +112,7 @@ void StyleOptions::setActive(bool active)
 
 bool StyleOptions::active() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mActive;
@@ -103,6 +120,7 @@ bool StyleOptions::active() const
 
 void StyleOptions::setHasFocus(bool focus)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mFocus = focus;
@@ -110,6 +128,7 @@ void StyleOptions::setHasFocus(bool focus)
 
 bool StyleOptions::hasFocus() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mFocus;
@@ -117,6 +136,7 @@ bool StyleOptions::hasFocus() const
 
 void StyleOptions::setMouseOver(bool mouseOver)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mMouseHover = mouseOver;
@@ -124,6 +144,7 @@ void StyleOptions::setMouseOver(bool mouseOver)
 
 bool StyleOptions::mouseOver() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mMouseHover;
@@ -131,6 +152,7 @@ bool StyleOptions::mouseOver() const
 
 void StyleOptions::setOpacity(qreal opacity)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mOpacity = opacity;
@@ -138,6 +160,7 @@ void StyleOptions::setOpacity(qreal opacity)
 
 qreal StyleOptions::opacity() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mOpacity;
@@ -145,6 +168,7 @@ qreal StyleOptions::opacity() const
 
 void StyleOptions::setAnimationMode(AnimationMode mode)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mAnimationMode = mode;
@@ -152,6 +176,7 @@ void StyleOptions::setAnimationMode(AnimationMode mode)
 
 AnimationMode StyleOptions::animationMode() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mAnimationMode;
@@ -159,6 +184,7 @@ AnimationMode StyleOptions::animationMode() const
 
 void StyleOptions::setCheckboxState(CheckBoxState state)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mCheckboxState = state;
@@ -166,6 +192,7 @@ void StyleOptions::setCheckboxState(CheckBoxState state)
 
 CheckBoxState StyleOptions::checkboxState() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mCheckboxState;
@@ -173,6 +200,7 @@ CheckBoxState StyleOptions::checkboxState() const
 
 void StyleOptions::setState(QStyle::State state)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mState = state;
@@ -180,6 +208,7 @@ void StyleOptions::setState(QStyle::State state)
 
 QStyle::State StyleOptions::state() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mState;
@@ -187,6 +216,7 @@ QStyle::State StyleOptions::state() const
 
 void StyleOptions::setInMenu(bool inMenu)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mInMenu = inMenu;
@@ -194,6 +224,7 @@ void StyleOptions::setInMenu(bool inMenu)
 
 bool StyleOptions::inMenu() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mInMenu;
@@ -201,6 +232,7 @@ bool StyleOptions::inMenu() const
 
 void StyleOptions::setSunken(bool sunken)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(StyleOptions);
 
     d->mSunken = sunken;
@@ -208,6 +240,7 @@ void StyleOptions::setSunken(bool sunken)
 
 bool StyleOptions::sunken() const
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     Q_D(const StyleOptions);
 
     return d->mSunken;
