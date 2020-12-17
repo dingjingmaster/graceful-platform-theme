@@ -4,6 +4,7 @@ set -e -u
 
 app_version=1.0.2
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
+app_list=('graceful-platform-theme' 'graceful-platform-theme')
 app_name="graceful-platform-theme"
 yay_name="graceful-platform-theme"
 sha256sumsStr=""
@@ -76,7 +77,7 @@ cat > PKGBUILD << END_TEXT
 _server=cpx51
 
 pkgbase=graceful-platform-theme
-pkgname=('graceful-platform-theme')
+pkgname=('graceful-platform-theme' 'graceful-platform-theme-dbg')
 pkgver=${app_version}
 pkgrel=1
 arch=('x86_64')
@@ -106,12 +107,16 @@ build() {
     msg "build"
     cd "\${srcdir}/\${pkgname}-\${pkgver}"
     qmake
-    make -j32
+    make all -j32
 }
 
 package_graceful-platform-theme() {
     msg "graceful-platform-theme package"
-    cd "\${srcdir}/\${pkgname}-\${pkgver}"
+
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
+
+    rm -rf lib/libgraceful.so
+    make release -j32
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
@@ -122,6 +127,25 @@ package_graceful-platform-theme() {
     install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
     install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
 }
+
+package_graceful-platform-theme-dbg() {
+    msg "graceful-platform-theme-dbg package"
+
+    cd "\${srcdir}/graceful-platform-theme-dbg-\${pkgver}"
+
+    rm -rf lib/libgraceful.so
+    make debug -j32
+
+    install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
+    install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
+
+    cp -ra icon/graceful/               "\${pkgdir}/usr/share/icons/"
+    cp -ra theme/graceful/              "\${pkgdir}/usr/share/themes/"
+    install -Dm644 ../../README.md      "\${pkgdir}/usr/share/doc/\${pkgname}/README"
+    install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
+    install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
+}
+
 
 END_TEXT
 }
@@ -150,6 +174,8 @@ _clean()
 
     _msg_info "rm -rf ${work_dir}/${yay_name}"
     rm -rf "${work_dir}/${yay_name}"
+
+    rm -rf "graceful-platform-theme-${app_version}-1-x86_64.pkg.tar.zst" "graceful-platform-theme-dbg-${app_version}-1-x86_64.pkg.tar.zst"
 }
 
 # 推送到 yay 仓库
@@ -185,12 +211,9 @@ _main()
 
     _msg_info "开始生成PKGBUILD文件"
     _pkgbuild
-
     _msg_info "开始构建arch系安装包"
     makepkg -f
-
     makepkg --printsrcinfo > .SRCINFO
-
     _push_to_yay
 
     _clean

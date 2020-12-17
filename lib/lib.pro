@@ -16,16 +16,6 @@ CONFIG          += \
     link_pkgconfig                                          \
     debug_and_release                                       \
 
-
-CONFIG(debug, debug|release) {
-DEFINES         += \
-    CSYSLOG_LOG_LEVEL=LOG_DEBUG
-} else {
-DEFINES         += \
-    CSYSLOG_LOG_LEVEL=LOG_INFO
-}
-
-
 PKGCONFIG       += \
     gtk+-3.0                                                \
     gtk+-x11-3.0                                            \
