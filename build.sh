@@ -4,6 +4,7 @@ set -e -u
 
 app_version=1.0.2
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
+app_list=('graceful-platform-theme' 'graceful-platform-theme')
 app_name="graceful-platform-theme"
 yay_name="graceful-platform-theme"
 sha256sumsStr=""
@@ -76,10 +77,7 @@ cat > PKGBUILD << END_TEXT
 _server=cpx51
 
 pkgbase=graceful-platform-theme
-pkgname=(
-    'graceful-platform-theme'
-    'graceful-platform-theme-dbg'
-)
+pkgname=('graceful-platform-theme' 'graceful-platform-theme-dbg')
 pkgver=${app_version}
 pkgrel=1
 arch=('x86_64')
@@ -115,10 +113,10 @@ build() {
 package_graceful-platform-theme() {
     msg "graceful-platform-theme package"
 
-    cd "\${srcdir}/\${pkgname}-\${pkgver}/lib"
-    rm -rf libgraceful.so
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
+
+    rm -rf lib/libgraceful.so
     make release -j32
-    cd "\${srcdir}/\${pkgname}-\${pkgver}"
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
@@ -131,14 +129,12 @@ package_graceful-platform-theme() {
 }
 
 package_graceful-platform-theme-dbg() {
-    msg "graceful-platform-theme package"
+    msg "graceful-platform-theme-dbg package"
 
-    cp -r "\${srcdir}/graceful-platform-theme-\${pkgver}/" "\${srcdir}/\${pkgname}-\${pkgver}/"
+    cd "\${srcdir}/graceful-platform-theme-dbg-\${pkgver}"
 
-    cd "\${srcdir}/\${pkgname}-\${pkgver}/lib"
-    rm -rf libgraceful.so
+    rm -rf lib/libgraceful.so
     make debug -j32
-    cd "\${srcdir}/\${pkgname}-\${pkgver}"
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
@@ -149,6 +145,7 @@ package_graceful-platform-theme-dbg() {
     install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
     install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
 }
+
 
 END_TEXT
 }
@@ -214,12 +211,9 @@ _main()
 
     _msg_info "开始生成PKGBUILD文件"
     _pkgbuild
-
     _msg_info "开始构建arch系安装包"
     makepkg -f
-
     makepkg --printsrcinfo > .SRCINFO
-
     _push_to_yay
 
     _clean
