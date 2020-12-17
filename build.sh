@@ -2,7 +2,7 @@
 
 set -e -u
 
-app_version=1.0.2
+app_version=1.0.3
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
 app_list=('graceful-platform-theme' 'graceful-platform-theme')
 app_name="graceful-platform-theme"
@@ -64,7 +64,7 @@ _download_package()
 {
     cd ${work_dir}
     wget "https://github.com/graceful-linux/graceful-platform-theme/archive/${app_version}.tar.gz"
-    sha256sumsStr=$(sha256sum -- 1.0.2.tar.gz | awk '{print $1}')
+    sha256sumsStr=$(sha256sum -- ${app_version}.tar.gz | awk '{print $1}')
     echo ${sha256sumsStr}
 }
 
@@ -90,7 +90,6 @@ makedepends=(
     'git'
     'qt5-base'
 )
-
 source=(
     "https://github.com/graceful-linux/graceful-platform-theme/archive/\${pkgver}.tar.gz"
 )
@@ -113,10 +112,11 @@ build() {
 package_graceful-platform-theme() {
     msg "graceful-platform-theme package"
 
-    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
-
-    rm -rf lib/libgraceful.so
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}/lib"
+    rm -rf libgraceful.so
     make release -j32
+
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
@@ -131,10 +131,11 @@ package_graceful-platform-theme() {
 package_graceful-platform-theme-dbg() {
     msg "graceful-platform-theme-dbg package"
 
-    cd "\${srcdir}/graceful-platform-theme-dbg-\${pkgver}"
-
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}/lib"
     rm -rf lib/libgraceful.so
     make debug -j32
+
+    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
