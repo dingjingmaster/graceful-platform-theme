@@ -76,7 +76,10 @@ cat > PKGBUILD << END_TEXT
 _server=cpx51
 
 pkgbase=graceful-platform-theme
-pkgname=('graceful-platform-theme')
+pkgname=(
+    'graceful-platform-theme'
+    'graceful-platform-theme-dbg'
+)
 pkgver=${app_version}
 pkgrel=1
 arch=('x86_64')
@@ -106,11 +109,35 @@ build() {
     msg "build"
     cd "\${srcdir}/\${pkgname}-\${pkgver}"
     qmake
-    make -j32
+    make all -j32
 }
 
 package_graceful-platform-theme() {
     msg "graceful-platform-theme package"
+
+    cd "\${srcdir}/\${pkgname}-\${pkgver}/lib"
+    rm -rf libgraceful.so
+    make release -j32
+    cd "\${srcdir}/\${pkgname}-\${pkgver}"
+
+    install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
+    install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
+
+    cp -ra icon/graceful/               "\${pkgdir}/usr/share/icons/"
+    cp -ra theme/graceful/              "\${pkgdir}/usr/share/themes/"
+    install -Dm644 ../../README.md      "\${pkgdir}/usr/share/doc/\${pkgname}/README"
+    install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
+    install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
+}
+
+package_graceful-platform-theme-dbg() {
+    msg "graceful-platform-theme package"
+
+    cp -r "\${srcdir}/graceful-platform-theme-\${pkgver}/" "\${srcdir}/\${pkgname}-\${pkgver}/"
+
+    cd "\${srcdir}/\${pkgname}-\${pkgver}/lib"
+    rm -rf libgraceful.so
+    make debug -j32
     cd "\${srcdir}/\${pkgname}-\${pkgver}"
 
     install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
@@ -150,6 +177,8 @@ _clean()
 
     _msg_info "rm -rf ${work_dir}/${yay_name}"
     rm -rf "${work_dir}/${yay_name}"
+
+    rm -rf "graceful-platform-theme-${app_version}-1-x86_64.pkg.tar.zst" "graceful-platform-theme-dbg-${app_version}-1-x86_64.pkg.tar.zst"
 }
 
 # 推送到 yay 仓库
