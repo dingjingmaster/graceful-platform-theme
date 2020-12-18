@@ -1,26 +1,13 @@
 TEMPLATE            = lib
-TARGET              = graceful
+TARGET              = graceful-style
 
 QT                  += \
     gui                                                     \
-    core                                                    \
     dbus                                                    \
     widgets                                                 \
-    gui-private                                             \
-    widgets-private                                         \
-    theme_support-private                                   \
 
 
 DEFINES += PROXYSTYLE_LIBRARY
-
-
-CONFIG(debug, debug|release) {
-DEFINES             += \
-    CSYSLOG_LOG_LEVEL=LOG_DEBUG
-} else {
-DEFINES             += \
-    CSYSLOG_LOG_LEVEL=LOG_INFO
-}
 
 
 CONFIG              += \
@@ -28,16 +15,28 @@ CONFIG              += \
     gnu99                                                   \
     plugin                                                  \
     no_keywords                                             \
-    link_pkgconfig                                          \
     debug_and_release                                       \
 
 
-PKGCONFIG           += \
-    gtk+-3.0                                                \
-    gtk+-x11-3.0                                            \
+INCLUDEPATH         += \
+    -I $$PWD/../lib/                                        \
 
 
-include($$PWD/../lib/lib.pri)
+LIBS                += \
+    -L $$PWD/../lib/                                        \
+    -lgraceful                                              \
+
+
+HEADERS             += \
+    $$PWD/graceful-style.h                                  \
+    $$PWD/graceful-helper.h                                 \
+    $$PWD/graceful-style-plugin.h                           \
+
+
+SOURCES             += \
+    $$PWD/graceful-style.cpp                                \
+    $$PWD/graceful-helper.cpp                               \
+    $$PWD/graceful-style-plugin.cpp                         \
 
 
 OTHER_FILES         += \
@@ -52,5 +51,5 @@ graceful_plugin1.path    = /usr/lib/qt/plugins/styles/
 graceful_plugin1.files   = $$OUT_PWD/*.so
 
 
-INSTALLS        += \
+INSTALLS            += \
     graceful_plugin1                                        \

@@ -1,8 +1,38 @@
-INCLUDEPATH     += \
-    $$PWD/                                                  \
+TEMPLATE            = lib
+TARGET              = graceful
+
+QT                  += \
+    gui                                                     \
+    core                                                    \
+    dbus                                                    \
+    widgets                                                 \
+    gui-private                                             \
+    widgets-private                                         \
 
 
-HEADERS         += \
+CONFIG              += \
+    gnu++11                                                 \
+    gnu99                                                   \
+    plugin                                                  \
+    no_keywords                                             \
+    debug_and_release                                       \
+
+
+CONFIG(debug, debug|release) {
+DEFINES             += \
+    CSYSLOG_LOG_LEVEL=LOG_DEBUG
+} else {
+DEFINES             += \
+    CSYSLOG_LOG_LEVEL=LOG_INFO
+}
+
+
+PKGCONFIG           += \
+    gtk+-3.0                                                \
+    gtk+-x11-3.0                                            \
+
+
+HEADERS             += \
     $$PWD/csyslog.h                                         \
     $$PWD/graceful.h                                        \
     $$PWD/graceful-colors.h                                 \
@@ -40,7 +70,7 @@ HEADERS         += \
     $$PWD/animations/graceful-stacked-widget-engine.h       \
 
 
-SOURCES         += \
+SOURCES             += \
     $$PWD/csyslog.cpp                                       \
     $$PWD/graceful.cpp                                      \
     $$PWD/graceful-colors.cpp                               \
