@@ -2,7 +2,7 @@
 
 set -e -u
 
-app_version=1.0.3
+app_version=1.0.4
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
 app_list=('graceful-platform-theme' 'graceful-platform-theme')
 app_name="graceful-platform-theme"
@@ -125,8 +125,8 @@ package_graceful-platform-theme() {
     install -d -Dm755                               "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                               "\${pkgdir}/usr/share/themes/"
 
-    cp -ra icon/graceful/                           "\${pkgdir}/usr/share/icons/"
-    cp -ra theme/graceful/                          "\${pkgdir}/usr/share/themes/"
+    cp -ra data/icon/graceful/                      "\${pkgdir}/usr/share/icons/"
+    cp -ra data/theme/graceful/                     "\${pkgdir}/usr/share/themes/"
     install -Dm644 ../../README.md                  "\${pkgdir}/usr/share/doc/\${pkgname}/README"
     install -Dm644 ../../LICENSE                    "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
     install -Dm755 lib/libgraceful.so.release       "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
@@ -140,8 +140,8 @@ package_graceful-platform-theme-dbg() {
     install -d -Dm755                               "\${pkgdir}/usr/share/icons/"
     install -d -Dm755                               "\${pkgdir}/usr/share/themes/"
 
-    cp -ra icon/graceful/                           "\${pkgdir}/usr/share/icons/"
-    cp -ra theme/graceful/                          "\${pkgdir}/usr/share/themes/"
+    cp -ra data/icon/graceful/                      "\${pkgdir}/usr/share/icons/"
+    cp -ra data/theme/graceful/                     "\${pkgdir}/usr/share/themes/"
     install -Dm644 ../../README.md                  "\${pkgdir}/usr/share/doc/\${pkgname}/README"
     install -Dm644 ../../LICENSE                    "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
     install -Dm755 lib/libgraceful.so.debug         "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"

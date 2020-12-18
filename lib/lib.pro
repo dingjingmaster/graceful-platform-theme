@@ -104,3 +104,11 @@ SOURCES             += \
     $$PWD/animations/graceful-widget-state-engine.cpp       \
     $$PWD/animations/graceful-busy-indicator-engine.cpp     \
     $$PWD/animations/graceful-stacked-widget-engine.cpp     \
+
+
+graceful_library1.path    = /usr/lib/
+graceful_library1.files   = $$OUT_PWD/*.so
+
+
+INSTALLS            += \
+    graceful_library1                                       \
