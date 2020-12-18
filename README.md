@@ -9,7 +9,7 @@
 1. 源码编译安装,适用于任意linux平台
 
     进入源码根目录执行如下命令即可
-    ```
+    ```shell
     qmake && make -j8 && sudo make install      # 正常使用安装
     qmake && make -j8 \
         && cd lib && make -j8 debug \
@@ -19,7 +19,7 @@
 
 2. 针对 arch 系的系统,只需要执行如下命令
 
-    ```
+    ```shell
     yay -S graceful-platform-theme              # 这是正常安装使用
     yay -S graceful-platform-theme-dbg          # 这是安装debug包,会在syslog里输出很多debug日志供查看
     ```
@@ -29,19 +29,25 @@
 
 1. 配置`/etc/environment`添加
 
-    ```
+    ```shell
     QT_QPA_PLATFORMTHEME='graceful'
     ```
 
 2. 配置 `/etc/zshrc` 或 `/etc/bashrc` 或 `~/.zshrc` 添加
 
-    ```
+    ```shell
     export QT_QPA_PLATFORMTHEME='graceful'
     ```
 
 ### 另外 yay 仓库地址 
 
-    ```
+    ```shell
     ssh://aur@aur.archlinux.org/graceful-platform-theme.git
     ```
 
+
+### 调试运行
+
+    ```shell
+    sudo rm /usr/lib/qt/plugins/styles/*graceful*.so && cd lib && rm -rf *.so ; make -j32 && sudo make install && cd ../style && rm -rf *.so ; make -j32 &&  sudo make install && cd .. && demo/graceful-demo
+    ```

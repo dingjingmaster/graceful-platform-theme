@@ -27,7 +27,7 @@ public:
     //* widget rects
     void setDrawWidgetRects(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _drawWidgetRects = value;
     }
 

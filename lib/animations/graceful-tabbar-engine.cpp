@@ -7,7 +7,7 @@ namespace Graceful
 
 bool TabBarEngine::registerWidget(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return false;
     }
@@ -28,21 +28,21 @@ bool TabBarEngine::registerWidget(QWidget *widget)
 
 bool TabBarEngine::updateState(const QObject *object, const QPoint &position, AnimationMode mode, bool value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     DataMap<TabBarData>::Value data(TabBarEngine::data(object, mode));
     return (data && data.data()->updateState(position, value));
 }
 
 bool TabBarEngine::isAnimated(const QObject *object, const QPoint &position, AnimationMode mode)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     DataMap<TabBarData>::Value data(TabBarEngine::data(object, mode));
     return (data && data.data()->animation(position) && data.data()->animation(position).data()->isRunning());
 }
 
 DataMap<TabBarData>::Value TabBarEngine::data(const QObject *object, AnimationMode mode)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     switch (mode) {
     case AnimationHover:
         return _hoverData.find(object).data();

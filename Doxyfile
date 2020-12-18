@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "qt-platform-theme"
+PROJECT_NAME           = "Graceful Platform Theme"
 PROJECT_BRIEF          = "基于QT的主题框架"
 PROJECT_NUMBER         = "v1.0.0"
 # 此处是logo图片

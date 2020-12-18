@@ -9,7 +9,7 @@ int AnimationData::_steps = 0;
 
 void AnimationData::setupAnimation(const Animation::Pointer &animation, const QByteArray &property)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup animation
     animation.data()->setStartValue(0.0);
     animation.data()->setEndValue(1.0);

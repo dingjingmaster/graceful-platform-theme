@@ -5,7 +5,7 @@ namespace Graceful
 
 bool ToolBoxEngine::registerWidget(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return false;
     }
@@ -21,14 +21,14 @@ bool ToolBoxEngine::registerWidget(QWidget *widget)
 
 bool ToolBoxEngine::updateState(const QPaintDevice *object, bool value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     PaintDeviceDataMap<WidgetStateData>::Value data(ToolBoxEngine::data(object));
     return (data && data.data()->updateState(value));
 }
 
 bool ToolBoxEngine::isAnimated(const QPaintDevice *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     PaintDeviceDataMap<WidgetStateData>::Value data(ToolBoxEngine::data(object));
     return (data && data.data()->animation() && data.data()->animation().data()->isRunning());
 }

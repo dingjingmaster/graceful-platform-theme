@@ -5,7 +5,7 @@ namespace Graceful
 
 bool WidgetStateData::updateState(bool value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!_initialized) {
         _state = value;
         _initialized = true;

@@ -4,24 +4,19 @@
 
 namespace Graceful {
 
+/**
+ * @brief style 插件的入口
+ */
 class StylePlugin : public QStylePlugin
 {
     Q_OBJECT
 
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QStyleFactoryInterface" FILE "graceful.json")
 public:
-
-    //* constructor
-    explicit StylePlugin(QObject *parent = 0) : QStylePlugin(parent)
-    {}
-
-    //* destructor
+    explicit StylePlugin(QObject *parent = 0);
     ~StylePlugin();
 
-    //* returns list of valid keys
     QStringList keys() const;
-
-    //* create style
     QStyle *create(const QString &key);
 };
 

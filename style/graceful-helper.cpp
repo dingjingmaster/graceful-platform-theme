@@ -24,14 +24,14 @@ static const qreal arrowShade = 0.15;
 //____________________________________________________________________
 Helper::Helper()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     init();
 }
 
 // static
 bool Helper::isWindowActive(const QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     const QWindow *win = widget ? widget->window()->windowHandle() : nullptr;
     if (win) {
         return win->isActive();
@@ -42,7 +42,7 @@ bool Helper::isWindowActive(const QWidget *widget)
 //______________________________________________________________________________
 void Helper::renderDebugFrame(QPainter *painter, const QRect &rect) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->save();
     painter->setRenderHints(QPainter::Antialiasing);
     painter->setBrush(Qt::NoBrush);
@@ -54,7 +54,7 @@ void Helper::renderDebugFrame(QPainter *painter, const QRect &rect) const
 //______________________________________________________________________________
 void Helper::renderFocusRect(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, Sides sides) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!color.isValid())
         return;
 
@@ -93,7 +93,7 @@ void Helper::renderFocusRect(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderFocusLine(QPainter *painter, const QRect &rect, const QColor &color) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!color.isValid())
         return;
 
@@ -114,7 +114,7 @@ void Helper::renderFocusLine(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool hasFocus) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->setRenderHint(QPainter::Antialiasing);
 
     QRectF frameRect(rect.adjusted(1, 1, -1, -1));
@@ -148,7 +148,7 @@ void Helper::renderFrame(QPainter *painter, const QRect &rect, const QColor &col
 //______________________________________________________________________________
 void Helper::renderSquareFrame(QPainter *painter, const QRect &rect, QColor color, bool hasFocus) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->setPen(color);
     painter->drawRect(rect.adjusted(1, 1, -2, -2));
     if (hasFocus) {
@@ -161,7 +161,7 @@ void Helper::renderSquareFrame(QPainter *painter, const QRect &rect, QColor colo
 //______________________________________________________________________________
 void Helper::renderFlatFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool hasFocus) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->setRenderHint(QPainter::Antialiasing);
 
     QRectF frameRect(rect.adjusted(1, 1, -1, -1));
@@ -201,7 +201,7 @@ void Helper::renderFlatFrame(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderSidePanelFrame(QPainter *painter, const QRect &rect, const QColor &outline, Side side) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check color
     if (!outline.isValid())
         return;
@@ -245,7 +245,7 @@ void Helper::renderSidePanelFrame(QPainter *painter, const QRect &rect, const QC
 //______________________________________________________________________________
 void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool roundCorners) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // set brush
     if (color.isValid())
         painter->setBrush(color);
@@ -267,7 +267,7 @@ void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor 
 void Helper::renderButtonFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, const QColor &shadow,
                                bool hasFocus, bool sunken, bool mouseOver, bool active, bool darkMode) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -338,7 +338,7 @@ void Helper::renderButtonFrame(QPainter *painter, const QRect &rect, const QColo
 void Helper::renderCheckBoxFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, const QColor &shadow,
                                  bool hasFocus, bool sunken, bool mouseOver, bool active, CheckBoxState state, bool darkMode, bool inMenu) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -419,7 +419,7 @@ void Helper::renderCheckBoxFrame(QPainter *painter, const QRect &rect, const QCo
 void Helper::renderFlatButtonFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, const QColor &shadow,
                                    bool hasFocus, bool sunken, bool mouseOver, bool active) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -474,7 +474,7 @@ void Helper::renderFlatButtonFrame(QPainter *painter, const QRect &rect, const Q
 //______________________________________________________________________________
 void Helper::renderToolButtonFrame(QPainter *painter, const QRect &rect, const QColor &color, bool sunken) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // do nothing for invalid color
     if (!color.isValid())
         return;
@@ -505,7 +505,7 @@ void Helper::renderToolButtonFrame(QPainter *painter, const QRect &rect, const Q
 //______________________________________________________________________________
 void Helper::renderToolBoxFrame(QPainter *painter, const QRect &rect, int tabWidth, const QColor &outline) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!outline.isValid())
         return;
 
@@ -550,7 +550,7 @@ void Helper::renderToolBoxFrame(QPainter *painter, const QRect &rect, int tabWid
 //______________________________________________________________________________
 void Helper::renderTabWidgetFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, Corners corners) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->setRenderHint(QPainter::Antialiasing);
 
     QRectF frameRect(rect.adjusted(1, 1, -1, -1));
@@ -578,7 +578,7 @@ void Helper::renderTabWidgetFrame(QPainter *painter, const QRect &rect, const QC
 //______________________________________________________________________________
 void Helper::renderSelection(QPainter *painter, const QRect &rect, const QColor &color) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(Qt::NoPen);
     painter->setBrush(color);
@@ -588,7 +588,7 @@ void Helper::renderSelection(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderSeparator(QPainter *painter, const QRect &rect, const QColor &color, bool vertical) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->save();
     painter->setRenderHint(QPainter::Antialiasing, false);
     painter->setBrush(Qt::NoBrush);
@@ -610,7 +610,7 @@ void Helper::renderSeparator(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderCheckBoxBackground(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool sunken) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -627,7 +627,7 @@ void Helper::renderCheckBoxBackground(QPainter *painter, const QRect &rect, cons
 void Helper::renderCheckBox(QPainter *painter, const QRect &rect, const QColor &background, const QColor &outline, const QColor &tickColor,
                             bool sunken, CheckBoxState state, bool mouseOver, qreal animation, bool active, bool darkMode, bool inMenu) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->save();
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -698,7 +698,7 @@ void Helper::renderCheckBox(QPainter *painter, const QRect &rect, const QColor &
 //______________________________________________________________________________
 void Helper::renderRadioButtonBackground(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool sunken) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -717,7 +717,7 @@ void Helper::renderRadioButtonBackground(QPainter *painter, const QRect &rect, c
 void Helper::renderRadioButton(QPainter *painter, const QRect &rect, const QColor &background, const QColor &outline, const QColor &tickColor,
                                bool sunken, bool enabled, RadioButtonState state, qreal animation, bool mouseOver, bool darkMode, bool inMenu) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -805,7 +805,7 @@ void Helper::renderRadioButton(QPainter *painter, const QRect &rect, const QColo
 //______________________________________________________________________________
 void Helper::renderSliderGroove(QPainter *painter, const QRect &rect, const QColor &color) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -825,7 +825,7 @@ void Helper::renderSliderGroove(QPainter *painter, const QRect &rect, const QCol
 //______________________________________________________________________________
 void Helper::renderDialGroove(QPainter *painter, const QRect &rect, const QColor &color) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -847,7 +847,7 @@ void Helper::renderDialGroove(QPainter *painter, const QRect &rect, const QColor
 //______________________________________________________________________________
 void Helper::renderDialContents(QPainter *painter, const QRect &rect, const QColor &color, qreal first, qreal second) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -880,7 +880,7 @@ void Helper::renderDialContents(QPainter *painter, const QRect &rect, const QCol
 void Helper::renderSliderHandle(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, const QColor &shadow,
                                 bool sunken, bool enabled, Side ticks, qreal angle, bool darkMode) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -973,7 +973,7 @@ void Helper::renderSliderHandle(QPainter *painter, const QRect &rect, const QCol
 //______________________________________________________________________________
 void Helper::renderProgressBarGroove(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
@@ -996,7 +996,7 @@ void Helper::renderProgressBarGroove(QPainter *painter, const QRect &rect, const
 void Helper::renderProgressBarBusyContents(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline,
         bool horizontal, bool reverse, int progress) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     Q_UNUSED(reverse);
 
     // setup painter
@@ -1023,7 +1023,7 @@ void Helper::renderProgressBarBusyContents(QPainter *painter, const QRect &rect,
 //______________________________________________________________________________
 void Helper::renderScrollBarHandle(QPainter *painter, const QRect &rect, const QColor &color) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -1044,7 +1044,7 @@ void Helper::renderScrollBarHandle(QPainter *painter, const QRect &rect, const Q
 //______________________________________________________________________________
 void Helper::renderTabBarTab(QPainter *painter, const QRect &rect, const QColor &background, const QColor &color, const QColor &outline, Corners corners, bool renderFrame) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, false);
 
@@ -1087,7 +1087,7 @@ void Helper::renderTabBarTab(QPainter *painter, const QRect &rect, const QColor 
 // TODO blurry edges
 void Helper::renderArrow(QPainter *painter, const QRect &rect, const QColor &color, ArrowOrientation orientation) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // define polygon
     QPolygonF arrow;
     switch (orientation) {
@@ -1125,7 +1125,7 @@ void Helper::renderArrow(QPainter *painter, const QRect &rect, const QColor &col
 
 void Helper::renderSign(QPainter *painter, const QRect &rect, const QColor &color, bool orientation) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     QPen pen(color, 2);
     pen.setCapStyle(Qt::FlatCap);
 
@@ -1140,7 +1140,7 @@ void Helper::renderSign(QPainter *painter, const QRect &rect, const QColor &colo
 //______________________________________________________________________________
 void Helper::renderDecorationButton(QPainter *painter, const QRect &rect, const QColor &color, ButtonType buttonType, bool inverted) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     painter->save();
     painter->setViewport(rect);
     painter->setWindow(0, 0, 18, 18);
@@ -1199,14 +1199,14 @@ void Helper::renderDecorationButton(QPainter *painter, const QRect &rect, const 
 //______________________________________________________________________________
 bool Helper::isX11(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     static const bool s_isX11 = qApp->platformName() == QLatin1String("xcb");
     return s_isX11;
 }
 
 bool Helper::isWayland(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     static const bool s_isWayland = qApp->platformName().startsWith(QLatin1String("wayland"));
     return s_isWayland;
 }
@@ -1214,14 +1214,14 @@ bool Helper::isWayland(void)
 //______________________________________________________________________________
 QRectF Helper::shadowRect(const QRectF &rect) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     return rect;
 }
 
 //______________________________________________________________________________
 QPainterPath Helper::roundedPath(const QRectF &rect, Corners corners, qreal radius) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     QPainterPath path;
 
     // simple cases
@@ -1272,7 +1272,7 @@ QPainterPath Helper::roundedPath(const QRectF &rect, Corners corners, qreal radi
 //________________________________________________________________________________________________________
 bool Helper::compositingActive(void) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 #if GRACEFUL_HAVE_X11
     if (isX11()) {
         // direct call to X
@@ -1292,14 +1292,14 @@ bool Helper::compositingActive(void) const
 //____________________________________________________________________
 bool Helper::hasAlphaChannel(const QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     return compositingActive() && widget && widget->testAttribute(Qt::WA_TranslucentBackground);
 }
 
 //______________________________________________________________________________________
 QPixmap Helper::highDpiPixmap(int width, int height) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     qreal dpiRatio(qApp->devicePixelRatio());
     QPixmap pixmap(width * dpiRatio, height * dpiRatio);
     pixmap.setDevicePixelRatio(dpiRatio);
@@ -1309,7 +1309,7 @@ QPixmap Helper::highDpiPixmap(int width, int height) const
 //______________________________________________________________________________________
 qreal Helper::devicePixelRatio(const QPixmap &pixmap) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     Q_UNUSED(pixmap);
     return 1;
 }
@@ -1340,7 +1340,7 @@ xcb_atom_t Helper::createAtom(const QString &name) const
 //____________________________________________________________________
 void Helper::init(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 #if GRACEFUL_HAVE_X11
     if (isX11()) {
         // create compositing screen
@@ -1353,7 +1353,7 @@ void Helper::init(void)
 //____________________________________________________________________
 void Helper::setVariant(QWidget *widget, const QByteArray &variant)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 #if GRACEFUL_HAVE_X11
     if (isX11() && widget) { //  && !widget->testAttribute(Qt::WA_)) {
         static const char *_GTK_THEME_VARIANT = "_GTK_THEME_VARIANT";

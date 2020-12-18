@@ -17,13 +17,13 @@ public:
     explicit ScrollBarEngine(QObject *parent)
         : WidgetStateEngine(parent)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* destructor
     virtual ~ScrollBarEngine()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* register scrollbar
@@ -47,7 +47,7 @@ public:
     //* return true if given subcontrol is hovered
     virtual bool isHovered(const QObject *object, QStyle::SubControl control)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             return static_cast<const ScrollBarData *>(data.data())->isHovered(control);
         } else {
@@ -58,7 +58,7 @@ public:
     //* control rect associated to object
     virtual QRect subControlRect(const QObject *object, QStyle::SubControl control)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             return static_cast<const ScrollBarData *>(data.data())->subControlRect(control);
         } else {
@@ -69,7 +69,7 @@ public:
     //* mouse position
     virtual QPoint position(const QObject *object)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             return static_cast<const ScrollBarData *>(data.data())->position();
         } else {
@@ -85,7 +85,7 @@ public:
     //* control rect
     virtual void setSubControlRect(const QObject *object, QStyle::SubControl control, const QRect &rect)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             static_cast<ScrollBarData *>(data.data())->setSubControlRect(control, rect);
         }

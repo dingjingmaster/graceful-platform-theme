@@ -24,7 +24,7 @@ INCLUDEPATH         += \
 
 LIBS                += \
     -L $$PWD/../lib/                                        \
-    -lgraceful                                              \
+    -l graceful                                             \
 
 
 HEADERS             += \

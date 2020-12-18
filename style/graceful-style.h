@@ -28,121 +28,145 @@ class WindowManager;
 class WidgetExplorer;
 class SplitterFactory;
 
-//* convenience typedef for base class
+/**
+ * @note
+ *  c++11 中的新特性，类似于typedef，用来取别名
+ */
 using ParentStyleClass = QCommonStyle;
 
-/** it is responsible to draw all the primitives to be displayed on screen, on request from Qt paint engine */
+/**
+ * @brief
+ *  负责绘制所有显示到屏幕上的内容(仅限于使用QT框架的应用)
+ *  QCommonStyle 这个抽象类实现了一些小部件的外观，这些外观与Qt中提供的所有GUI样式相同。QCommonStyle继承了QStyle
+ *
+ * @note
+ *  需要实现的方法如下：
+ *      1. virtual void drawComplexControl(QStyle::ComplexControl cc, const QStyleOptionComplex *opt, QPainter *p, const QWidget *widget = nullptr) const override
+ *          使用指定的样式选项，绘制指定的控件，具体控件是：SpinBox、CpmboBox、ScrollBox、Dial、ToolButton、TitleBar
+ *
+ *      2. virtual void drawControl(QStyle::ControlElement element, const QStyleOption *opt, QPainter *p, const QWidget *widget = nullptr) const override
+ *          绘制给定元素
+ *
+ *      3. virtual void	drawPrimitive(QStyle::PrimitiveElement pe, const QStyleOption *opt, QPainter *p, const QWidget *widget = nullptr) const override
+ *          绘制控件属性，焦点存在与离开 ...
+ *
+ *      4. virtual QPixmap generatedIconPixmap(QIcon::Mode iconMode, const QPixmap &pixmap, const QStyleOption *opt) const override
+ *          根据参数返回 pixmap 的副本
+ *
+ *      5. virtual QStyle::SubControl hitTestComplexControl(QStyle::ComplexControl cc, const QStyleOptionComplex *opt, const QPoint &pt, const QWidget *widget = nullptr) const override
+ *          返回给定复杂控件中，给定位置的子控件
+ *
+ *      6. virtual int layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2, Qt::Orientation orientation, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const override
+ *          返回布局中control1和control2之间应该使用的间距。朝向指定控件是并排放置还是垂直堆叠。option参数可用于传递关于父小部件的额外信息
+ *
+ *      7. virtual int pixelMetric(QStyle::PixelMetric m, const QStyleOption *opt = nullptr, const QWidget *widget = nullptr) const override
+ *          返回给定像素度量的值
+ *
+ *      8. virtual void polish(QPalette &pal) override
+ *          初始化 widget 的外观，此函数在widget创建之后、显示之前调用
+ *
+ *      9. virtual void polish(QApplication *app) override
+ *          给定应用程序对象的延迟初始化
+ *
+ *      10. virtual void polish(QWidget *widget) override
+ *          根据风格对调色板的特定要求(如果有的话)更改调色板。
+ *
+ *      11. virtual QSize sizeFromContents(QStyle::ContentsType ct, const QStyleOption *opt, const QSize &csz, const QWidget *widget = nullptr) const override
+ *          根据提供的contentsSize返回指定选项和类型所描述的元素的大小。
+ *
+ *      12. virtual QPixmap standardPixmap(QStyle::StandardPixmap sp, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const override
+ *          已过时
+ *
+ *      13. virtual int styleHint(QStyle::StyleHint sh, const QStyleOption *opt = nullptr, const QWidget *widget = nullptr, QStyleHintReturn *hret = nullptr) const override
+ *          返回一个 int，用来表示由提供的样式选项描述的给定widget的样式提示
+ *
+ *      14. virtual QRect subControlRect(QStyle::ComplexControl cc, const QStyleOptionComplex *opt, QStyle::SubControl sc, const QWidget *widget = nullptr) const override
+ *          返回包含给定复杂控件的指定子控件的矩形(样式由选项指定)。矩形是在屏幕坐标中定义的。
+ *
+ *      15. virtual QRect subElementRect(QStyle::SubElement sr, const QStyleOption *opt, const QWidget *widget = nullptr) const override
+ *          返回在所提供的样式选项中描述的给定元素的子区域。返回的矩形是以屏幕坐标定义的。
+ *
+ *      16. virtual void unpolish(QWidget *widget) override
+ *      17. virtual void unpolish(QApplication *application) override
+ *          在样式改变时候调用，与 polish 对应，
+ */
 class Style : public ParentStyleClass
 {
     Q_OBJECT
 
-    /* this tells kde applications that custom style elements are supported, using the kstyle mechanism */
+    /**
+     * @note
+     *  这告诉kde应用程序，使用kstyle机制支持定制样式元素
+     */
     Q_CLASSINFO("X-KDE-CustomElements", "true")
 
 public:
-    //* constructor
     explicit Style(bool dark);
-
-    //* destructor
     virtual ~Style(void);
 
-    //* needed to avoid warnings at compilation time
     using ParentStyleClass::polish;
     using ParentStyleClass::unpolish;
 
-    //* widget polishing
+    /**
+     * @brief
+     *  每个 widget 创建之后，显示之前调用
+     */
     virtual void polish(QWidget *widget);
 
-    //* widget unpolishing
+    /**
+     * @brief
+     *  与 polish 对应
+     */
     virtual void unpolish(QWidget *widget);
 
-    //* palette polishing
     virtual void polish(QPalette &palette);
 
     virtual QPalette standardPalette() const;
 
-    //* polish scrollarea
-    void polishScrollArea(QAbstractScrollArea *scrollArea);
-
-    //* pixel metrics
     virtual int pixelMetric(PixelMetric metric, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const;
 
-    //* style hints
+    /**
+     * @brief
+     */
     virtual int styleHint(StyleHint hint, const QStyleOption *option = nullptr, const QWidget *widget = nullptr, QStyleHintReturn *returnData = nullptr) const;
-
-    //* returns rect corresponding to one widget's subelement
     virtual QRect subElementRect(SubElement element, const QStyleOption *option, const QWidget *widget) const;
-
-    //* returns rect corresponding to one widget's subcontrol
     virtual QRect subControlRect(ComplexControl element, const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
+    virtual bool eventFilter(QObject *object, QEvent *event);
+    virtual void drawItemText(QPainter *painter, const QRect &rect, int alignment, const QPalette &palette, bool enabled, const QString &text, QPalette::ColorRole textRole = QPalette::NoRole) const;
 
-    //* returns size matching contents
+    void addEventFilter(QObject *object);
+    void polishScrollArea(QAbstractScrollArea *scrollArea);
+    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     QSize sizeFromContents(ContentsType element, const QStyleOption *option, const QSize &size, const QWidget *widget) const;
-
-    //* returns which subcontrol given QPoint corresponds to
+    void drawComplexControl(ComplexControl element, const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
     SubControl hitTestComplexControl(ComplexControl control, const QStyleOptionComplex *option , const QPoint &point, const QWidget *widget) const;
 
-    //* primitives
-    void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
-
-    //* controls
-    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
-
-    //* complex controls
-    void drawComplexControl(ComplexControl element, const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
-
-    //* generic text rendering
-    virtual void drawItemText(QPainter *painter, const QRect &rect, int alignment, const QPalette &palette, bool enabled,
-                              const QString &text, QPalette::ColorRole textRole = QPalette::NoRole) const;
-
-    //*@name event filters
-    //@{
-
-    virtual bool eventFilter(QObject *object, QEvent *event);
     bool eventFilterScrollArea(QWidget *widget, QEvent *event);
     bool eventFilterComboBoxContainer(QWidget *widget, QEvent *event);
     bool eventFilterDockWidget(QDockWidget *dockWidget, QEvent *event);
     bool eventFilterMdiSubWindow(QMdiSubWindow *subWindow, QEvent *event);
-
     bool eventFilterCommandLinkButton(QCommandLinkButton *button, QEvent *event);
 
-    //* install event filter to object, in a unique way
-    void addEventFilter(QObject *object)
-    {
-        object->removeEventFilter(this);
-        object->installEventFilter(this);
-    }
-
-    //@}
-
 protected Q_SLOTS:
-
-    //* update configuration
+    /**
+     * @brief
+     *  调色板等改变的时候调用
+     */
     void configurationChanged(void);
-
-    //* standard icons
     virtual QIcon standardIconImplementation(StandardPixmap standardPixmap, const QStyleOption *option, const QWidget *widget) const;
 
 protected:
-
     //* standard icons
-    virtual QIcon standardIcon(StandardPixmap pixmap, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const
-    {
-        return standardIconImplementation(pixmap, option, widget);
-    }
+    virtual QIcon standardIcon(StandardPixmap pixmap, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const;
 
-    //* load configuration
+    /**
+     * @brief 读取配置
+     */
     void loadConfiguration();
 
-    //*@name subelementRect specialized functions
-    //@{
-
     //* default implementation. Does not change anything
-    QRect defaultSubElementRect(const QStyleOption *option, const QWidget *widget) const
-    {
-        return option->rect;
-    }
-
+    QRect defaultSubElementRect(const QStyleOption *option, const QWidget *widget) const;
     QRect pushButtonContentsRect(const QStyleOption *option, const QWidget *widget) const;
     QRect pushButtonFocusRect(const QStyleOption *option, const QWidget *widget) const;
     QRect checkBoxContentsRect(const QStyleOption *option, const QWidget *widget) const;
@@ -164,11 +188,6 @@ protected:
     QRect toolBoxTabContentsRect(const QStyleOption *option, const QWidget *widget) const;
     QRect genericLayoutItemRect(const QStyleOption *option, const QWidget *widget) const;
 
-    //@}option
-
-    //*@name subcontrol Rect specialized functions
-    //@{
-
     QRect groupBoxSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
     QRect toolButtonSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
     QRect comboBoxSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
@@ -178,14 +197,7 @@ protected:
     QRect dialSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
     QRect sliderSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
 
-    //@}
-
-    //*@name sizeFromContents
-    //@{
-    QSize defaultSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const
-    {
-        return size;
-    }
+    QSize defaultSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
 
     QSize checkBoxSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
     QSize lineEditSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
@@ -202,15 +214,7 @@ protected:
     QSize headerSectionSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
     QSize itemViewItemSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
 
-    //@}
-
-    //*@name primitives specialized functions
-    //@{
-
-    bool emptyPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return true;
-    }
+    bool emptyPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     bool drawFramePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -221,25 +225,10 @@ protected:
     bool drawFrameTabBarBasePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawFrameWindowPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
-    bool drawIndicatorArrowUpPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowUp, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowDownPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowDown, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowLeftPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowLeft, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowRightPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowRight, option, painter, widget);
-    }
+    bool drawIndicatorArrowUpPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowDownPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowLeftPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowRightPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     bool drawIndicatorArrowPrimitive(ArrowOrientation orientation, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawIndicatorHeaderArrowPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -260,15 +249,7 @@ protected:
     bool drawIndicatorToolBarSeparatorPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawIndicatorBranchPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
-    //@}
-
-    //*@name controls specialized functions
-    //@{
-
-    bool emptyControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return true;
-    }
+    bool emptyControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     virtual bool drawPushButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     virtual bool drawToolButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -296,10 +277,6 @@ protected:
     virtual bool drawToolBoxTabShapeControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     virtual bool drawDockWidgetTitleControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
-    //*@}
-
-    //*@name complex ontrols specialized functions
-    //@{
     bool drawGroupBoxComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
     bool drawToolButtonComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
     bool drawComboBoxComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
@@ -308,10 +285,6 @@ protected:
     bool drawDialComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
     bool drawScrollBarComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
     bool drawTitleBarComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
-    //@}
-
-    //!*@name various utilty functions
-    //@{
 
     //* spinbox arrows
     void renderSpinBoxArrow(const SubControl &subControl, const QStyleOptionSpinBox *option, QPainter *painter, const QWidget *widget) const;
@@ -330,28 +303,15 @@ protected:
     QColor scrollBarArrowColor(const QStyleOptionSlider *option, const SubControl &control, const QWidget *widget) const;
 
     //* scrollbar buttons
-    enum ScrollBarButtonType {
+    enum ScrollBarButtonType
+    {
         NoButton,
         SingleButton,
         DoubleButton
     };
 
     //* returns height for scrollbar buttons depending of button types
-    int scrollBarButtonHeight(const ScrollBarButtonType &type) const
-    {
-        switch (type) {
-        case NoButton:
-            return Metrics::ScrollBar_NoButtonHeight;
-        case SingleButton:
-            return Metrics::ScrollBar_SingleButtonHeight;
-        case DoubleButton:
-            return Metrics::ScrollBar_DoubleButtonHeight;
-        default:
-            return 0;
-        }
-    }
-
-    //@}
+    int scrollBarButtonHeight(const ScrollBarButtonType &type) const;
 
     //* translucent background
     void setTranslucentBackground(QWidget *widget) const;
@@ -384,64 +344,31 @@ protected:
     //* return true if option corresponds to QtQuick control
     bool isQtQuickControl(const QStyleOption *option, const QWidget *widget) const;
 
-    //@}
+    //* adjust rect based on provided margins
+    QRect insideMargin(const QRect &r, int margin) const;
 
     //* adjust rect based on provided margins
-    QRect insideMargin(const QRect &r, int margin) const
-    {
-        return insideMargin(r, margin, margin);
-    }
-
-    //* adjust rect based on provided margins
-    QRect insideMargin(const QRect &r, int marginWidth, int marginHeight) const
-    {
-        return r.adjusted(marginWidth, marginHeight, -marginWidth, -marginHeight);
-    }
+    QRect insideMargin(const QRect &r, int marginWidth, int marginHeight) const;
 
     //* expand size based on margins
-    QSize expandSize(const QSize &size, int margin) const
-    {
-        return expandSize(size, margin, margin);
-    }
+    QSize expandSize(const QSize &size, int margin) const;
 
     //* expand size based on margins
-    QSize expandSize(const QSize &size, int marginWidth, int marginHeight) const
-    {
-        return size + 2 * QSize(marginWidth, marginHeight);
-    }
+    QSize expandSize(const QSize &size, int marginWidth, int marginHeight) const;
 
     //* returns true for vertical tabs
-    bool isVerticalTab(const QStyleOptionTab *option) const
-    {
-        return isVerticalTab(option->shape);
-    }
+    bool isVerticalTab(const QStyleOptionTab *option) const;
 
-    bool isVerticalTab(const QTabBar::Shape &shape) const
-    {
-        return shape == QTabBar::RoundedEast
-               || shape == QTabBar::RoundedWest
-               || shape == QTabBar::TriangularEast
-               || shape == QTabBar::TriangularWest;
-
-    }
+    bool isVerticalTab(const QTabBar::Shape &shape) const;
 
     //* right to left alignment handling
     using ParentStyleClass::visualRect;
-    QRect visualRect(const QStyleOption *opt, const QRect &subRect) const
-    {
-        return ParentStyleClass::visualRect(opt->direction, opt->rect, subRect);
-    }
+    QRect visualRect(const QStyleOption *opt, const QRect &subRect) const;
 
     //* centering
-    QRect centerRect(const QRect &rect, const QSize &size) const
-    {
-        return centerRect(rect, size.width(), size.height());
-    }
+    QRect centerRect(const QRect &rect, const QSize &size) const;
 
-    QRect centerRect(const QRect &rect, int width, int height) const
-    {
-        return QRect(rect.left() + (rect.width() - width) / 2, rect.top() + (rect.height() - height) / 2, width, height);
-    }
+    QRect centerRect(const QRect &rect, int width, int height) const;
 
     /*
     Checks whether the point is before the bound rect for bound of given orientation.
@@ -523,74 +450,10 @@ private:
     //! styled painting for KCapacityBar
     QStyle::ControlElement CE_CapacityBar;
 
-    bool _dark { false };
-
-    bool _isGNOME { false };
-    bool _isKDE { false };
-
-    //@}
+    bool _dark      = false;
+    bool _isKDE     = false;
+    bool _isGNOME   = false;
 };
-
-//_________________________________________________________________________
-bool Style::preceeds(const QPoint &point, const QRect &bound, const QStyleOption *option) const
-{
-    CT_SYSLOG(LOG_DEBUG, "");
-    if (option->state & QStyle::State_Horizontal) {
-        if (option->direction == Qt::LeftToRight)
-            return point.x() < bound.right();
-        else
-            return point.x() > bound.x();
-
-    } else
-        return point.y() < bound.y();
-}
-
-//_________________________________________________________________________
-QStyle::SubControl Style::scrollBarHitTest(const QRect &rect, const QPoint &point, const QStyleOption *option) const
-{
-    CT_SYSLOG(LOG_DEBUG, "");
-    if (option->state & QStyle::State_Horizontal) {
-        if (option->direction == Qt::LeftToRight)
-            return point.x() < rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-        else
-            return point.x() > rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-
-    } else
-        return point.y() < rect.center().y() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-}
-
-//_________________________________________________________________________
-bool Style::hasParent(const QWidget *widget, const char *className) const
-{
-    CT_SYSLOG(LOG_DEBUG, "");
-
-    if (!widget)
-        return false;
-
-    while ((widget = widget->parentWidget())) {
-        if (widget->inherits(className))
-            return true;
-    }
-
-    return false;
-
-}
-
-//_________________________________________________________________________
-template< typename T > bool Style::hasParent(const QWidget *widget) const
-{
-    CT_SYSLOG(LOG_DEBUG, "");
-
-    if (!widget)
-        return false;
-
-    while ((widget = widget->parentWidget())) {
-        if (qobject_cast<const T *>(widget))
-            return true;
-    }
-
-    return false;
-}
 
 } // namespace Graceful
 

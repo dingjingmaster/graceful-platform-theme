@@ -28,7 +28,7 @@ public:
 
     virtual ~Animations()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* register animations corresponding to given widget, depending on its type.
@@ -40,84 +40,84 @@ public:
     //* enability engine
     WidgetStateEngine &widgetEnabilityEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_widgetEnabilityEngine;
     }
 
     //* abstractButton engine
     WidgetStateEngine &widgetStateEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_widgetStateEngine;
     }
 
     //* editable combobox arrow hover engine
     WidgetStateEngine &comboBoxEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_comboBoxEngine;
     }
 
     //! Tool buttons arrow hover engine
     WidgetStateEngine &toolButtonEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_toolButtonEngine;
     }
 
     //! item view engine
     WidgetStateEngine &inputWidgetEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_inputWidgetEngine;
     }
 
     //* busy indicator
     BusyIndicatorEngine &busyIndicatorEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_busyIndicatorEngine;
     }
 
     //* header view engine
     HeaderViewEngine &headerViewEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_headerViewEngine;
     }
 
     //* scrollbar engine
     ScrollBarEngine &scrollBarEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_scrollBarEngine;
     }
 
     //* dial engine
     DialEngine &dialEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_dialEngine;
     }
 
     //* spinbox engine
     SpinBoxEngine &spinBoxEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_spinBoxEngine;
     }
 
     //* tabbar
     TabBarEngine &tabBarEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_tabBarEngine;
     }
 
     //* toolbox
     ToolBoxEngine &toolBoxEngine() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return *_toolBoxEngine;
     }
 

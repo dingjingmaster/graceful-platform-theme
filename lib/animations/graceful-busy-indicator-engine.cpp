@@ -8,12 +8,12 @@ namespace Graceful
 
 BusyIndicatorEngine::BusyIndicatorEngine(QObject *object) : BaseEngine(object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 }
 
 bool BusyIndicatorEngine::registerWidget(QObject *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check widget validity
     if (!object) return false;
 
@@ -31,7 +31,7 @@ bool BusyIndicatorEngine::registerWidget(QObject *object)
 
 bool BusyIndicatorEngine::isAnimated(const QObject *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     DataMap<BusyIndicatorData>::Value data(BusyIndicatorEngine::data(object));
     return data && data.data()->isAnimated();
 }
@@ -39,7 +39,7 @@ bool BusyIndicatorEngine::isAnimated(const QObject *object)
 
 void BusyIndicatorEngine::setDuration(int value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (duration() == value) {
         return;
     }
@@ -55,7 +55,7 @@ void BusyIndicatorEngine::setDuration(int value)
 
 void BusyIndicatorEngine::setAnimated(const QObject *object, bool value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     DataMap<BusyIndicatorData>::Value data(BusyIndicatorEngine::data(object));
     if (data) {
         // update data
@@ -88,13 +88,13 @@ void BusyIndicatorEngine::setAnimated(const QObject *object, bool value)
 
 DataMap<BusyIndicatorData>::Value BusyIndicatorEngine::data(const QObject *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     return _data.find(object).data();
 }
 
 void BusyIndicatorEngine::setValue(int value)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // update
     _value = value;
 
@@ -126,7 +126,7 @@ void BusyIndicatorEngine::setValue(int value)
 
 bool BusyIndicatorEngine::unregisterWidget(QObject *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     bool removed(_data.unregisterWidget(object));
     if (_animation && _data.isEmpty()) {
         _animation.data()->stop();

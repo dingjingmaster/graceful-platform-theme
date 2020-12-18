@@ -23,13 +23,13 @@ public:
     //* destructor
     virtual ~SpinBoxData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* animation state
     virtual bool updateState(QStyle::SubControl subControl, bool value, bool pressed)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (subControl == QStyle::SC_SpinBoxUp) {
             return _upArrowData.updateState(value, pressed);
         } else if (subControl == QStyle::SC_SpinBoxDown) {
@@ -42,14 +42,14 @@ public:
     //* animation state
     virtual bool isAnimated(QStyle::SubControl subControl) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return ((subControl == QStyle::SC_SpinBoxUp && upArrowAnimation().data()->isRunning()) || (subControl == QStyle::SC_SpinBoxDown && downArrowAnimation().data()->isRunning()));
     }
 
     //* opacity
     virtual qreal opacity(QStyle::SubControl subControl) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (subControl == QStyle::SC_SpinBoxUp) {
             return upArrowOpacity();
         } else if (subControl == QStyle::SC_SpinBoxDown) {
@@ -62,7 +62,7 @@ public:
     //* opacity
     virtual qreal pressed(QStyle::SubControl subControl) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (subControl == QStyle::SC_SpinBoxUp) {
             return upArrowPressed();
         } else if (subControl == QStyle::SC_SpinBoxDown) {
@@ -75,7 +75,7 @@ public:
     //* duration
     virtual void setDuration(int duration)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         upArrowAnimation().data()->setDuration(duration);
         downArrowAnimation().data()->setDuration(duration);
     }
@@ -86,14 +86,14 @@ public:
     //* opacity
     qreal upArrowOpacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _upArrowData._opacity;
     }
 
     //* opacity
     void setUpArrowOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_upArrowData._opacity == value) {
             return;
@@ -105,7 +105,7 @@ public:
     //* animation
     Animation::Pointer upArrowAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _upArrowData._hoverAnimation;
     }
 
@@ -117,14 +117,14 @@ public:
     //* opacity
     qreal downArrowOpacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _downArrowData._opacity;
     }
 
     //* opacity
     void setDownArrowOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_downArrowData._opacity == value) {
             return;
@@ -137,7 +137,7 @@ public:
     //* animation
     Animation::Pointer downArrowAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _downArrowData._hoverAnimation;
     }
 
@@ -147,14 +147,14 @@ public:
     //* opacity
     qreal upArrowPressed() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _upArrowData._pressed;
     }
 
     //* opacity
     void setUpArrowPressed(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_upArrowData._pressed == value) {
             return;
@@ -166,7 +166,7 @@ public:
     //* animation
     Animation::Pointer upArrowPressedAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _upArrowData._pressedAnimation;
     }
 
@@ -176,14 +176,14 @@ public:
     //* opacity
     qreal downArrowPressed() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _downArrowData._pressed;
     }
 
     //* opacity
     void setDownArrowPressed(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_downArrowData._pressed == value) {
             return;
@@ -196,7 +196,7 @@ public:
     //* animation
     Animation::Pointer downArrowPressedAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _downArrowData._pressedAnimation;
     }
 
@@ -214,7 +214,7 @@ private:
             , _opacity(0)
             , _pressed(0)
         {
-            CT_SYSLOG(LOG_DEBUG, "");
+
         }
 
         //* state

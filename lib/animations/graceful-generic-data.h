@@ -25,34 +25,34 @@ public:
     //* destructor
     virtual ~GenericData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* return animation object
     virtual const Animation::Pointer &animation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _animation;
     }
 
     //* duration
     virtual void setDuration(int duration)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _animation.data()->setDuration(duration);
     }
 
     //* opacity
     virtual qreal opacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _opacity;
     }
 
     //* opacity
     virtual void setOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_opacity == value) {
             return;

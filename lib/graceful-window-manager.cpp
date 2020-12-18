@@ -41,7 +41,7 @@ public:
     //* event filter
     virtual bool eventFilter(QObject *object, QEvent *event)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (event->type() == QEvent::MouseButtonRelease) {
 
             // stop drag timer
@@ -77,7 +77,7 @@ protected:
     /** needed to catch end of XMoveResize events */
     bool appMouseEvent(QObject *, QEvent *event)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         Q_UNUSED(event);
 
         /*
@@ -107,7 +107,7 @@ WindowManager::WindowManager(QObject *parent)
     , _locked(false)
     , _cursorOverride(false)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // install application wise event filter
     _appEventFilter = new AppEventFilter(this);
     qApp->installEventFilter(_appEventFilter);
@@ -115,7 +115,7 @@ WindowManager::WindowManager(QObject *parent)
 
 void WindowManager::initialize(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     setEnabled(Graceful::Config::WindowDragMode != Graceful::WD_NONE);
     setDragMode(Graceful::Config::WindowDragMode);
     setUseWMMoveResize(Graceful::Config::UseWMMoveResize);
@@ -129,7 +129,7 @@ void WindowManager::initialize(void)
 
 void WindowManager::registerWidget(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (isBlackListed(widget) || isDragable(widget)) {
         /*
         install filter for dragable widgets.
@@ -144,7 +144,7 @@ void WindowManager::registerWidget(QWidget *widget)
 
 void WindowManager::unregisterWidget(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (widget) {
         widget->removeEventFilter(this);
     }
@@ -152,7 +152,7 @@ void WindowManager::unregisterWidget(QWidget *widget)
 
 void WindowManager::initializeWhiteList(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _whiteList.clear();
 
     // add user specified whitelisted classnames
@@ -170,7 +170,7 @@ void WindowManager::initializeWhiteList(void)
 
 void WindowManager::initializeBlackList(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _blackList.clear();
     _blackList.insert(ExceptionId(QStringLiteral("CustomTrackView@kdenlive")));
     _blackList.insert(ExceptionId(QStringLiteral("MuseScore")));
@@ -185,7 +185,7 @@ void WindowManager::initializeBlackList(void)
 
 bool WindowManager::eventFilter(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return false;
     }
@@ -213,7 +213,7 @@ bool WindowManager::eventFilter(QObject *object, QEvent *event)
 
 void WindowManager::timerEvent(QTimerEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (event->timerId() == _dragTimer.timerId()) {
         _dragTimer.stop();
         if (_target) {
@@ -226,7 +226,7 @@ void WindowManager::timerEvent(QTimerEvent *event)
 
 bool WindowManager::mousePressEvent(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // cast event and check buttons/modifiers
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     if (!(mouseEvent->modifiers() == Qt::NoModifier && mouseEvent->button() == Qt::LeftButton)) {
@@ -279,7 +279,7 @@ bool WindowManager::mousePressEvent(QObject *object, QEvent *event)
 
 bool WindowManager::mouseMoveEvent(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     Q_UNUSED(object);
 
     // stop timer
@@ -321,7 +321,7 @@ bool WindowManager::mouseMoveEvent(QObject *object, QEvent *event)
 
 bool WindowManager::mouseReleaseEvent(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     Q_UNUSED(object);
     Q_UNUSED(event);
     resetDrag();
@@ -330,7 +330,7 @@ bool WindowManager::mouseReleaseEvent(QObject *object, QEvent *event)
 
 bool WindowManager::isDragable(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check widget
     if (!widget) {
         return false;
@@ -408,7 +408,7 @@ bool WindowManager::isDragable(QWidget *widget)
 
 bool WindowManager::isBlackListed(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check against noAnimations propery
     QVariant propertyValue(widget->property(PropertyNames::noWindowGrab));
     if (propertyValue.isValid() && propertyValue.toBool()) {
@@ -439,7 +439,7 @@ bool WindowManager::isBlackListed(QWidget *widget)
 
 bool WindowManager::isWhiteListed(QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     QString appName(qApp->applicationName());
     for (auto id = _whiteList.constBegin(); id != _whiteList.constEnd(); ++id) {
         if (!(*id).appName().isEmpty() && (*id).appName() != appName) {
@@ -455,7 +455,7 @@ bool WindowManager::isWhiteListed(QWidget *widget) const
 
 bool WindowManager::canDrag(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check if enabled
     if (!enabled()) {
         return false;
@@ -484,7 +484,7 @@ bool WindowManager::canDrag(QWidget *widget)
 
 bool WindowManager::canDrag(QWidget *widget, QWidget *child, const QPoint &position)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // retrieve child at given position and check cursor again
     if (child && child->cursor().shape() != Qt::ArrowCursor) {
         return false;
@@ -644,7 +644,7 @@ bool WindowManager::canDrag(QWidget *widget, QWidget *child, const QPoint &posit
 
 void WindowManager::resetDrag(void)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if ((!useWMMoveResize()) && _target && _cursorOverride) {
         qApp->restoreOverrideCursor();
         _cursorOverride = false;
@@ -663,7 +663,7 @@ void WindowManager::resetDrag(void)
 
 void WindowManager::startDrag(QWidget *widget, const QPoint &position)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!(enabled() && widget)) {
         return;
     }
@@ -689,20 +689,20 @@ void WindowManager::startDrag(QWidget *widget, const QPoint &position)
 
 void WindowManager::startDragX11(QWidget *widget, const QPoint &position)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     Q_UNUSED(widget);
     Q_UNUSED(position);
 }
 
 bool WindowManager::supportWMMoveResize(void) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     return false;
 }
 
 bool WindowManager::isDockWidgetTitle(const QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return false;
     }

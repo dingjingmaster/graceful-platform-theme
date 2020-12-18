@@ -5,7 +5,7 @@ namespace Graceful
 
 bool EnableData::eventFilter(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return WidgetStateData::eventFilter(object, event);
     }

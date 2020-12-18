@@ -11,7 +11,7 @@ namespace Graceful
 bool TransitionWidget::_paintEnabled = true;
 bool TransitionWidget::paintEnabled()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     return _paintEnabled;
 }
 
@@ -21,7 +21,7 @@ TransitionWidget::TransitionWidget(QWidget *parent, int duration):
     QWidget(parent),
     _animation(new Animation(duration, this))
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // background flags
     setAttribute(Qt::WA_NoSystemBackground);
     setAutoFillBackground(false);
@@ -38,7 +38,7 @@ TransitionWidget::TransitionWidget(QWidget *parent, int duration):
 
 QPixmap TransitionWidget::grab(QWidget *widget, QRect rect)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // change rect
     if (!rect.isValid()) {
         rect = widget->rect();
@@ -71,7 +71,7 @@ QPixmap TransitionWidget::grab(QWidget *widget, QRect rect)
 
 bool TransitionWidget::event(QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     switch (event->type()) {
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:
@@ -88,7 +88,7 @@ bool TransitionWidget::event(QEvent *event)
 
 void TransitionWidget::paintEvent(QPaintEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // fully transparent case
     if (opacity() >= 1.0 && endPixmap().isNull()) {
         return;
@@ -168,7 +168,7 @@ void TransitionWidget::paintEvent(QPaintEvent *event)
 
 void TransitionWidget::grabBackground(QPixmap &pixmap, QWidget *widget, QRect &rect) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return;
     }
@@ -233,13 +233,13 @@ void TransitionWidget::grabBackground(QPixmap &pixmap, QWidget *widget, QRect &r
 
 void TransitionWidget::grabWidget(QPixmap &pixmap, QWidget *widget, QRect &rect) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     widget->render(&pixmap, pixmap.rect().topLeft(), rect, QWidget::DrawChildren);
 }
 
 void TransitionWidget::fade(const QPixmap &source, QPixmap &target, qreal opacity, const QRect &rect) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (target.isNull() || target.size() != size()) {
         target = QPixmap(size());
     }

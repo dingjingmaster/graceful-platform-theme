@@ -7,7 +7,7 @@ namespace Graceful
 
 bool ScrollBarEngine::registerWidget(QWidget *widget, AnimationModes mode)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check widget
     if (!widget) return false;
 
@@ -27,7 +27,7 @@ bool ScrollBarEngine::registerWidget(QWidget *widget, AnimationModes mode)
 
 bool ScrollBarEngine::isAnimated(const QObject *object, AnimationMode mode, QStyle::SubControl control)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (mode == AnimationHover) {
         if (DataMap<WidgetStateData>::Value data = this->data(object, AnimationHover)) {
             const ScrollBarData *scrollBarData(static_cast<const ScrollBarData *>(data.data()));
@@ -45,7 +45,7 @@ bool ScrollBarEngine::isAnimated(const QObject *object, AnimationMode mode, QSty
 
 AnimationMode ScrollBarEngine::animationMode(const QObject *object, QStyle::SubControl control)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 
     // enable state
     if (isAnimated(object, AnimationHover, control)) {
@@ -61,7 +61,7 @@ AnimationMode ScrollBarEngine::animationMode(const QObject *object, QStyle::SubC
 
 qreal ScrollBarEngine::opacity(const QObject *object, QStyle::SubControl control)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (isAnimated(object, AnimationHover, control)) {
         return static_cast<const ScrollBarData *>(data(object, AnimationHover).data())->opacity(control);
     } else if (control == QStyle::SC_ScrollBarSlider) {

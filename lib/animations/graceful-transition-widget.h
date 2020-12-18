@@ -34,13 +34,13 @@ public:
 
     void setFlags(Flags value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _flags = value;
     }
 
     void setFlag(Flag flag, bool value = true)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (value) {
             _flags |= flag;
         } else {
@@ -50,7 +50,7 @@ public:
 
     bool testFlag(Flag flag) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _flags.testFlag(flag);
     }
 
@@ -59,7 +59,7 @@ public:
     //* duration
     void setDuration(int duration)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (_animation) {
             _animation.data()->setDuration(duration);
         }
@@ -68,14 +68,14 @@ public:
     //* duration
     int duration() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return (_animation) ? _animation.data()->duration() : 0;
     }
 
     //* steps
     static void setSteps(int value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _steps = value;
     }
 
@@ -84,13 +84,13 @@ public:
 
     virtual qreal opacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _opacity;
     }
 
     virtual void setOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_opacity == value) {
             return;
@@ -108,35 +108,35 @@ public:
     //* start
     void resetStartPixmap()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         setStartPixmap(QPixmap());
     }
 
     //* start
     void setStartPixmap(QPixmap pixmap)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _startPixmap = pixmap;
     }
 
     //* start
     const QPixmap &startPixmap() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _startPixmap;
     }
 
     //* end
     void resetEndPixmap()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         setEndPixmap(QPixmap());
     }
 
     //* end
     void setEndPixmap(QPixmap pixmap)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _endPixmap = pixmap;
         _currentPixmap = pixmap;
     }
@@ -144,14 +144,14 @@ public:
     //* start
     const QPixmap &endPixmap() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _endPixmap;
     }
 
     //* current
     const QPixmap &currentPixmap() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _currentPixmap;
     }
 
@@ -163,14 +163,14 @@ public:
     //* true if animated
     virtual bool isAnimated() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _animation.data()->isRunning();
     }
 
     //* end animation
     virtual void endAnimation()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (_animation.data()->isRunning()) {
             _animation.data()->stop();
         }
@@ -179,7 +179,7 @@ public:
     //* animate transition
     virtual void animate()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (_animation.data()->isRunning()) {
             _animation.data()->stop();
         }
@@ -213,7 +213,7 @@ protected:
     //* apply step
     virtual qreal digitize(const qreal &value) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (_steps > 0) {
             return std::floor(value * _steps) / _steps;
         } else {

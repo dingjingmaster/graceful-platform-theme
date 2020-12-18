@@ -18,19 +18,19 @@ public:
     explicit ToolBoxEngine(QObject *parent)
         : BaseEngine(parent)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* destructor
     virtual ~ToolBoxEngine()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* enability
     virtual void setEnabled(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         BaseEngine::setEnabled(value);
         _data.setEnabled(value);
     }
@@ -38,7 +38,7 @@ public:
     //* duration
     virtual void setDuration(int value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         BaseEngine::setDuration(value);
         _data.setDuration(value);
     }
@@ -55,7 +55,7 @@ public:
     //* animation opacity
     virtual qreal opacity(const QPaintDevice *object)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return isAnimated(object) ? data(object).data()->opacity() : AnimationData::OpacityInvalid;
     }
 
@@ -64,7 +64,7 @@ public Q_SLOTS:
     //* remove widget from map
     virtual bool unregisterWidget(QObject *data)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (!data) {
             return false;
         }
@@ -78,7 +78,7 @@ protected:
     //* returns data associated to widget
     PaintDeviceDataMap<WidgetStateData>::Value data(const QPaintDevice *object)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _data.find(object).data();
     }
 

@@ -1,14 +1,15 @@
 #include "graceful-style-plugin.h"
-#include "graceful-style.h"
+
 #include "csyslog.h"
+#include "graceful-style.h"
 
 #include <QApplication>
 
 namespace Graceful {
 
-QStyle *StylePlugin::create(const QString &key)
+QStyle* StylePlugin::create(const QString &key)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+    CT_SYSLOG(LOG_DEBUG, "create style...");
     if (key.toLower() == QStringLiteral("graceful")) {
         return new Style(false);
     }
@@ -20,14 +21,18 @@ QStyle *StylePlugin::create(const QString &key)
     return nullptr;
 }
 
+StylePlugin::StylePlugin(QObject *parent) : QStylePlugin(parent)
+{
+
+}
+
 StylePlugin::~StylePlugin()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 }
 
 QStringList StylePlugin::keys() const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
     return QStringList() << QStringLiteral("graceful") << QStringLiteral("graceful-Dark");
 }
 } // namespace Graceful

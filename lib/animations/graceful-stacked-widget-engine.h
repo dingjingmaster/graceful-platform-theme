@@ -17,13 +17,13 @@ public:
     explicit StackedWidgetEngine(QObject *parent)
         : BaseEngine(parent)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //! destructor
     virtual ~StackedWidgetEngine()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //! register widget
@@ -32,7 +32,7 @@ public:
     //! duration
     virtual void setEnabled(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         BaseEngine::setEnabled(value);
         _data.setEnabled(value);
     }
@@ -40,7 +40,7 @@ public:
     //! duration
     virtual void setDuration(int value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         BaseEngine::setDuration(value);
         _data.setDuration(value);
     }
@@ -50,7 +50,7 @@ public Q_SLOTS:
     //! remove widget from map
     virtual bool unregisterWidget(QObject *object)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _data.unregisterWidget(object);
     }
 

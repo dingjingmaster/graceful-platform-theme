@@ -11,7 +11,7 @@ namespace Graceful
 
 ScrollBarData::ScrollBarData(QObject *parent, QWidget *target, int duration) : WidgetStateData(parent, target, duration), _position(-1, -1)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     target->installEventFilter(this);
 
     _addLineData._animation = new Animation(duration, this);
@@ -29,7 +29,7 @@ ScrollBarData::ScrollBarData(QObject *parent, QWidget *target, int duration) : W
 
 bool ScrollBarData::eventFilter(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (object != target().data()) {
         return WidgetStateData::eventFilter(object, event);
     }
@@ -63,7 +63,7 @@ bool ScrollBarData::eventFilter(QObject *object, QEvent *event)
 
 const Animation::Pointer &ScrollBarData::animation(QStyle::SubControl subcontrol) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     switch (subcontrol) {
     case QStyle::SC_ScrollBarSlider:
         return animation();
@@ -80,7 +80,7 @@ const Animation::Pointer &ScrollBarData::animation(QStyle::SubControl subcontrol
 
 qreal ScrollBarData::opacity(QStyle::SubControl subcontrol) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     switch (subcontrol) {
     case QStyle::SC_ScrollBarSlider:
         return opacity();
@@ -97,7 +97,7 @@ qreal ScrollBarData::opacity(QStyle::SubControl subcontrol) const
 
 void ScrollBarData::hoverMoveEvent(QObject *object, QEvent *event)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // try cast object to scrollbar
     QScrollBar *scrollBar(qobject_cast<QScrollBar *>(object));
     if (!scrollBar || scrollBar->isSliderDown()) {
@@ -121,7 +121,7 @@ void ScrollBarData::hoverMoveEvent(QObject *object, QEvent *event)
 
 void ScrollBarData::hoverLeaveEvent(QObject *, QEvent *)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // reset hover state
     updateSubLineArrow(QStyle::SC_None);
     updateAddLineArrow(QStyle::SC_None);
@@ -132,7 +132,7 @@ void ScrollBarData::hoverLeaveEvent(QObject *, QEvent *)
 
 void ScrollBarData::updateSubLineArrow(QStyle::SubControl hoverControl)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (hoverControl == QStyle::SC_ScrollBarSubLine) {
         if (!subLineArrowHovered()) {
             setSubLineArrowHovered(true);
@@ -162,7 +162,7 @@ void ScrollBarData::updateSubLineArrow(QStyle::SubControl hoverControl)
 
 void ScrollBarData::updateAddLineArrow(QStyle::SubControl hoverControl)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (hoverControl == QStyle::SC_ScrollBarAddLine) {
         if (!addLineArrowHovered()) {
             setAddLineArrowHovered(true);

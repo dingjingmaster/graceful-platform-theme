@@ -6,7 +6,7 @@ namespace Graceful
 SpinBoxData::SpinBoxData(QObject *parent, QWidget *target, int duration)
     : AnimationData(parent, target)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _upArrowData._hoverAnimation = new Animation(duration, this);
     _downArrowData._hoverAnimation = new Animation(duration, this);
     _upArrowData._pressedAnimation = new Animation(duration, this);
@@ -19,7 +19,7 @@ SpinBoxData::SpinBoxData(QObject *parent, QWidget *target, int duration)
 
 bool SpinBoxData::Data::updateState(bool value, bool pressed)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     bool change = false;
     if (_hoverState != value) {
         _hoverState = value;
