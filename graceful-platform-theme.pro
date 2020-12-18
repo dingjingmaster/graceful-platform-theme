@@ -1,16 +1,8 @@
 TEMPLATE            = subdirs
 
-CONFIG(debug, debug|release) {
-DEFINES         += \
-    CSYSLOG_LOG_LEVEL=LOG_DEBUG
-} else {
-DEFINES         += \
-    CSYSLOG_LOG_LEVEL=LOG_INFO
-}
-
-
 SUBDIRS             += \
-    lib                                 \
+    style                               \
+    demo                                \
 
 
 OTHER_FILES         += \

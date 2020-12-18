@@ -534,7 +534,7 @@ style "default" {
 
 style "toplevel_hack" {
 
-  engine "adwaita" {
+  engine "graceful" {
   }
 }
 
@@ -701,9 +701,6 @@ style "menu" {
 }
 
 style "menu_framed_box" {
-
-#  engine "adwaita" { # default menu border
-#  }
 
   engine "pixmap" {
     image {
