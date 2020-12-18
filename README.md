@@ -49,5 +49,10 @@
 ### 调试运行
 
     ```shell
-    sudo rm /usr/lib/qt/plugins/styles/*graceful*.so && cd lib && rm -rf *.so ; make -j32 && sudo make install && cd ../style && rm -rf *.so ; make -j32 &&  sudo make install && cd .. && demo/graceful-demo
+    sudo rm /usr/lib/qt/plugins/styles/*graceful*.so \
+        ; rm -rf `find -name "Makefile*"` \
+        ; cd lib && qmake && rm -rf *.so ; make -j32 debug \
+        && sudo make install \
+        && cd ../style && qmake && rm -rf *.so ; make -j32 \
+        &&  sudo make install && cd .. && demo/graceful-demo
     ```

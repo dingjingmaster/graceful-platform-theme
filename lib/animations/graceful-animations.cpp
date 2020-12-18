@@ -74,7 +74,6 @@ void Animations::setupEngines()
 
 void Animations::registerWidget(QWidget *widget) const
 {
-
     if (!widget) {
         return;
     }

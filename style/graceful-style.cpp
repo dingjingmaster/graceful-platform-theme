@@ -244,6 +244,7 @@ Style::~Style(void)
 
 void Style::polish(QWidget *widget)
 {
+    CT_SYSLOG(LOG_DEBUG, "");
     if (!widget) {
         return;
     }
