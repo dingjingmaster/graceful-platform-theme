@@ -2,7 +2,7 @@
 
 set -e -u
 
-app_version=1.0.2
+app_version=1.0.3
 work_dir=$(cd $(realpath -- $(dirname $0)); pwd)
 app_list=('graceful-platform-theme' 'graceful-platform-theme')
 app_name="graceful-platform-theme"
@@ -64,7 +64,7 @@ _download_package()
 {
     cd ${work_dir}
     wget "https://github.com/graceful-linux/graceful-platform-theme/archive/${app_version}.tar.gz"
-    sha256sumsStr=$(sha256sum -- 1.0.2.tar.gz | awk '{print $1}')
+    sha256sumsStr=$(sha256sum -- ${app_version}.tar.gz | awk '{print $1}')
     echo ${sha256sumsStr}
 }
 
@@ -90,7 +90,6 @@ makedepends=(
     'git'
     'qt5-base'
 )
-
 source=(
     "https://github.com/graceful-linux/graceful-platform-theme/archive/\${pkgver}.tar.gz"
 )
@@ -108,42 +107,44 @@ build() {
     cd "\${srcdir}/\${pkgname}-\${pkgver}"
     qmake
     make all -j32
+
+    # build release
+    cd "\${srcdir}/\${pkgname}-\${pkgver}/lib"
+    rm -rf libgraceful.so
+    make release -j32
+    mv libgraceful.so libgraceful.so.release
+    make debug -j32
+    mv libgraceful.so libgraceful.so.debug
+    cp -r "\${srcdir}/\${pkgname}-\${pkgver}" "\${srcdir}/\${pkgname}-dbg-\${pkgver}"
 }
 
 package_graceful-platform-theme() {
-    msg "graceful-platform-theme package"
+    msg "\${pkgname} package"
+    cd "\${srcdir}/\${pkgname}-\${pkgver}"
 
-    cd "\${srcdir}/graceful-platform-theme-\${pkgver}"
+    install -d -Dm755                               "\${pkgdir}/usr/share/icons/"
+    install -d -Dm755                               "\${pkgdir}/usr/share/themes/"
 
-    rm -rf lib/libgraceful.so
-    make release -j32
-
-    install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
-    install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
-
-    cp -ra icon/graceful/               "\${pkgdir}/usr/share/icons/"
-    cp -ra theme/graceful/              "\${pkgdir}/usr/share/themes/"
-    install -Dm644 ../../README.md      "\${pkgdir}/usr/share/doc/\${pkgname}/README"
-    install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
-    install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
+    cp -ra icon/graceful/                           "\${pkgdir}/usr/share/icons/"
+    cp -ra theme/graceful/                          "\${pkgdir}/usr/share/themes/"
+    install -Dm644 ../../README.md                  "\${pkgdir}/usr/share/doc/\${pkgname}/README"
+    install -Dm644 ../../LICENSE                    "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
+    install -Dm755 lib/libgraceful.so.release       "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
 }
 
 package_graceful-platform-theme-dbg() {
-    msg "graceful-platform-theme-dbg package"
+    options=(debug !strip)
+    msg "\${pkgname} package"
+    cd "\${srcdir}/\${pkgname}-\${pkgver}"
 
-    cd "\${srcdir}/graceful-platform-theme-dbg-\${pkgver}"
+    install -d -Dm755                               "\${pkgdir}/usr/share/icons/"
+    install -d -Dm755                               "\${pkgdir}/usr/share/themes/"
 
-    rm -rf lib/libgraceful.so
-    make debug -j32
-
-    install -d -Dm755                   "\${pkgdir}/usr/share/icons/"
-    install -d -Dm755                   "\${pkgdir}/usr/share/themes/"
-
-    cp -ra icon/graceful/               "\${pkgdir}/usr/share/icons/"
-    cp -ra theme/graceful/              "\${pkgdir}/usr/share/themes/"
-    install -Dm644 ../../README.md      "\${pkgdir}/usr/share/doc/\${pkgname}/README"
-    install -Dm644 ../../LICENSE        "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
-    install -Dm755 lib/libgraceful.so   "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
+    cp -ra icon/graceful/                           "\${pkgdir}/usr/share/icons/"
+    cp -ra theme/graceful/                          "\${pkgdir}/usr/share/themes/"
+    install -Dm644 ../../README.md                  "\${pkgdir}/usr/share/doc/\${pkgname}/README"
+    install -Dm644 ../../LICENSE                    "\${pkgdir}/usr/share/licenses/\${pkgname}/LICENSE"
+    install -Dm755 lib/libgraceful.so.debug         "\${pkgdir}/usr/lib/qt/plugins/styles/libgraceful.so"
 }
 
 

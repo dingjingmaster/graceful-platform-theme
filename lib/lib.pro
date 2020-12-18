@@ -1,103 +1,106 @@
-TEMPLATE        = lib
-TARGET          = graceful
+TEMPLATE            = lib
+TARGET              = graceful
 
-QT              += \
+QT                  += \
+    gui                                                     \
     core                                                    \
     dbus                                                    \
     widgets                                                 \
-    theme_support-private                                   \
+    gui-private                                             \
+    widgets-private                                         \
 
 
-CONFIG          += \
+CONFIG              += \
     gnu++11                                                 \
     gnu99                                                   \
     plugin                                                  \
     no_keywords                                             \
-    link_pkgconfig                                          \
     debug_and_release                                       \
 
-PKGCONFIG       += \
+
+CONFIG(debug, debug|release) {
+DEFINES             += \
+    CSYSLOG_LOG_LEVEL=LOG_DEBUG
+} else {
+DEFINES             += \
+    CSYSLOG_LOG_LEVEL=LOG_INFO
+}
+
+
+PKGCONFIG           += \
     gtk+-3.0                                                \
     gtk+-x11-3.0                                            \
 
 
-HEADERS         += \
-    csyslog.h                                               \
-    graceful.h                                              \
-    graceful-colors.h                                       \
-    graceful-export.h                                       \
-    graceful-mnemonics.h                                    \
-    graceful-window-manager.h                               \
-    graceful-splitter-proxy.h                               \
-    graceful-widget-explorer.h                              \
-    graceful-add-event-filter.h                             \
-    animations/graceful-datamap.h                           \
-    animations/graceful-dial-data.h                         \
-    animations/graceful-animation.h                         \
-    animations/graceful-animations.h                        \
-    animations/graceful-tabbar-data.h                       \
-    animations/graceful-base-engine.h                       \
-    animations/graceful-dial-engine.h                       \
-    animations/graceful-enable-data.h                       \
-    animations/graceful-generic-data.h                      \
-    animations/graceful-spinbox-data.h                      \
-    animations/graceful-tabbar-engine.h                     \
-    animations/graceful-spinbox-engine.h                    \
-    animations/graceful-scrollbar-data.h                    \
-    animations/graceful-animation-data.h                    \
-    animations/graceful-headerview-data.h                   \
-    animations/graceful-tool-box-engine.h                   \
-    animations/graceful-transition-data.h                   \
-    animations/graceful-scrollbar-engine.h                  \
-    animations/graceful-widget-state-data.h                 \
-    animations/graceful-transition-widget.h                 \
-    animations/graceful-headerview-engine.h                 \
-    animations/graceful-stacked-widget-data.h               \
-    animations/graceful-busy-indicator-data.h               \
-    animations/graceful-widget-state-engine.h               \
-    animations/graceful-busy-indicator-engine.h             \
-    animations/graceful-stacked-widget-engine.h             \
+HEADERS             += \
+    $$PWD/csyslog.h                                         \
+    $$PWD/graceful.h                                        \
+    $$PWD/graceful-colors.h                                 \
+    $$PWD/graceful-export.h                                 \
+    $$PWD/graceful-mnemonics.h                              \
+    $$PWD/graceful-window-manager.h                         \
+    $$PWD/graceful-splitter-proxy.h                         \
+    $$PWD/graceful-widget-explorer.h                        \
+    $$PWD/graceful-add-event-filter.h                       \
+    $$PWD/animations/graceful-datamap.h                     \
+    $$PWD/animations/graceful-dial-data.h                   \
+    $$PWD/animations/graceful-animation.h                   \
+    $$PWD/animations/graceful-animations.h                  \
+    $$PWD/animations/graceful-tabbar-data.h                 \
+    $$PWD/animations/graceful-base-engine.h                 \
+    $$PWD/animations/graceful-dial-engine.h                 \
+    $$PWD/animations/graceful-enable-data.h                 \
+    $$PWD/animations/graceful-generic-data.h                \
+    $$PWD/animations/graceful-spinbox-data.h                \
+    $$PWD/animations/graceful-tabbar-engine.h               \
+    $$PWD/animations/graceful-spinbox-engine.h              \
+    $$PWD/animations/graceful-scrollbar-data.h              \
+    $$PWD/animations/graceful-animation-data.h              \
+    $$PWD/animations/graceful-headerview-data.h             \
+    $$PWD/animations/graceful-tool-box-engine.h             \
+    $$PWD/animations/graceful-transition-data.h             \
+    $$PWD/animations/graceful-scrollbar-engine.h            \
+    $$PWD/animations/graceful-widget-state-data.h           \
+    $$PWD/animations/graceful-transition-widget.h           \
+    $$PWD/animations/graceful-headerview-engine.h           \
+    $$PWD/animations/graceful-stacked-widget-data.h         \
+    $$PWD/animations/graceful-busy-indicator-data.h         \
+    $$PWD/animations/graceful-widget-state-engine.h         \
+    $$PWD/animations/graceful-busy-indicator-engine.h       \
+    $$PWD/animations/graceful-stacked-widget-engine.h       \
 
 
-SOURCES         += \
-    csyslog.cpp                                             \
-    graceful.cpp                                            \
-    graceful-colors.cpp                                     \
-    graceful-mnemonics.cpp                                  \
-    graceful-splitter-proxy.cpp                             \
-    graceful-window-manager.cpp                             \
-    graceful-widget-explorer.cpp                            \
-    graceful-add-event-filter.cpp                           \
-    animations/graceful-dial-data.cpp                       \
-    animations/graceful-animation.cpp                       \
-    animations/graceful-animations.cpp                      \
-    animations/graceful-tabbar-data.cpp                     \
-    animations/graceful-base-engine.cpp                     \
-    animations/graceful-dial-engine.cpp                     \
-    animations/graceful-enable-data.cpp                     \
-    animations/graceful-generic-data.cpp                    \
-    animations/graceful-spinbox-data.cpp                    \
-    animations/graceful-tabbar-engine.cpp                   \
-    animations/graceful-spinbox-engine.cpp                  \
-    animations/graceful-scrollbar-data.cpp                  \
-    animations/graceful-animation-data.cpp                  \
-    animations/graceful-headerview-data.cpp                 \
-    animations/graceful-tool-box-engine.cpp                 \
-    animations/graceful-transition-data.cpp                 \
-    animations/graceful-scrollbar-engine.cpp                \
-    animations/graceful-widget-state-data.cpp               \
-    animations/graceful-transition-widget.cpp               \
-    animations/graceful-headerview-engine.cpp               \
-    animations/graceful-stacked-widget-data.cpp             \
-    animations/graceful-busy-indicator-data.cpp             \
-    animations/graceful-widget-state-engine.cpp             \
-    animations/graceful-busy-indicator-engine.cpp           \
-    animations/graceful-stacked-widget-engine.cpp           \
-
-
-graceful_plugin1.path    = /usr/lib/qt/plugins/styles/
-graceful_plugin1.files   = $$OUT_PWD/*.so
-
-
-INSTALLS        += \
-    graceful_plugin1                                        \
+SOURCES             += \
+    $$PWD/csyslog.cpp                                       \
+    $$PWD/graceful.cpp                                      \
+    $$PWD/graceful-colors.cpp                               \
+    $$PWD/graceful-mnemonics.cpp                            \
+    $$PWD/graceful-splitter-proxy.cpp                       \
+    $$PWD/graceful-window-manager.cpp                       \
+    $$PWD/graceful-widget-explorer.cpp                      \
+    $$PWD/graceful-add-event-filter.cpp                     \
+    $$PWD/animations/graceful-dial-data.cpp                 \
+    $$PWD/animations/graceful-animation.cpp                 \
+    $$PWD/animations/graceful-animations.cpp                \
+    $$PWD/animations/graceful-tabbar-data.cpp               \
+    $$PWD/animations/graceful-base-engine.cpp               \
+    $$PWD/animations/graceful-dial-engine.cpp               \
+    $$PWD/animations/graceful-enable-data.cpp               \
+    $$PWD/animations/graceful-generic-data.cpp              \
+    $$PWD/animations/graceful-spinbox-data.cpp              \
+    $$PWD/animations/graceful-tabbar-engine.cpp             \
+    $$PWD/animations/graceful-spinbox-engine.cpp            \
+    $$PWD/animations/graceful-scrollbar-data.cpp            \
+    $$PWD/animations/graceful-animation-data.cpp            \
+    $$PWD/animations/graceful-headerview-data.cpp           \
+    $$PWD/animations/graceful-tool-box-engine.cpp           \
+    $$PWD/animations/graceful-transition-data.cpp           \
+    $$PWD/animations/graceful-scrollbar-engine.cpp          \
+    $$PWD/animations/graceful-widget-state-data.cpp         \
+    $$PWD/animations/graceful-transition-widget.cpp         \
+    $$PWD/animations/graceful-headerview-engine.cpp         \
+    $$PWD/animations/graceful-stacked-widget-data.cpp       \
+    $$PWD/animations/graceful-busy-indicator-data.cpp       \
+    $$PWD/animations/graceful-widget-state-engine.cpp       \
+    $$PWD/animations/graceful-busy-indicator-engine.cpp     \
+    $$PWD/animations/graceful-stacked-widget-engine.cpp     \

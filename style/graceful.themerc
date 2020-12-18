@@ -1,0 +1,5 @@
+[Misc]
+Name=graceful
+Comment=Qt widget style
+[KDE]
+WidgetStyle=graceful
