@@ -8,7 +8,6 @@ namespace Graceful {
 
 QStyle *StylePlugin::create(const QString &key)
 {
-
     if (key.toLower() == QStringLiteral("graceful")) {
         return new Style(false);
     }
@@ -27,7 +26,6 @@ StylePlugin::~StylePlugin()
 
 QStringList StylePlugin::keys() const
 {
-
     return QStringList() << QStringLiteral("graceful") << QStringLiteral("graceful-Dark");
 }
 } // namespace Graceful

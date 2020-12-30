@@ -33,7 +33,6 @@ void SplitterFactory::setEnabled(bool value)
 
 bool SplitterFactory::registerWidget(QWidget *widget)
 {
-
     // check widget type
     if (qobject_cast<QMainWindow *>(widget)) {
         WidgetMap::iterator iter(_widgets.find(widget));

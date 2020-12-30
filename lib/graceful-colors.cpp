@@ -339,7 +339,6 @@ QPalette Colors::disabledPalette(const QPalette &source, qreal ratio)
 
 QPalette Colors::palette(ColorVariant variant)
 {
-
     if (variant == ColorVariant::Unknown) {
         return isDarkMode() ? paletteGracefulDark() : paletteGraceful();
     } else if (variant == ColorVariant::Graceful) {
@@ -354,7 +353,6 @@ QPalette Colors::palette(ColorVariant variant)
 
 QColor Colors::hoverColor(const StyleOptions &options)
 {
-
     return options.palette().highlight().color();
 }
 

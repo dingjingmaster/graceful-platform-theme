@@ -14,6 +14,8 @@
 #include <QCommandLinkButton>
 #include <QAbstractScrollArea>
 
+#include <widget/messagebox-helper.h>
+
 namespace GracefulPrivate
 {
 class TabBarData;
@@ -528,7 +530,9 @@ private:
     bool _isGNOME { false };
     bool _isKDE { false };
 
-    //@}
+
+    // 各种系统窗口的样式定制
+    MessageboxHelper*               mMessageboxHelper = NULL;
 };
 
 //_________________________________________________________________________

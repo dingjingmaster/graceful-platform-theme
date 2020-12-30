@@ -27,6 +27,9 @@ LIBS                += \
     -lgraceful                                              \
 
 
+include($$PWD/widget/widget.pri)
+
+
 HEADERS             += \
     $$PWD/graceful-style.h                                  \
     $$PWD/graceful-helper.h                                 \

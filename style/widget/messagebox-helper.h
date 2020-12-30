@@ -1,0 +1,35 @@
+#ifndef MESSAGEBOXHELPER_H
+#define MESSAGEBOXHELPER_H
+
+#include <QObject>
+
+class MessageboxHelper : public QObject
+{
+    Q_OBJECT
+public:
+    explicit MessageboxHelper(QObject *parent = nullptr);
+
+    void registerWidget (QWidget* widget);
+    void unregisterWidget (QWidget* widget);
+
+Q_SIGNALS:
+
+public:
+
+private:
+    float               mMinWidth       = 380;
+    float               mMinHeight      = 142;
+
+    float               mMaxWidth       = 420;
+    float               mMaxHeight      = 562;
+
+    float               mMarginTop      = 32;
+    float               mMarginRight    = 32;
+    float               mMarginBottom   = 24;
+    float               mMarginLeft     = 32;
+
+    float               mPixSize        = 24;
+
+};
+
+#endif // MESSAGEBOXHELPER_H

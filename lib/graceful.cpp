@@ -11,12 +11,89 @@ public:
     explicit StyleOptionsPrivate(const QPalette &palette)
         : mPalette(palette)
     {
+        QColor  window_bg(231,231,231),
+                window_no_bg(233,233,233),
+                base_bg(255,255,255),
+                base_no_bg(248, 248, 248),
+                font_bg(0,0,0),
+                font_br_bg(255,255,255),
+                font_di_bg(191,191,191),
+                button_bg(217,217,217),
+                button_ac_bg(107,142,235),
+                button_di_bg(233,233,233),
+                highlight_bg(61,107,229),
+                tip_bg(248,248,248),
+                tip_font(22,22,22),
+                alternateBase(248,248,248);
 
+        if (GracefulDark == mColorVariant) {
+            window_bg.setRgb(45,46,50);
+            window_no_bg.setRgb(48,46,50);
+            base_bg.setRgb(31,32,34);
+            base_no_bg.setRgb(28,28,30);
+            font_bg.setRgb(255,255,255);
+            font_bg.setAlphaF(0.9);
+            font_br_bg.setRgb(255,255,255);
+            font_br_bg.setAlphaF(0.9);
+            font_di_bg.setRgb(255,255,255);
+            font_di_bg.setAlphaF(0.3);
+            button_bg.setRgb(61,61,65);
+            button_ac_bg.setRgb(48,48,51);
+            button_di_bg.setRgb(48,48,51);
+            highlight_bg.setRgb(61,107,229);
+            tip_bg.setRgb(61,61,65);
+            tip_font.setRgb(232,232,232);
+            alternateBase.setRgb(36,35,40);
+        }
 
+        mPalette.setBrush(QPalette::Window,window_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::Window,window_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::Window,window_no_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::Window,window_no_bg);
+        mPalette.setBrush(QPalette::WindowText,font_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::WindowText,font_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::WindowText,font_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::WindowText,font_di_bg);
+
+        mPalette.setBrush(QPalette::Base,base_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::Base,base_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::Base,base_no_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::Base,base_no_bg);
+        mPalette.setBrush(QPalette::Text,font_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::Text,font_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::Text,font_di_bg);
+
+        //Cursor placeholder
+#if (QT_VERSION >= QT_VERSION_CHECK(5,12,0))
+        mPalette.setBrush(QPalette::PlaceholderText,font_di_bg);
+#endif
+
+        mPalette.setBrush(QPalette::ToolTipBase,tip_bg);
+        mPalette.setBrush(QPalette::ToolTipText,tip_font);
+
+        mPalette.setBrush(QPalette::Highlight,highlight_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::Highlight,highlight_bg);
+        mPalette.setBrush(QPalette::HighlightedText,font_br_bg);
+
+        mPalette.setBrush(QPalette::BrightText,font_br_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::BrightText,font_br_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::BrightText,font_br_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::BrightText,font_di_bg);
+
+        mPalette.setBrush(QPalette::Button,button_bg);
+        mPalette.setBrush(QPalette::Active,QPalette::Button,button_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::Button,button_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::Button,button_di_bg);
+        mPalette.setBrush(QPalette::ButtonText,font_bg);
+        mPalette.setBrush(QPalette::Inactive,QPalette::ButtonText,font_bg);
+        mPalette.setBrush(QPalette::Disabled,QPalette::ButtonText,font_di_bg);
+
+        mPalette.setBrush(QPalette::AlternateBase,alternateBase);
+        mPalette.setBrush(QPalette::Inactive,QPalette::AlternateBase,alternateBase);
+        mPalette.setBrush(QPalette::Disabled,QPalette::AlternateBase,button_di_bg);
     }
     virtual ~StyleOptionsPrivate()
     {
-
 
     }
 
@@ -48,7 +125,6 @@ StyleOptions::~StyleOptions()
 
 QPalette StyleOptions::palette() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mPalette;
@@ -56,7 +132,6 @@ QPalette StyleOptions::palette() const
 
 void StyleOptions::setColorGroup(QPalette::ColorGroup group)
 {
-
     Q_D(StyleOptions);
 
     d->mColorGroup = group;
@@ -64,7 +139,6 @@ void StyleOptions::setColorGroup(QPalette::ColorGroup group)
 
 QPalette::ColorGroup StyleOptions::colorGroup() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mColorGroup;
@@ -72,7 +146,6 @@ QPalette::ColorGroup StyleOptions::colorGroup() const
 
 void StyleOptions::setColorRole(QPalette::ColorRole role)
 {
-
     Q_D(StyleOptions);
 
     d->mColorRole = role;
@@ -80,7 +153,6 @@ void StyleOptions::setColorRole(QPalette::ColorRole role)
 
 QPalette::ColorRole StyleOptions::colorRole() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mColorRole;
@@ -88,7 +160,6 @@ QPalette::ColorRole StyleOptions::colorRole() const
 
 void StyleOptions::setColorVariant(ColorVariant variant)
 {
-
     Q_D(StyleOptions);
 
     d->mColorVariant = variant;
@@ -96,7 +167,6 @@ void StyleOptions::setColorVariant(ColorVariant variant)
 
 ColorVariant StyleOptions::colorVariant() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mColorVariant;
@@ -104,7 +174,6 @@ ColorVariant StyleOptions::colorVariant() const
 
 void StyleOptions::setActive(bool active)
 {
-
     Q_D(StyleOptions);
 
     d->mActive = active;
@@ -112,7 +181,6 @@ void StyleOptions::setActive(bool active)
 
 bool StyleOptions::active() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mActive;
@@ -120,7 +188,6 @@ bool StyleOptions::active() const
 
 void StyleOptions::setHasFocus(bool focus)
 {
-
     Q_D(StyleOptions);
 
     d->mFocus = focus;
@@ -128,7 +195,6 @@ void StyleOptions::setHasFocus(bool focus)
 
 bool StyleOptions::hasFocus() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mFocus;
@@ -136,7 +202,6 @@ bool StyleOptions::hasFocus() const
 
 void StyleOptions::setMouseOver(bool mouseOver)
 {
-
     Q_D(StyleOptions);
 
     d->mMouseHover = mouseOver;
@@ -144,7 +209,6 @@ void StyleOptions::setMouseOver(bool mouseOver)
 
 bool StyleOptions::mouseOver() const
 {
-
     Q_D(const StyleOptions);
 
     return d->mMouseHover;
@@ -152,7 +216,6 @@ bool StyleOptions::mouseOver() const
 
 void StyleOptions::setOpacity(qreal opacity)
 {
-
     Q_D(StyleOptions);
 
     d->mOpacity = opacity;

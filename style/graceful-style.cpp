@@ -25,6 +25,7 @@
 #include <QMainWindow>
 #include <QMdiSubWindow>
 #include <QMenu>
+#include <QMessageBox>
 #include <QPainter>
 #include <QProxyStyle>
 #include <QPushButton>
@@ -230,6 +231,9 @@ Style::Style(bool dark)
     _isKDE = qgetenv("XDG_CURRENT_DESKTOP").toLower() == "kde";
     _isGNOME = qgetenv("XDG_CURRENT_DESKTOP").toLower() == "gnome";
 
+    // 插件设置
+    mMessageboxHelper = new MessageboxHelper(this);
+
     // call the slot directly; this initial call will set up things that also
     // need to be reset when the system palette changes
     loadConfiguration();
@@ -242,13 +246,13 @@ Style::~Style(void)
     delete _helper;
 }
 
-//______________________________________________________________
 void Style::polish(QWidget *widget)
 {
-
     if (!widget) {
         return;
     }
+
+    ParentStyleClass::polish(widget);
 
     // register widget to animations
     _animations->registerWidget(widget);
@@ -401,14 +405,14 @@ void Style::polish(QWidget *widget)
         addEventFilter(widget);
     }
 
-    // base class polishing
-    ParentStyleClass::polish(widget);
+    // messagebox 界面定制
+    if (qobject_cast<QMessageBox*>(widget)) {
+        mMessageboxHelper->registerWidget(widget);
+    }
 }
 
-//______________________________________________________________
 void Style::polishScrollArea(QAbstractScrollArea *scrollArea)
 {
-
     // check argument
     if (!scrollArea) {
         return;
@@ -483,6 +487,10 @@ void Style::unpolish(QWidget *widget)
     _windowManager->unregisterWidget(widget);
     _splitterFactory->unregisterWidget(widget);
 
+    if (qobject_cast<QMessageBox*>(widget)) {
+        mMessageboxHelper->unregisterWidget(widget);
+    }
+
     // remove event filter
     if (qobject_cast<QAbstractScrollArea *>(widget)
             || qobject_cast<QDockWidget *>(widget)
@@ -498,14 +506,12 @@ void Style::unpolish(QWidget *widget)
 
 void Style::polish(QPalette &palette)
 {
-
     // TODO: highcontrast
     palette = Colors::palette(_dark ? Graceful::ColorVariant::GracefulDark : Graceful::ColorVariant::Graceful);
 }
 
 QPalette Style::standardPalette() const
 {
-
     // TODO: highcontrast
     return Colors::palette(_dark ? Graceful::ColorVariant::GracefulDark : Graceful::ColorVariant::Graceful);
 }

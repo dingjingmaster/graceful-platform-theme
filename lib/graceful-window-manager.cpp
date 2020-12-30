@@ -129,7 +129,6 @@ void WindowManager::initialize(void)
 
 void WindowManager::registerWidget(QWidget *widget)
 {
-
     if (isBlackListed(widget) || isDragable(widget)) {
         /*
         install filter for dragable widgets.
