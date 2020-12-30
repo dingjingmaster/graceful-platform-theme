@@ -21,19 +21,19 @@ public:
 
     BaseDataMap() : QMap<Key, Value>(), _enabled(true), _lastKey(NULL)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* destructor
     virtual ~BaseDataMap()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* insertion
     virtual typename QMap<Key, Value>::iterator insert(const Key &key, const Value &value, bool enabled = true)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (value) {
             value.data()->setEnabled(enabled);
         }
@@ -43,7 +43,7 @@ public:
     //* find value
     Value find(Key key)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (!(enabled() && key)) {
             return Value();
         }
@@ -64,7 +64,7 @@ public:
     //* unregister widget
     bool unregisterWidget(Key key)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         // check key
         if (!key) {
             return false;
@@ -96,7 +96,7 @@ public:
     //* maxFrame
     void setEnabled(bool enabled)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _enabled = enabled;
         for (auto value = this->constBegin(); value != this->constEnd(); ++value) {
             if (*value) {
@@ -108,14 +108,14 @@ public:
     //* enability
     bool enabled() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _enabled;
     }
 
     //* duration
     void setDuration(int duration) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         for (auto value = this->constBegin(); value != this->constEnd(); ++value) {
             if (*value) {
                 value->data()->setDuration(duration);

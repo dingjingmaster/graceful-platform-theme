@@ -20,7 +20,7 @@ public:
     //! destructor
     virtual ~StackedWidgetData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
 protected Q_SLOTS:

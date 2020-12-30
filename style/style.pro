@@ -48,7 +48,7 @@ DISTFILES           += \
 
 
 graceful_plugin1.path    = /usr/lib/qt/plugins/styles/
-graceful_plugin1.files   = $$OUT_PWD/*.so
+graceful_plugin1.files   = $$OUT_PWD/libgraceful-style.so
 
 
 INSTALLS            += \

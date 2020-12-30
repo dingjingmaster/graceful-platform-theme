@@ -19,7 +19,7 @@ namespace Graceful
 {
 Animations::Animations(QObject *parent) : QObject(parent)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _widgetEnabilityEngine = new WidgetStateEngine(this);
     _busyIndicatorEngine = new BusyIndicatorEngine(this);
     _comboBoxEngine = new WidgetStateEngine(this);
@@ -38,7 +38,7 @@ Animations::Animations(QObject *parent) : QObject(parent)
 
 void Animations::setupEngines()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // animation steps
     AnimationData::setSteps(Graceful::Config::AnimationSteps);
 
@@ -74,7 +74,7 @@ void Animations::setupEngines()
 
 void Animations::registerWidget(QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return;
     }
@@ -161,7 +161,7 @@ void Animations::registerWidget(QWidget *widget) const
 
 void Animations::unregisterWidget(QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return;
     }
@@ -183,7 +183,7 @@ void Animations::unregisterWidget(QWidget *widget) const
 
 void Animations::unregisterEngine(QObject *object)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     int index(_engines.indexOf(qobject_cast<BaseEngine *>(object)));
     if (index >= 0) {
         _engines.removeAt(index);
@@ -192,7 +192,7 @@ void Animations::unregisterEngine(QObject *object)
 
 void Animations::registerEngine(BaseEngine *engine)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _engines.append(engine);
     connect(engine, SIGNAL(destroyed(QObject *)), this, SLOT(unregisterEngine(QObject *)));
 }

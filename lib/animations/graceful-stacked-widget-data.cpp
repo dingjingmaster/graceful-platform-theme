@@ -8,7 +8,7 @@ StackedWidgetData::StackedWidgetData(QObject *parent, QStackedWidget *target, in
     , _target(target)
     , _index(target->currentIndex())
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // configure transition
     connect(_target.data(), SIGNAL(destroyed()), SLOT(targetDestroyed()));
     connect(_target.data(), SIGNAL(currentChanged(int)), SLOT(animate()));
@@ -22,7 +22,7 @@ StackedWidgetData::StackedWidgetData(QObject *parent, QStackedWidget *target, in
 
 bool StackedWidgetData::initializeAnimation()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check enability
     if (!(_target && _target.data()->isVisible())) {
         return false;
@@ -57,7 +57,7 @@ bool StackedWidgetData::initializeAnimation()
 
 bool StackedWidgetData::animate()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // check enability
     if (!enabled()) {
         return false;
@@ -77,7 +77,7 @@ bool StackedWidgetData::animate()
 
 void StackedWidgetData::finishAnimation()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     // disable updates on currentWidget
     if (_target && _target.data()->currentWidget()) {
         _target.data()->currentWidget()->setUpdatesEnabled(false);
@@ -98,7 +98,7 @@ void StackedWidgetData::finishAnimation()
 
 void StackedWidgetData::targetDestroyed()
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     setEnabled(false);
     _target.clear();
 }

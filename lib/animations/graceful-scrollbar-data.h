@@ -22,7 +22,7 @@ public:
     //* destructor
     virtual ~ScrollBarData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* event filter
@@ -41,7 +41,7 @@ public:
     //* return default opacity for a given subcontrol
     virtual bool isHovered(QStyle::SubControl control) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         switch (control) {
         case QStyle::SC_ScrollBarAddLine:
             return addLineArrowHovered();
@@ -57,7 +57,7 @@ public:
     //* subControlRect
     virtual QRect subControlRect(QStyle::SubControl control) const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         switch (control) {
         case QStyle::SC_ScrollBarAddLine:
             return _addLineData._rect;
@@ -71,7 +71,7 @@ public:
     //* subcontrol rect
     virtual void setSubControlRect(QStyle::SubControl control, const QRect &rect)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         switch (control) {
         case QStyle::SC_ScrollBarAddLine:
             _addLineData._rect = rect;
@@ -87,7 +87,7 @@ public:
     //* duration
     virtual void setDuration(int duration)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         WidgetStateData::setDuration(duration);
         addLineAnimation().data()->setDuration(duration);
         subLineAnimation().data()->setDuration(duration);
@@ -97,7 +97,7 @@ public:
     //* addLine opacity
     virtual void setAddLineOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_addLineData._opacity == value) {
             return;
@@ -109,14 +109,14 @@ public:
     //* addLine opacity
     virtual qreal addLineOpacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _addLineData._opacity;
     }
 
     //* subLine opacity
     virtual void setSubLineOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_subLineData._opacity == value) {
             return;
@@ -128,14 +128,14 @@ public:
     //* subLine opacity
     virtual qreal subLineOpacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _subLineData._opacity;
     }
 
     //* groove opacity
     virtual void setGrooveOpacity(qreal value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         value = digitize(value);
         if (_grooveData._opacity == value) {
             return;
@@ -147,14 +147,14 @@ public:
     //* groove opacity
     virtual qreal grooveOpacity() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _grooveData._opacity;
     }
 
     //* mouse position
     QPoint position() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _position;
     }
 
@@ -163,7 +163,7 @@ protected Q_SLOTS:
     //* clear addLineRect
     void clearAddLineRect()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (addLineAnimation().data()->direction() == Animation::Backward) {
             _addLineData._rect = QRect();
         }
@@ -172,7 +172,7 @@ protected Q_SLOTS:
     //* clear subLineRect
     void clearSubLineRect()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         if (subLineAnimation().data()->direction() == Animation::Backward) {
             _subLineData._rect = QRect();
         }
@@ -190,37 +190,37 @@ protected:
 
     virtual bool addLineArrowHovered() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _addLineData._hovered;
     }
 
     virtual void setAddLineArrowHovered(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _addLineData._hovered = value;
     }
 
     virtual bool subLineArrowHovered() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _subLineData._hovered;
     }
 
     virtual void setSubLineArrowHovered(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _subLineData._hovered = value;
     }
 
     virtual bool grooveHovered() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _grooveData._hovered;
     }
 
     virtual void setGrooveHovered(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _grooveData._hovered = value;
     }
 
@@ -237,19 +237,19 @@ protected:
 
     virtual const Animation::Pointer &addLineAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _addLineData._animation;
     }
 
     virtual const Animation::Pointer &subLineAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _subLineData._animation;
     }
 
     virtual const Animation::Pointer &grooveAnimation() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _grooveData._animation;
     }
 
@@ -263,7 +263,7 @@ private:
             : _hovered(false)
             , _opacity(AnimationData::OpacityInvalid)
         {
-            CT_SYSLOG(LOG_DEBUG, "");
+
         }
 
         //* true if hovered

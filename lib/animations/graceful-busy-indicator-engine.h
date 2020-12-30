@@ -22,7 +22,7 @@ public:
 
     virtual ~BusyIndicatorEngine()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //*@name accessors
@@ -34,7 +34,7 @@ public:
     //* value
     virtual int value() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _value;
     }
 

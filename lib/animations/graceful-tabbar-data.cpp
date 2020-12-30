@@ -9,7 +9,7 @@ namespace Graceful
 TabBarData::TabBarData(QObject *parent, QWidget *target, int duration)
     : AnimationData(parent, target)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _current._animation = new Animation(duration, this);
     setupAnimation(currentIndexAnimation(), "currentOpacity");
     currentIndexAnimation().data()->setDirection(Animation::Forward);
@@ -21,7 +21,7 @@ TabBarData::TabBarData(QObject *parent, QWidget *target, int duration)
 
 Animation::Pointer TabBarData::animation(const QPoint &position) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return Animation::Pointer();
     }
@@ -45,7 +45,7 @@ Animation::Pointer TabBarData::animation(const QPoint &position) const
 
 bool TabBarData::updateState(const QPoint &position, bool hovered)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return false;
     }
@@ -86,7 +86,7 @@ bool TabBarData::updateState(const QPoint &position, bool hovered)
 
 qreal TabBarData::opacity(const QPoint &position) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return OpacityInvalid;
     }

@@ -14,13 +14,13 @@ public:
     //* constructor
     explicit BusyIndicatorData(QObject *parent) : QObject(parent), _animated(false)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* destructor
     virtual ~BusyIndicatorData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //*@name accessors
@@ -29,7 +29,7 @@ public:
     //* animated
     bool isAnimated() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _animated;
     }
 
@@ -41,19 +41,19 @@ public:
     //* enabled
     void setEnabled(bool)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* enabled
     void setDuration(int)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* animated
     void setAnimated(bool value)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _animated = value;
     }
 

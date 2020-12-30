@@ -534,7 +534,7 @@ private:
 //_________________________________________________________________________
 bool Style::preceeds(const QPoint &point, const QRect &bound, const QStyleOption *option) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (option->state & QStyle::State_Horizontal) {
         if (option->direction == Qt::LeftToRight)
             return point.x() < bound.right();
@@ -548,7 +548,7 @@ bool Style::preceeds(const QPoint &point, const QRect &bound, const QStyleOption
 //_________________________________________________________________________
 QStyle::SubControl Style::scrollBarHitTest(const QRect &rect, const QPoint &point, const QStyleOption *option) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (option->state & QStyle::State_Horizontal) {
         if (option->direction == Qt::LeftToRight)
             return point.x() < rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
@@ -562,7 +562,7 @@ QStyle::SubControl Style::scrollBarHitTest(const QRect &rect, const QPoint &poin
 //_________________________________________________________________________
 bool Style::hasParent(const QWidget *widget, const char *className) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 
     if (!widget)
         return false;
@@ -579,7 +579,7 @@ bool Style::hasParent(const QWidget *widget, const char *className) const
 //_________________________________________________________________________
 template< typename T > bool Style::hasParent(const QWidget *widget) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
 
     if (!widget)
         return false;

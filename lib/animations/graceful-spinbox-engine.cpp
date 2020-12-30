@@ -7,7 +7,7 @@ namespace Graceful
 
 bool SpinBoxEngine::registerWidget(QWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return false;
     }

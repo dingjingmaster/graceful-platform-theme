@@ -7,7 +7,7 @@ namespace Graceful
 {
 HeaderViewData::HeaderViewData(QObject *parent, QWidget *target, int duration) : AnimationData(parent, target)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     _current._animation = new Animation(duration, this);
     setupAnimation(currentIndexAnimation(), "currentOpacity");
     currentIndexAnimation().data()->setDirection(Animation::Forward);
@@ -19,7 +19,7 @@ HeaderViewData::HeaderViewData(QObject *parent, QWidget *target, int duration) :
 
 bool HeaderViewData::updateState(const QPoint &position, bool hovered)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return false;
     }
@@ -61,7 +61,7 @@ bool HeaderViewData::updateState(const QPoint &position, bool hovered)
 
 Animation::Pointer HeaderViewData::animation(const QPoint &position) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return Animation::Pointer();
     }
@@ -85,7 +85,7 @@ Animation::Pointer HeaderViewData::animation(const QPoint &position) const
 
 qreal HeaderViewData::opacity(const QPoint &position) const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!enabled()) {
         return OpacityInvalid;
     }
@@ -109,7 +109,7 @@ qreal HeaderViewData::opacity(const QPoint &position) const
 
 void HeaderViewData::setDirty() const
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     QHeaderView *header = qobject_cast<QHeaderView *>(target().data());
     if (!header) {
         return;

@@ -15,7 +15,7 @@ public:
 
     virtual ~DialData()
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
     }
 
     //* event filter
@@ -24,14 +24,14 @@ public:
     //* subcontrol rect
     virtual void setHandleRect(const QRect &rect)
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         _handleRect = rect;
     }
 
     //* mouse position
     QPoint position() const
     {
-        CT_SYSLOG(LOG_DEBUG, "");
+
         return _position;
     }
 

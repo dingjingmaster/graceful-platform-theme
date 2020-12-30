@@ -107,7 +107,7 @@ SOURCES             += \
 
 
 graceful_library1.path    = /usr/lib/
-graceful_library1.files   = $$OUT_PWD/*.so
+graceful_library1.files   = $$OUT_PWD/libgraceful.so
 
 
 INSTALLS            += \

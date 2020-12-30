@@ -5,7 +5,7 @@ namespace Graceful
 
 bool StackedWidgetEngine::registerWidget(QStackedWidget *widget)
 {
-    CT_SYSLOG(LOG_DEBUG, "");
+
     if (!widget) {
         return false;
     }
