@@ -516,10 +516,151 @@ QPalette Style::standardPalette() const
     return Colors::palette(_dark ? Graceful::ColorVariant::GracefulDark : Graceful::ColorVariant::Graceful);
 }
 
-//______________________________________________________________
+/**
+ * @brief
+ *  返回窗口控件的大小
+ *
+ * @param metric (基于Qt5.12.7)
+ *  PM_ButtonMargin,
+ *  PM_ButtonDefaultIndicator,
+ *  PM_MenuButtonIndicator,
+ *  PM_ButtonShiftHorizontal,
+ *  PM_ButtonShiftVertical,
+ *
+ *  PM_DefaultFrameWidth,
+ *  PM_SpinBoxFrameWidth,
+ *  PM_ComboBoxFrameWidth,
+ *
+ *  PM_MaximumDragDistance,
+ *
+ *  PM_ScrollBarExtent,
+ *  PM_ScrollBarSliderMin,
+ *
+ *  PM_SliderThickness,             // total slider thickness
+ *  PM_SliderControlThickness,      // thickness of the business part
+ *  PM_SliderLength,                // total length of slider
+ *  PM_SliderTickmarkOffset,        //
+ *  PM_SliderSpaceAvailable,        // available space for slider to move
+ *
+ *  PM_DockWidgetSeparatorExtent,
+ *  PM_DockWidgetHandleExtent,
+ *  PM_DockWidgetFrameWidth,
+ *
+ *  PM_TabBarTabOverlap,
+ *  PM_TabBarTabHSpace,
+ *  PM_TabBarTabVSpace,
+ *  PM_TabBarBaseHeight,
+ *  PM_TabBarBaseOverlap,
+ *
+ *  PM_ProgressBarChunkWidth,
+ *
+ *  PM_SplitterWidth,
+ *  PM_TitleBarHeight,
+ *
+ *  PM_MenuScrollerHeight,
+ *  PM_MenuHMargin,
+ *  PM_MenuVMargin,
+ *  PM_MenuPanelWidth,
+ *  PM_MenuTearoffHeight,
+ *  PM_MenuDesktopFrameWidth,
+ *
+ *  PM_MenuBarPanelWidth,
+ *  PM_MenuBarItemSpacing,
+ *  PM_MenuBarVMargin,
+ *  PM_MenuBarHMargin,
+ *
+ *  PM_IndicatorWidth,
+ *  PM_IndicatorHeight,
+ *  PM_ExclusiveIndicatorWidth,
+ *  PM_ExclusiveIndicatorHeight,
+ *
+ *  PM_DialogButtonsSeparator,
+ *  PM_DialogButtonsButtonWidth,
+ *  PM_DialogButtonsButtonHeight,
+ *
+ *  PM_MdiSubWindowFrameWidth,
+ *  PM_MdiSubWindowMinimizedWidth,
+ * #if QT_DEPRECATED_SINCE(5, 13) // ### Qt 6: remove
+ *  PM_MDIFrameWidth Q_DECL_ENUMERATOR_DEPRECATED = PM_MdiSubWindowFrameWidth,
+ *  PM_MDIMinimizedWidth Q_DECL_ENUMERATOR_DEPRECATED = PM_MdiSubWindowMinimizedWidth,
+ * #endif
+ *
+ *  PM_HeaderMargin,
+ *  PM_HeaderMarkSize,
+ *  PM_HeaderGripMargin,
+ *  PM_TabBarTabShiftHorizontal,
+ *  PM_TabBarTabShiftVertical,
+ *  PM_TabBarScrollButtonWidth,
+ *
+ *  PM_ToolBarFrameWidth,
+ *  PM_ToolBarHandleExtent,
+ *  PM_ToolBarItemSpacing,
+ *  PM_ToolBarItemMargin,
+ *  PM_ToolBarSeparatorExtent,
+ *  PM_ToolBarExtensionExtent,
+ *
+ *  PM_SpinBoxSliderHeight,
+ *
+ * #if QT_DEPRECATED_SINCE(5, 15) // ### Qt 6: remove
+ *  PM_DefaultTopLevelMargin Q_DECL_ENUMERATOR_DEPRECATED,
+ *  PM_DefaultChildMargin Q_DECL_ENUMERATOR_DEPRECATED,
+ *  PM_DefaultLayoutSpacing Q_DECL_ENUMERATOR_DEPRECATED,
+ * #endif
+ *
+ *  PM_ToolBarIconSize = PM_SpinBoxSliderHeight + 4,
+ *  PM_ListViewIconSize,
+ *  PM_IconViewIconSize,
+ *  PM_SmallIconSize,
+ *  PM_LargeIconSize,
+ *
+ *  PM_FocusFrameVMargin,
+ *  PM_FocusFrameHMargin,
+ *
+ *  PM_ToolTipLabelFrameWidth,
+ *  PM_CheckBoxLabelSpacing,
+ *  PM_TabBarIconSize,
+ *  PM_SizeGripSize,
+ *  PM_DockWidgetTitleMargin,
+ *  PM_MessageBoxIconSize,
+ *  PM_ButtonIconSize,
+ *
+ *  PM_DockWidgetTitleBarButtonMargin,
+ *
+ *  PM_RadioButtonLabelSpacing,
+ *  PM_LayoutLeftMargin,
+ *  PM_LayoutTopMargin,
+ *  PM_LayoutRightMargin,
+ *  PM_LayoutBottomMargin,
+ *  PM_LayoutHorizontalSpacing,
+ *  PM_LayoutVerticalSpacing,
+ *  PM_TabBar_ScrollButtonOverlap,
+ *
+ *  PM_TextCursorWidth,
+ *
+ *  PM_TabCloseIndicatorWidth,
+ *  PM_TabCloseIndicatorHeight,
+ *
+ *  PM_ScrollView_ScrollBarSpacing,
+ *  PM_ScrollView_ScrollBarOverlap,
+ *  PM_SubMenuOverlap,
+ *  PM_TreeViewIndentation,
+ *
+ *  PM_HeaderDefaultSectionSizeHorizontal,
+ *  PM_HeaderDefaultSectionSizeVertical,
+ *
+ *  PM_TitleBarButtonIconSize,
+ *  PM_TitleBarButtonSize,
+ *
+ *  // do not add any values below/greater than this
+ *  PM_CustomBase = 0xf0000000
+ * @param option
+ * @param widget
+ *
+ * @return
+ *  返回窗口的大小
+ */
 int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWidget *widget) const
 {
-
     // handle special cases
     switch (metric) {
 
@@ -565,10 +706,6 @@ int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWi
     case PM_LayoutTopMargin:
     case PM_LayoutRightMargin:
     case PM_LayoutBottomMargin: {
-        /*
-         * use either Child margin or TopLevel margin,
-         * depending on  widget type
-         */
         if ((option && (option->state & QStyle::State_Window)) || (widget && widget->isWindow())) {
             return Metrics::Layout_TopLevelMarginWidth;
         } else if (widget && widget->inherits("KPageView")) {
@@ -702,28 +839,23 @@ int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWi
     }
 }
 
-//______________________________________________________________
+/**
+ * @brief
+ *  返回一个整数，该整数表示由提供的样式选项描述的给定小部件的指定样式提示
+ */
 int Style::styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *returnData) const
 {
-
     switch (hint) {
     case SH_RubberBand_Mask: {
         if (QStyleHintReturnMask *mask = qstyleoption_cast<QStyleHintReturnMask *>(returnData)) {
             mask->region = option->rect;
-
-            /*
-             * need to check on widget before removing inner region
-             * in order to still preserve rubberband in MainWindow and QGraphicsView
-             * in QMainWindow because it looks better
-             * in QGraphicsView because the painting fails completely otherwise
-             */
             if (widget && (qobject_cast<const QAbstractItemView *>(widget->parent())
                            || qobject_cast<const QGraphicsView *>(widget->parent())
                            || qobject_cast<const QMainWindow *>(widget->parent()))) {
                 return true;
             }
 
-            // also check if widget's parent is some itemView viewport
+            // 检查 widget 父类是否是 itemview
             if (widget && widget->parent() && qobject_cast<const QAbstractItemView *>(widget->parent()->parent())
                     && static_cast<const QAbstractItemView *>(widget->parent()->parent())->viewport() == widget->parent()) {
                 return true;
@@ -771,11 +903,12 @@ int Style::styleHint(StyleHint hint, const QStyleOption *option, const QWidget *
         return QFormLayout::ExpandingFieldsGrow;
     case SH_FormLayoutWrapPolicy:
         return QFormLayout::DontWrapRows;
-    case SH_MessageBox_TextInteractionFlags:
-        return Qt::TextSelectableByMouse | Qt::LinksAccessibleByMouse;
+    case SH_MessageBox_TextInteractionFlags:                                                        // 提示框中的文本是否允许用户交互，框中文字是否可选中复制等操作
+//        return Qt::TextSelectableByMouse | Qt::LinksAccessibleByMouse;
+        return false;
     case SH_ProgressDialog_CenterCancelButton:
         return false;
-    case SH_MessageBox_CenterButtons:
+    case SH_MessageBox_CenterButtons:                                                               // 指示 MessageBox 中的按钮是否应该居中
         return false;
     case SH_RequestSoftwareInputPanel:
         return RSIP_OnMouseClick;
@@ -790,10 +923,8 @@ int Style::styleHint(StyleHint hint, const QStyleOption *option, const QWidget *
     }
 }
 
-//______________________________________________________________
 QRect Style::subElementRect(SubElement element, const QStyleOption *option, const QWidget *widget) const
 {
-
     switch (element) {
     case SE_PushButtonContents:
         return pushButtonContentsRect(option, widget);
@@ -847,10 +978,8 @@ QRect Style::subElementRect(SubElement element, const QStyleOption *option, cons
     }
 }
 
-//______________________________________________________________
 QRect Style::subControlRect(ComplexControl element, const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const
 {
-
     switch (element) {
     case CC_GroupBox:
         return groupBoxSubControlRect(option, subControl, widget);
@@ -873,10 +1002,8 @@ QRect Style::subControlRect(ComplexControl element, const QStyleOptionComplex *o
     }
 }
 
-//______________________________________________________________
 QSize Style::sizeFromContents(ContentsType element, const QStyleOption *option, const QSize &size, const QWidget *widget) const
 {
-
     switch (element) {
     case CT_CheckBox:
         return checkBoxSizeFromContents(option, size, widget);
@@ -915,13 +1042,10 @@ QSize Style::sizeFromContents(ContentsType element, const QStyleOption *option, 
     default:
         return ParentStyleClass::sizeFromContents(element, option, size, widget);
     }
-
 }
 
-//______________________________________________________________
 QStyle::SubControl Style::hitTestComplexControl(ComplexControl control, const QStyleOptionComplex *option, const QPoint &point, const QWidget *widget) const
 {
-
     switch (control) {
     case CC_ScrollBar: {
         QRect grooveRect = subControlRect(CC_ScrollBar, option, SC_ScrollBarGroove, widget);
@@ -955,6 +1079,8 @@ QStyle::SubControl Style::hitTestComplexControl(ComplexControl control, const QS
             return SC_ScrollBarAddLine;
         }
     }
+//    case CC_TitleBar:
+//        return SC_TitleBarMaxButton;
 
     // fallback
     default:
@@ -962,10 +1088,12 @@ QStyle::SubControl Style::hitTestComplexControl(ComplexControl control, const QS
     }
 }
 
-//______________________________________________________________
+/**
+ * @brief
+ *  根据给定参数绘制原始元素
+ */
 void Style::drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     StylePrimitive fcn(nullptr);
     switch (element) {
     case PE_PanelButtonCommand:
@@ -1055,7 +1183,6 @@ void Style::drawPrimitive(PrimitiveElement element, const QStyleOption *option, 
     case PE_FrameFocusRect:
         fcn = _frameFocusPrimitive;
         break;
-    // fallback
     default:
         break;
     }
@@ -1070,10 +1197,12 @@ void Style::drawPrimitive(PrimitiveElement element, const QStyleOption *option, 
     painter->restore();
 }
 
-//______________________________________________________________
+/**
+ * @brief
+ *  绘制给定元素
+ */
 void Style::drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     StyleControl fcn(nullptr);
     switch (element) {
     case CE_PushButtonBevel:
@@ -1581,7 +1710,6 @@ bool Style::eventFilterCommandLinkButton(QCommandLinkButton *button, QEvent *eve
 //_____________________________________________________________________
 void Style::configurationChanged(void)
 {
-
     // reload configuration
     loadConfiguration();
 }
@@ -1589,7 +1717,6 @@ void Style::configurationChanged(void)
 //____________________________________________________________________
 QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QStyleOption *option, const QWidget *widget) const
 {
-
     // lookup cache
     if (_iconCache.contains(standardPixmap)) {
         return _iconCache.value(standardPixmap);
@@ -1624,7 +1751,6 @@ QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QSt
 //_____________________________________________________________________
 void Style::loadConfiguration()
 {
-
     // reinitialize engines
     _animations->setupEngines();
     _windowManager->initialize();
@@ -1696,7 +1822,6 @@ QRect Style::pushButtonFocusRect(const QStyleOption *option, const QWidget *) co
 //___________________________________________________________________________________________________________________
 QRect Style::checkBoxContentsRect(const QStyleOption *option, const QWidget *) const
 {
-
     return visualRect(option, option->rect.adjusted(Metrics::CheckBox_Size + Metrics::CheckBox_ItemSpacing, 0, 0, 0));
 }
 
@@ -2485,7 +2610,6 @@ QRect Style::spinBoxSubControlRect(const QStyleOptionComplex *option, SubControl
 //___________________________________________________________________________________________________________________
 QRect Style::scrollBarInternalSubControlRect(const QStyleOptionComplex *option, SubControl subControl) const
 {
-
     const QRect &rect = option->rect;
     const State &state(option->state);
     bool horizontal(state & State_Horizontal);
@@ -2851,7 +2975,6 @@ QSize Style::sliderSizeFromContents(const QStyleOption *option, const QSize &con
 //______________________________________________________________
 QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionButton *buttonOption(qstyleoption_cast<const QStyleOptionButton *>(option));
     if (!buttonOption) {
@@ -2933,7 +3056,6 @@ QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize 
 //______________________________________________________________
 QSize Style::toolButtonSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *) const
 {
-
     // cast option and check
     const QStyleOptionToolButton *toolButtonOption = qstyleoption_cast<const QStyleOptionToolButton *>(option);
     if (!toolButtonOption) {
@@ -2967,14 +3089,12 @@ QSize Style::toolButtonSizeFromContents(const QStyleOption *option, const QSize 
 //______________________________________________________________
 QSize Style::menuBarItemSizeFromContents(const QStyleOption *, const QSize &contentsSize, const QWidget *) const
 {
-
     return expandSize(contentsSize, Metrics::MenuBarItem_MarginWidth, Metrics::MenuBarItem_MarginHeight);
 }
 
 //______________________________________________________________
 QSize Style::menuItemSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionMenuItem *menuItemOption = qstyleoption_cast<const QStyleOptionMenuItem *>(option);
     if (!menuItemOption) {
@@ -3063,7 +3183,6 @@ QSize Style::menuItemSizeFromContents(const QStyleOption *option, const QSize &c
 //______________________________________________________________
 QSize Style::progressBarSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *) const
 {
-
     // cast option
     const QStyleOptionProgressBar *progressBarOption(qstyleoption_cast<const QStyleOptionProgressBar *>(option));
     if (!progressBarOption) {
@@ -3096,7 +3215,6 @@ QSize Style::progressBarSizeFromContents(const QStyleOption *option, const QSize
 //______________________________________________________________
 QSize Style::tabWidgetSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionTabWidgetFrame *tabOption = qstyleoption_cast<const QStyleOptionTabWidgetFrame *>(option);
     if (!tabOption) {
@@ -3152,7 +3270,6 @@ QSize Style::tabWidgetSizeFromContents(const QStyleOption *option, const QSize &
 //______________________________________________________________
 QSize Style::tabBarTabSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *) const
 {
-
     const QStyleOptionTab *tabOption(qstyleoption_cast<const QStyleOptionTab *>(option));
     const QStyleOptionTabV3 *tabOptionV3(qstyleoption_cast<const QStyleOptionTabV3 *>(option));
     bool hasText(tabOption && !tabOption->text.isEmpty());
@@ -3206,7 +3323,6 @@ QSize Style::tabBarTabSizeFromContents(const QStyleOption *option, const QSize &
 //______________________________________________________________
 QSize Style::headerSectionSizeFromContents(const QStyleOption *option, const QSize &contentsSize, const QWidget *) const
 {
-
     // cast option and check
     const QStyleOptionHeader *headerOption(qstyleoption_cast<const QStyleOptionHeader *>(option));
     if (!headerOption) {
@@ -3368,7 +3484,6 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawFrameFocusRectPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     if (option->styleObject && option->styleObject->property("elementType") == QLatin1String("button")) {
         return true;
     }
@@ -3397,7 +3512,6 @@ bool Style::drawFrameFocusRectPrimitive(const QStyleOption *option, QPainter *pa
 //___________________________________________________________________________________
 bool Style::drawFrameMenuPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // only draw frame for (expanded) toolbars and QtQuick controls
     // do nothing for other cases, for which frame is rendered via drawPanelMenuPrimitive
     if (qobject_cast<const QToolBar *>(widget)) {
@@ -4503,7 +4617,6 @@ bool Style::drawIndicatorBranchPrimitive(const QStyleOption *option, QPainter *p
 //___________________________________________________________________________________
 bool Style::drawPushButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionButton *buttonOption(qstyleoption_cast<const QStyleOptionButton *>(option));
     if (!buttonOption) {
@@ -4642,7 +4755,6 @@ bool Style::drawPushButtonLabelControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawToolButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionToolButton *toolButtonOption(qstyleoption_cast<const QStyleOptionToolButton *>(option));
 
@@ -4776,7 +4888,6 @@ bool Style::drawToolButtonLabelControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawCheckBoxLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionButton *buttonOption(qstyleoption_cast<const QStyleOptionButton *>(option));
     if (!buttonOption) {
@@ -4830,7 +4941,6 @@ bool Style::drawCheckBoxLabelControl(const QStyleOption *option, QPainter *paint
 //___________________________________________________________________________________
 bool Style::drawComboBoxLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QStyleOptionComboBox *comboBoxOption(qstyleoption_cast<const QStyleOptionComboBox *>(option));
     if (!comboBoxOption) {
         return false;
@@ -4901,7 +5011,6 @@ bool Style::drawComboBoxLabelControl(const QStyleOption *option, QPainter *paint
 //
 bool Style::drawItemViewItemControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QStyleOptionViewItem *vopt = qstyleoption_cast<const QStyleOptionViewItem *>(option);
     if (!vopt) {
         return true;
@@ -4929,7 +5038,6 @@ bool Style::drawItemViewItemControl(const QStyleOption *option, QPainter *painte
 //___________________________________________________________________________________
 bool Style::drawMenuBarEmptyArea(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     const QRect &rect(option->rect);
     const QPalette &palette(option->palette);
 
@@ -4947,8 +5055,6 @@ bool Style::drawMenuBarEmptyArea(const QStyleOption *option, QPainter *painter, 
 //___________________________________________________________________________________
 bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
-
     // cast option and check
     const QStyleOptionMenuItem *menuItemOption = qstyleoption_cast<const QStyleOptionMenuItem *>(option);
     if (!menuItemOption)
@@ -5227,7 +5333,6 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
 //___________________________________________________________________________________
 bool Style::drawProgressBarControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QStyleOptionProgressBar *progressBarOption(qstyleoption_cast<const QStyleOptionProgressBar *>(option));
     if (!progressBarOption)
         return true;
@@ -5274,7 +5379,6 @@ bool Style::drawProgressBarControl(const QStyleOption *option, QPainter *painter
 //___________________________________________________________________________________
 bool Style::drawProgressBarContentsControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     const QStyleOptionProgressBar *progressBarOption(qstyleoption_cast<const QStyleOptionProgressBar *>(option));
     if (!progressBarOption)
         return true;
@@ -5330,7 +5434,6 @@ bool Style::drawProgressBarContentsControl(const QStyleOption *option, QPainter 
 //___________________________________________________________________________________
 bool Style::drawProgressBarGrooveControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     const QPalette &palette(option->palette);
 
     // Style options
@@ -5350,7 +5453,6 @@ bool Style::drawProgressBarGrooveControl(const QStyleOption *option, QPainter *p
 //___________________________________________________________________________________
 bool Style::drawProgressBarLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     // cast option and check
     const QStyleOptionProgressBar *progressBarOption(qstyleoption_cast<const QStyleOptionProgressBar *>(option));
     if (!progressBarOption) {
@@ -5384,7 +5486,6 @@ bool Style::drawProgressBarLabelControl(const QStyleOption *option, QPainter *pa
 //___________________________________________________________________________________
 bool Style::drawScrollBarSliderControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionSlider *sliderOption(qstyleoption_cast<const QStyleOptionSlider *>(option));
     if (!sliderOption) {
@@ -5453,7 +5554,6 @@ bool Style::drawScrollBarSliderControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawScrollBarAddLineControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // do nothing if no buttons are defined
     if (_addLineButtons == NoButton) {
         return true;
@@ -5521,7 +5621,6 @@ bool Style::drawScrollBarAddLineControl(const QStyleOption *option, QPainter *pa
 //___________________________________________________________________________________
 bool Style::drawScrollBarSubLineControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // do nothing if no buttons are set
     if (_subLineButtons == NoButton) {
         return true;
@@ -5643,7 +5742,6 @@ bool Style::drawShapedFrameControl(const QStyleOption *option, QPainter *painter
 //___________________________________________________________________________________
 bool Style::drawRubberBandControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     const QPalette &palette(option->palette);
     QRect rect(option->rect);
 
@@ -5659,7 +5757,6 @@ bool Style::drawRubberBandControl(const QStyleOption *option, QPainter *painter,
 //___________________________________________________________________________________
 bool Style::drawHeaderSectionControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QRect &rect(option->rect);
     const QPalette &palette(option->palette);
     const State &state(option->state);
@@ -5731,7 +5828,6 @@ bool Style::drawHeaderSectionControl(const QStyleOption *option, QPainter *paint
 
 bool Style::drawHeaderLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     if (const QStyleOptionHeader *header = qstyleoption_cast<const QStyleOptionHeader *>(option)) {
         QRect rect = header->rect;
         if (!header->icon.isNull()) {
@@ -5765,7 +5861,6 @@ bool Style::drawHeaderLabelControl(const QStyleOption *option, QPainter *painter
 //___________________________________________________________________________________
 bool Style::drawHeaderEmptyAreaControl(const QStyleOption *option, QPainter *painter, const QWidget *) const
 {
-
     // use the same background as in drawHeaderPrimitive
     const QRect &rect(option->rect);
     QPalette palette(option->palette);
@@ -5799,7 +5894,6 @@ bool Style::drawHeaderEmptyAreaControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawTabBarTabLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     if (const QStyleOptionTab *tab = qstyleoption_cast<const QStyleOptionTab *>(option)) {
         QStyleOptionTabV3 tabV2(*tab);
         QRect tr = tabV2.rect;
@@ -5943,7 +6037,6 @@ bool Style::drawTabBarTabLabelControl(const QStyleOption *option, QPainter *pain
 //___________________________________________________________________________________
 bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QStyleOptionTab *tabOption(qstyleoption_cast<const QStyleOptionTab *>(option));
     if (!tabOption) {
         return true;
@@ -6052,7 +6145,6 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
 //___________________________________________________________________________________
 bool Style::drawToolBoxTabLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // rendering is similar to drawPushButtonLabelControl
     // cast option and check
     const QStyleOptionToolBox *toolBoxOption(qstyleoption_cast<const QStyleOptionToolBox *>(option));
@@ -6125,7 +6217,6 @@ bool Style::drawToolBoxTabLabelControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawToolBoxTabShapeControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionToolBox *toolBoxOption(qstyleoption_cast<const QStyleOptionToolBox *>(option));
     if (!toolBoxOption) {
@@ -6187,7 +6278,6 @@ bool Style::drawToolBoxTabShapeControl(const QStyleOption *option, QPainter *pai
 //___________________________________________________________________________________
 bool Style::drawDockWidgetTitleControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionDockWidget *dockWidgetOption = ::qstyleoption_cast<const QStyleOptionDockWidget *>(option);
     if (!dockWidgetOption) {
@@ -6251,7 +6341,6 @@ bool Style::drawDockWidgetTitleControl(const QStyleOption *option, QPainter *pai
 //______________________________________________________________
 bool Style::drawGroupBoxComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     if (const QStyleOptionGroupBox *groupBox = qstyleoption_cast<const QStyleOptionGroupBox *>(option)) {
         painter->save();
 
@@ -6288,7 +6377,6 @@ bool Style::drawGroupBoxComplexControl(const QStyleOptionComplex *option, QPaint
 //______________________________________________________________
 bool Style::drawToolButtonComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionToolButton *toolButtonOption(qstyleoption_cast<const QStyleOptionToolButton *>(option));
     if (!toolButtonOption) {
@@ -6475,7 +6563,6 @@ bool Style::drawToolButtonComplexControl(const QStyleOptionComplex *option, QPai
 //______________________________________________________________
 bool Style::drawComboBoxComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionComboBox *comboBoxOption(qstyleoption_cast<const QStyleOptionComboBox *>(option));
     if (!comboBoxOption) {
@@ -6605,7 +6692,6 @@ bool Style::drawComboBoxComplexControl(const QStyleOptionComplex *option, QPaint
 //______________________________________________________________
 bool Style::drawSpinBoxComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QStyleOptionSpinBox *spinBoxOption(qstyleoption_cast<const QStyleOptionSpinBox *>(option));
     if (!spinBoxOption) {
         return true;
@@ -6643,7 +6729,6 @@ bool Style::drawSpinBoxComplexControl(const QStyleOptionComplex *option, QPainte
 //______________________________________________________________
 bool Style::drawSliderComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionSlider *sliderOption(qstyleoption_cast<const QStyleOptionSlider *>(option));
     if (!sliderOption) {
@@ -6838,7 +6923,6 @@ bool Style::drawSliderComplexControl(const QStyleOptionComplex *option, QPainter
 //______________________________________________________________
 bool Style::drawDialComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionSlider *sliderOption(qstyleoption_cast<const QStyleOptionSlider *>(option));
     if (!sliderOption) {
@@ -6934,7 +7018,6 @@ bool Style::drawDialComplexControl(const QStyleOptionComplex *option, QPainter *
 //______________________________________________________________
 bool Style::drawScrollBarComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     //the animation for QStyle::SC_ScrollBarGroove is special: it will animate
     //the opacity of everything else as well, included slider and arrows
     bool enabled(option->state & State_Enabled);
@@ -7007,7 +7090,6 @@ bool Style::drawScrollBarComplexControl(const QStyleOptionComplex *option, QPain
 //______________________________________________________________
 bool Style::drawTitleBarComplexControl(const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionTitleBar *titleBarOption(qstyleoption_cast<const QStyleOptionTitleBar *>(option));
     if (!titleBarOption) {
@@ -7133,7 +7215,6 @@ bool Style::drawTitleBarComplexControl(const QStyleOptionComplex *option, QPaint
 //____________________________________________________________________________________________________
 void Style::renderSpinBoxArrow(const SubControl &subControl, const QStyleOptionSpinBox *option, QPainter *painter, const QWidget *widget) const
 {
-
     const QPalette &palette(option->palette);
     const State &state(option->state);
 
@@ -7212,7 +7293,6 @@ void Style::renderSpinBoxArrow(const SubControl &subControl, const QStyleOptionS
 //______________________________________________________________________________
 void Style::renderMenuTitle(const QStyleOptionToolButton *option, QPainter *painter, const QWidget *) const
 {
-
     // render a separator at the bottom
     const QPalette &palette(option->palette);
 
@@ -7233,7 +7313,6 @@ void Style::renderMenuTitle(const QStyleOptionToolButton *option, QPainter *pain
 //______________________________________________________________________________
 qreal Style::dialAngle(const QStyleOptionSlider *sliderOption, int value) const
 {
-
     // calculate angle at which handle needs to be drawn
     qreal angle(0);
     if (sliderOption->maximum == sliderOption->minimum) {
@@ -7256,7 +7335,6 @@ qreal Style::dialAngle(const QStyleOptionSlider *sliderOption, int value) const
 //______________________________________________________________________________
 const QWidget *Style::scrollBarParent(const QWidget *widget) const
 {
-
     // check widget and parent
     if (!(widget && widget->parentWidget())) {
         return nullptr;
@@ -7281,7 +7359,6 @@ const QWidget *Style::scrollBarParent(const QWidget *widget) const
 //______________________________________________________________________________
 QColor Style::scrollBarArrowColor(const QStyleOptionSlider *option, const SubControl &control, const QWidget *widget) const
 {
-
     const QRect &rect(option->rect);
     const QPalette &palette(option->palette);
 
@@ -7372,7 +7449,6 @@ QColor Style::scrollBarArrowColor(const QStyleOptionSlider *option, const SubCon
 //____________________________________________________________________________________
 void Style::setTranslucentBackground(QWidget *widget) const
 {
-
     if (!_isKDE) {
         return;
     }
@@ -7388,7 +7464,6 @@ void Style::setTranslucentBackground(QWidget *widget) const
 //____________________________________________________________________________________
 QStyleOptionToolButton Style::separatorMenuItemOption(const QStyleOptionMenuItem *menuItemOption, const QWidget *widget) const
 {
-
     // separator can have a title and an icon
     // in that case they are rendered as sunken flat toolbuttons
     QStyleOptionToolButton toolButtonOption;
@@ -7408,7 +7483,6 @@ QStyleOptionToolButton Style::separatorMenuItemOption(const QStyleOptionMenuItem
 //____________________________________________________________________________________
 QIcon Style::toolBarExtensionIcon(StandardPixmap standardPixmap, const QStyleOption *option, const QWidget *widget) const
 {
-
     // store palette
     // due to Qt, it is not always safe to assume that either option, nor widget are defined
     QPalette palette;
@@ -7477,7 +7551,6 @@ QIcon Style::toolBarExtensionIcon(StandardPixmap standardPixmap, const QStyleOpt
 //____________________________________________________________________________________
 QIcon Style::titleBarButtonIcon(StandardPixmap standardPixmap, const QStyleOption *option, const QWidget *widget) const
 {
-
     // map standardPixmap to button type
     ButtonType buttonType;
     switch (standardPixmap) {
@@ -7572,7 +7645,6 @@ QIcon Style::titleBarButtonIcon(StandardPixmap standardPixmap, const QStyleOptio
 //______________________________________________________________________________
 const QAbstractItemView *Style::itemViewParent(const QWidget *widget) const
 {
-
     const QAbstractItemView *itemView(nullptr);
 
     // check widget directly
@@ -7590,7 +7662,6 @@ const QAbstractItemView *Style::itemViewParent(const QWidget *widget) const
 //____________________________________________________________________
 bool Style::isSelectedItem(const QWidget *widget, const QPoint &localPosition) const
 {
-
     // get relevant itemview parent and check
     const QAbstractItemView *itemView(itemViewParent(widget));
     if (!(itemView && itemView->hasFocus() && itemView->selectionModel())) {
@@ -7612,28 +7683,24 @@ bool Style::isSelectedItem(const QWidget *widget, const QPoint &localPosition) c
 //____________________________________________________________________
 bool Style::isQtQuickControl(const QStyleOption *option, const QWidget *widget) const
 {
-
     return (widget == nullptr) && option && option->styleObject && option->styleObject->inherits("QQuickItem");
 }
 
 //____________________________________________________________________
 bool Style::showIconsInMenuItems(void) const
 {
-
     return Graceful::Settings::ShowIconsInMenuItems && !QCoreApplication::testAttribute(Qt::AA_DontShowIconsInMenus);
 }
 
 //____________________________________________________________________
 bool Style::showIconsOnPushButtons(void) const
 {
-
     return Graceful::Settings::ShowIconsOnPushButtons;
 }
 
 //____________________________________________________________________
 bool Style::isMenuTitle(const QWidget *widget) const
 {
-
     // check widget
     if (!widget) {
         return false;
@@ -7664,7 +7731,6 @@ bool Style::isMenuTitle(const QWidget *widget) const
 //____________________________________________________________________
 bool Style::hasAlteredBackground(const QWidget *widget) const
 {
-
     // check widget
     if (!widget) {
         return false;

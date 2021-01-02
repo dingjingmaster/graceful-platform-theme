@@ -12,6 +12,8 @@ public:
     void registerWidget (QWidget* widget);
     void unregisterWidget (QWidget* widget);
 
+    virtual bool eventFilter(QObject *watched, QEvent *event) override;
+
 Q_SIGNALS:
 
 public:

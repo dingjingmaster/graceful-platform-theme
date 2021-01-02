@@ -2,6 +2,7 @@
 
 #include <QMessageBox>
 #include <QWidget>
+#include "csyslog.h"
 
 MessageboxHelper::MessageboxHelper(QObject *parent) : QObject(parent)
 {
@@ -16,24 +17,13 @@ void MessageboxHelper::registerWidget(QWidget *widget)
     messageBox->setBackgroundRole(QPalette::Base);
     messageBox->setAutoFillBackground(true);
 
-    messageBox->setWindowFlags(messageBoxFlag | Qt::FramelessWindowHint);
-
-#if 0
-    float               mMinWidth       = 380;
-    float               mMinHeight      = 142;
-
-    float               mMaxWidth       = 420;
-    float               mMaxHeight      = 562;
-
-    float               mMarginTop      = 32;
-    float               mMarginRight    = 32;
-    float               mMarginBottom   = 24;
-    float               mMarginLeft     = 32;
-#endif
+//    messageBox->setWindowFlags(messageBoxFlag | Qt::FramelessWindowHint);
 
     messageBox->setMinimumSize(QSize(mMinWidth, mMinHeight));
     messageBox->setMaximumSize(QSize(mMaxWidth, mMaxHeight));
 
+    messageBox->removeEventFilter(this);
+    messageBox->installEventFilter(this);
 
 
 }
@@ -41,4 +31,11 @@ void MessageboxHelper::registerWidget(QWidget *widget)
 void MessageboxHelper::unregisterWidget(QWidget *widget)
 {
 
+}
+
+bool MessageboxHelper::eventFilter(QObject *watched, QEvent *event)
+{
+//    CT_SYSLOG (LOG_ERR, "");
+
+    return false;
 }

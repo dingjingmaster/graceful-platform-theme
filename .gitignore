@@ -1,3 +1,4 @@
+.qmake.stash
 demo/graceful-demo
 pkg/
 doc/
