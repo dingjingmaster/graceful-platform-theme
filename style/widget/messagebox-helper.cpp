@@ -1,6 +1,7 @@
 #include "messagebox-helper.h"
 
 #include <QMessageBox>
+#include <QVariant>
 #include <QWidget>
 #include "csyslog.h"
 
@@ -17,13 +18,14 @@ void MessageboxHelper::registerWidget(QWidget *widget)
     messageBox->setBackgroundRole(QPalette::Base);
     messageBox->setAutoFillBackground(true);
 
-//    messageBox->setWindowFlags(messageBoxFlag | Qt::FramelessWindowHint);
+    messageBox->setWindowFlags(messageBoxFlag | Qt::FramelessWindowHint);
 
     messageBox->setMinimumSize(QSize(mMinWidth, mMinHeight));
     messageBox->setMaximumSize(QSize(mMaxWidth, mMaxHeight));
 
     messageBox->removeEventFilter(this);
     messageBox->installEventFilter(this);
+
 
 
 }

@@ -53,72 +53,60 @@ public:
     using ParentStyleClass::unpolish;
 
     //* widget polishing
-    virtual void polish(QWidget *widget);
+    virtual void polish(QWidget *widget) override;
 
     //* widget unpolishing
-    virtual void unpolish(QWidget *widget);
+    virtual void unpolish(QWidget *widget) override;
 
     //* palette polishing
-    virtual void polish(QPalette &palette);
+    virtual void polish(QPalette &palette) override;
 
-    virtual QPalette standardPalette() const;
+    virtual QPalette standardPalette() const override;
 
     //* polish scrollarea
     void polishScrollArea(QAbstractScrollArea *scrollArea);
 
     //* pixel metrics
-    virtual int pixelMetric(PixelMetric metric, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const;
+    virtual int pixelMetric(PixelMetric metric, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const override;
 
     //* style hints
-    virtual int styleHint(StyleHint hint, const QStyleOption *option = nullptr, const QWidget *widget = nullptr, QStyleHintReturn *returnData = nullptr) const;
+    virtual int styleHint(StyleHint hint, const QStyleOption *option = nullptr, const QWidget *widget = nullptr, QStyleHintReturn *returnData = nullptr) const override;
 
     //* returns rect corresponding to one widget's subelement
-    virtual QRect subElementRect(SubElement element, const QStyleOption *option, const QWidget *widget) const;
+    virtual QRect subElementRect(SubElement element, const QStyleOption *option, const QWidget *widget) const override;
 
     //* returns rect corresponding to one widget's subcontrol
-    virtual QRect subControlRect(ComplexControl element, const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const;
+    virtual QRect subControlRect(ComplexControl element, const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const override;
 
     //* returns size matching contents
-    QSize sizeFromContents(ContentsType element, const QStyleOption *option, const QSize &size, const QWidget *widget) const;
+    QSize sizeFromContents(ContentsType element, const QStyleOption *option, const QSize &size, const QWidget *widget) const override;
 
     //* returns which subcontrol given QPoint corresponds to
-    SubControl hitTestComplexControl(ComplexControl control, const QStyleOptionComplex *option , const QPoint &point, const QWidget *widget) const;
+    SubControl hitTestComplexControl(ComplexControl control, const QStyleOptionComplex *option , const QPoint &point, const QWidget *widget) const override;
 
     //* primitives
-    void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override;
 
     //* controls
-    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override;
 
     //* complex controls
-    void drawComplexControl(ComplexControl element, const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const;
+    void drawComplexControl(ComplexControl element, const QStyleOptionComplex *option, QPainter *painter, const QWidget *widget) const override;
 
     //* generic text rendering
-    virtual void drawItemText(QPainter *painter, const QRect &rect, int alignment, const QPalette &palette, bool enabled,
-                              const QString &text, QPalette::ColorRole textRole = QPalette::NoRole) const;
+    virtual void drawItemText(QPainter *painter, const QRect &rect, int alignment, const QPalette &palette, bool enabled, const QString &text, QPalette::ColorRole textRole = QPalette::NoRole) const override;
 
-    //*@name event filters
-    //@{
-
-    virtual bool eventFilter(QObject *object, QEvent *event);
+    // 事件过滤
+    void addEventFilter(QObject *object);
+    virtual bool eventFilter(QObject *object, QEvent *event) override;
     bool eventFilterScrollArea(QWidget *widget, QEvent *event);
     bool eventFilterComboBoxContainer(QWidget *widget, QEvent *event);
     bool eventFilterDockWidget(QDockWidget *dockWidget, QEvent *event);
     bool eventFilterMdiSubWindow(QMdiSubWindow *subWindow, QEvent *event);
-
     bool eventFilterCommandLinkButton(QCommandLinkButton *button, QEvent *event);
 
-    //* install event filter to object, in a unique way
-    void addEventFilter(QObject *object)
-    {
-        object->removeEventFilter(this);
-        object->installEventFilter(this);
-    }
-
-    //@}
 
 protected Q_SLOTS:
-
     //* update configuration
     void configurationChanged(void);
 
@@ -128,10 +116,7 @@ protected Q_SLOTS:
 protected:
 
     //* standard icons
-    virtual QIcon standardIcon(StandardPixmap pixmap, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const
-    {
-        return standardIconImplementation(pixmap, option, widget);
-    }
+    virtual QIcon standardIcon(StandardPixmap pixmap, const QStyleOption *option = nullptr, const QWidget *widget = nullptr) const override;
 
     //* load configuration
     void loadConfiguration();
@@ -140,10 +125,7 @@ protected:
     //@{
 
     //* default implementation. Does not change anything
-    QRect defaultSubElementRect(const QStyleOption *option, const QWidget *widget) const
-    {
-        return option->rect;
-    }
+    QRect defaultSubElementRect(const QStyleOption *option, const QWidget *widget) const;
 
     QRect pushButtonContentsRect(const QStyleOption *option, const QWidget *widget) const;
     QRect pushButtonFocusRect(const QStyleOption *option, const QWidget *widget) const;
@@ -184,10 +166,7 @@ protected:
 
     //*@name sizeFromContents
     //@{
-    QSize defaultSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const
-    {
-        return size;
-    }
+    QSize defaultSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
 
     QSize checkBoxSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
     QSize lineEditSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const;
@@ -209,10 +188,7 @@ protected:
     //*@name primitives specialized functions
     //@{
 
-    bool emptyPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return true;
-    }
+    bool emptyPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     bool drawFramePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -223,25 +199,10 @@ protected:
     bool drawFrameTabBarBasePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawFrameWindowPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
-    bool drawIndicatorArrowUpPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowUp, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowDownPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowDown, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowLeftPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowLeft, option, painter, widget);
-    }
-
-    bool drawIndicatorArrowRightPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return drawIndicatorArrowPrimitive(ArrowRight, option, painter, widget);
-    }
+    bool drawIndicatorArrowUpPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowDownPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowLeftPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
+    bool drawIndicatorArrowRightPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     bool drawIndicatorArrowPrimitive(ArrowOrientation orientation, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     bool drawIndicatorHeaderArrowPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -267,10 +228,7 @@ protected:
     //*@name controls specialized functions
     //@{
 
-    bool emptyControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
-    {
-        return true;
-    }
+    bool emptyControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 
     virtual bool drawPushButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
     virtual bool drawToolButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
@@ -339,19 +297,7 @@ protected:
     };
 
     //* returns height for scrollbar buttons depending of button types
-    int scrollBarButtonHeight(const ScrollBarButtonType &type) const
-    {
-        switch (type) {
-        case NoButton:
-            return Metrics::ScrollBar_NoButtonHeight;
-        case SingleButton:
-            return Metrics::ScrollBar_SingleButtonHeight;
-        case DoubleButton:
-            return Metrics::ScrollBar_DoubleButtonHeight;
-        default:
-            return 0;
-        }
-    }
+    int scrollBarButtonHeight(const ScrollBarButtonType &type) const;
 
     //@}
 
@@ -365,8 +311,9 @@ protected:
     */
     QStyleOptionToolButton separatorMenuItemOption(const QStyleOptionMenuItem *menuItemOption, const QWidget *widget) const;
 
-    //* create toolbar extension icon
-    QIcon toolBarExtensionIcon(StandardPixmap, const QStyleOption *option, const QWidget *widget) const;
+    /* 图标相关 */
+    QIcon toolBarExtensionIcon(StandardPixmap, const QStyleOption *option, const QWidget *widget) const;                                        // toolbar icon
+
 
     //* create title bar button icon
     QIcon titleBarButtonIcon(StandardPixmap, const QStyleOption *option, const QWidget *widget) const;
@@ -389,61 +336,30 @@ protected:
     //@}
 
     //* adjust rect based on provided margins
-    QRect insideMargin(const QRect &r, int margin) const
-    {
-        return insideMargin(r, margin, margin);
-    }
+    QRect insideMargin(const QRect &r, int margin) const;
 
     //* adjust rect based on provided margins
-    QRect insideMargin(const QRect &r, int marginWidth, int marginHeight) const
-    {
-        return r.adjusted(marginWidth, marginHeight, -marginWidth, -marginHeight);
-    }
+    QRect insideMargin(const QRect &r, int marginWidth, int marginHeight) const;
 
     //* expand size based on margins
-    QSize expandSize(const QSize &size, int margin) const
-    {
-        return expandSize(size, margin, margin);
-    }
+    QSize expandSize(const QSize &size, int margin) const;
 
     //* expand size based on margins
-    QSize expandSize(const QSize &size, int marginWidth, int marginHeight) const
-    {
-        return size + 2 * QSize(marginWidth, marginHeight);
-    }
+    QSize expandSize(const QSize &size, int marginWidth, int marginHeight) const;
 
     //* returns true for vertical tabs
-    bool isVerticalTab(const QStyleOptionTab *option) const
-    {
-        return isVerticalTab(option->shape);
-    }
+    bool isVerticalTab(const QStyleOptionTab *option) const;
 
-    bool isVerticalTab(const QTabBar::Shape &shape) const
-    {
-        return shape == QTabBar::RoundedEast
-               || shape == QTabBar::RoundedWest
-               || shape == QTabBar::TriangularEast
-               || shape == QTabBar::TriangularWest;
-
-    }
+    bool isVerticalTab(const QTabBar::Shape &shape) const;
 
     //* right to left alignment handling
     using ParentStyleClass::visualRect;
-    QRect visualRect(const QStyleOption *opt, const QRect &subRect) const
-    {
-        return ParentStyleClass::visualRect(opt->direction, opt->rect, subRect);
-    }
+    QRect visualRect(const QStyleOption *opt, const QRect &subRect) const;
 
     //* centering
-    QRect centerRect(const QRect &rect, const QSize &size) const
-    {
-        return centerRect(rect, size.width(), size.height());
-    }
+    QRect centerRect(const QRect &rect, const QSize &size) const;
 
-    QRect centerRect(const QRect &rect, int width, int height) const
-    {
-        return QRect(rect.left() + (rect.width() - width) / 2, rect.top() + (rect.height() - height) / 2, width, height);
-    }
+    QRect centerRect(const QRect &rect, int width, int height) const;
 
     /*
     Checks whether the point is before the bound rect for bound of given orientation.
@@ -530,61 +446,14 @@ private:
     bool _isGNOME { false };
     bool _isKDE { false };
 
+    // 当前主题路径
 
-    // 各种系统窗口的样式定制
+    // fixme:// 删除 - 各种系统窗口的样式定制
     MessageboxHelper*               mMessageboxHelper = NULL;
 };
 
-//_________________________________________________________________________
-bool Style::preceeds(const QPoint &point, const QRect &bound, const QStyleOption *option) const
-{
-
-    if (option->state & QStyle::State_Horizontal) {
-        if (option->direction == Qt::LeftToRight)
-            return point.x() < bound.right();
-        else
-            return point.x() > bound.x();
-
-    } else
-        return point.y() < bound.y();
-}
-
-//_________________________________________________________________________
-QStyle::SubControl Style::scrollBarHitTest(const QRect &rect, const QPoint &point, const QStyleOption *option) const
-{
-
-    if (option->state & QStyle::State_Horizontal) {
-        if (option->direction == Qt::LeftToRight)
-            return point.x() < rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-        else
-            return point.x() > rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-
-    } else
-        return point.y() < rect.center().y() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
-}
-
-//_________________________________________________________________________
-bool Style::hasParent(const QWidget *widget, const char *className) const
-{
-
-
-    if (!widget)
-        return false;
-
-    while ((widget = widget->parentWidget())) {
-        if (widget->inherits(className))
-            return true;
-    }
-
-    return false;
-
-}
-
-//_________________________________________________________________________
 template< typename T > bool Style::hasParent(const QWidget *widget) const
 {
-
-
     if (!widget)
         return false;
 

@@ -252,7 +252,7 @@ void Style::polish(QWidget *widget)
         return;
     }
 
-    ParentStyleClass::polish(widget);
+    CT_SYSLOG(LOG_ERR, "%s", widget->objectName().toUtf8().constData());
 
     // register widget to animations
     _animations->registerWidget(widget);
@@ -409,6 +409,8 @@ void Style::polish(QWidget *widget)
     if (qobject_cast<QMessageBox*>(widget)) {
         mMessageboxHelper->registerWidget(widget);
     }
+
+    ParentStyleClass::polish(widget);
 }
 
 void Style::polishScrollArea(QAbstractScrollArea *scrollArea)
@@ -829,6 +831,13 @@ int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWi
     case PM_DockWidgetTitleBarButtonMargin:
         return Metrics::ToolButton_MarginWidth;
 
+    case PM_MessageBoxIconSize:                                                                             // message box icon size
+        return ParentStyleClass::pixelMetric(metric, option, widget);
+    case PM_ButtonIconSize:                                                                                 // button icon size
+        return 0;
+    case PM_TitleBarButtonSize:                                                                             //
+        return 0;
+
     case PM_SplitterWidth:
         return Metrics::Splitter_SplitterWidth;
     case PM_DockWidgetSeparatorExtent:
@@ -909,6 +918,7 @@ int Style::styleHint(StyleHint hint, const QStyleOption *option, const QWidget *
     case SH_ProgressDialog_CenterCancelButton:
         return false;
     case SH_MessageBox_CenterButtons:                                                               // 指示 MessageBox 中的按钮是否应该居中
+//        return true;
         return false;
     case SH_RequestSoftwareInputPanel:
         return RSIP_OnMouseClick;
@@ -953,6 +963,7 @@ QRect Style::subElementRect(SubElement element, const QStyleOption *option, cons
     case SE_HeaderArrow:
         return headerArrowRect(option, widget);
     case SE_HeaderLabel:
+//        return QRect();
         return headerLabelRect(option, widget);
     case SE_SliderFocusRect:
         return sliderFocusRect(option, widget);
@@ -972,6 +983,8 @@ QRect Style::subElementRect(SubElement element, const QStyleOption *option, cons
         return tabWidgetCornerRect(SE_TabWidgetRightCorner, option, widget);
     case SE_ToolBoxTabContents:
         return toolBoxTabContentsRect(option, widget);
+//    case SE_LabelLayoutItem:
+//        return QRect();
     // fallback
     default:
         return ParentStyleClass::subElementRect(element, option, widget);
@@ -1707,14 +1720,18 @@ bool Style::eventFilterCommandLinkButton(QCommandLinkButton *button, QEvent *eve
     return false;
 }
 
-//_____________________________________________________________________
+void Style::addEventFilter(QObject *object)
+{
+    object->removeEventFilter(this);
+    object->installEventFilter(this);
+}
+
 void Style::configurationChanged(void)
 {
     // reload configuration
     loadConfiguration();
 }
 
-//____________________________________________________________________
 QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QStyleOption *option, const QWidget *widget) const
 {
     // lookup cache
@@ -1735,12 +1752,14 @@ QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QSt
     case SP_ToolBarVerticalExtensionButton:
         icon = toolBarExtensionIcon(standardPixmap, option, widget);
         break;
+    case SP_MessageBoxQuestion:
+//        icon = messageboxIcon(standardPixmap, option, widget);
+//        break;
     default:
         break;
     }
 
     if (icon.isNull()) {
-        // do not cache parent style icon, since it may change at runtime
         return  ParentStyleClass::standardIcon(standardPixmap, option, widget);
     } else {
         const_cast<IconCache *>(&_iconCache)->insert(standardPixmap, icon);
@@ -1748,7 +1767,11 @@ QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QSt
     }
 }
 
-//_____________________________________________________________________
+QIcon Style::standardIcon(QStyle::StandardPixmap pixmap, const QStyleOption *option, const QWidget *widget) const
+{
+    return standardIconImplementation(pixmap, option, widget);
+}
+
 void Style::loadConfiguration()
 {
     // reinitialize engines
@@ -1803,6 +1826,13 @@ void Style::loadConfiguration()
     // widget explorer
     _widgetExplorer->setEnabled(Graceful::Config::WidgetExplorerEnabled);
     _widgetExplorer->setDrawWidgetRects(Graceful::Config::DrawWidgetRects);
+}
+
+QRect Style::defaultSubElementRect(const QStyleOption *option, const QWidget *widget) const
+{
+    Q_UNUSED(widget);
+
+    return option->rect;
 }
 
 //___________________________________________________________________________________________________________________
@@ -2015,7 +2045,6 @@ QRect Style::headerArrowRect(const QStyleOption *option, const QWidget *) const
 //___________________________________________________________________________________________________________________
 QRect Style::headerLabelRect(const QStyleOption *option, const QWidget *) const
 {
-
     // cast option and check
     const QStyleOptionHeader *headerOption(qstyleoption_cast<const QStyleOptionHeader *>(option));
     if (!headerOption) {
@@ -2808,6 +2837,11 @@ QRect Style::sliderSubControlRect(const QStyleOptionComplex *option, SubControl 
     }
 }
 
+QSize Style::defaultSizeFromContents(const QStyleOption *option, const QSize &size, const QWidget *widget) const
+{
+    return size;
+}
+
 //______________________________________________________________
 QSize Style::checkBoxSizeFromContents(const QStyleOption *, const QSize &contentsSize, const QWidget *) const
 {
@@ -3375,6 +3409,11 @@ QSize Style::itemViewItemSizeFromContents(const QStyleOption *option, const QSiz
     return expandSize(size, Metrics::ItemView_ItemMarginWidth);
 }
 
+bool Style::emptyPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return true;
+}
+
 //______________________________________________________________
 bool Style::drawFramePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
@@ -3691,6 +3730,26 @@ bool Style::drawFrameWindowPrimitive(const QStyleOption *option, QPainter *paint
     return true;
 }
 
+bool Style::drawIndicatorArrowUpPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return drawIndicatorArrowPrimitive(ArrowUp, option, painter, widget);
+}
+
+bool Style::drawIndicatorArrowDownPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return drawIndicatorArrowPrimitive(ArrowDown, option, painter, widget);
+}
+
+bool Style::drawIndicatorArrowLeftPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return drawIndicatorArrowPrimitive(ArrowLeft, option, painter, widget);
+}
+
+bool Style::drawIndicatorArrowRightPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return drawIndicatorArrowPrimitive(ArrowRight, option, painter, widget);
+}
+
 //___________________________________________________________________________________
 bool Style::drawIndicatorArrowPrimitive(ArrowOrientation orientation, const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
@@ -3822,7 +3881,6 @@ bool Style::drawIndicatorHeaderArrowPrimitive(const QStyleOption *option, QPaint
 //______________________________________________________________
 bool Style::drawPanelButtonCommandPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
-
     // cast option and check
     const QStyleOptionButton *buttonOption(qstyleoption_cast< const QStyleOptionButton * >(option));
     if (!buttonOption) {
@@ -4015,7 +4073,8 @@ bool Style::drawPanelScrollAreaCornerPrimitive(const QStyleOption *option, QPain
         return false;
     }
 }
-//___________________________________________________________________________________
+
+
 bool Style::drawPanelMenuPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
 
@@ -4614,6 +4673,11 @@ bool Style::drawIndicatorBranchPrimitive(const QStyleOption *option, QPainter *p
     return true;
 }
 
+bool Style::emptyControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+{
+    return true;
+}
+
 //___________________________________________________________________________________
 bool Style::drawPushButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
@@ -4938,7 +5002,6 @@ bool Style::drawCheckBoxLabelControl(const QStyleOption *option, QPainter *paint
 }
 
 
-//___________________________________________________________________________________
 bool Style::drawComboBoxLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     const QStyleOptionComboBox *comboBoxOption(qstyleoption_cast<const QStyleOptionComboBox *>(option));
@@ -7446,6 +7509,20 @@ QColor Style::scrollBarArrowColor(const QStyleOptionSlider *option, const SubCon
     return color;
 }
 
+int Style::scrollBarButtonHeight(const Style::ScrollBarButtonType &type) const
+{
+    switch (type) {
+    case NoButton:
+        return Metrics::ScrollBar_NoButtonHeight;
+    case SingleButton:
+        return Metrics::ScrollBar_SingleButtonHeight;
+    case DoubleButton:
+        return Metrics::ScrollBar_DoubleButtonHeight;
+    default:
+        return 0;
+    }
+}
+
 //____________________________________________________________________________________
 void Style::setTranslucentBackground(QWidget *widget) const
 {
@@ -7686,6 +7763,55 @@ bool Style::isQtQuickControl(const QStyleOption *option, const QWidget *widget) 
     return (widget == nullptr) && option && option->styleObject && option->styleObject->inherits("QQuickItem");
 }
 
+QRect Style::insideMargin(const QRect &r, int margin) const
+{
+    return insideMargin(r, margin, margin);
+}
+
+QRect Style::insideMargin(const QRect &r, int marginWidth, int marginHeight) const
+{
+    return r.adjusted(marginWidth, marginHeight, -marginWidth, -marginHeight);
+}
+
+QSize Style::expandSize(const QSize &size, int margin) const
+{
+    return expandSize(size, margin, margin);
+}
+
+QSize Style::expandSize(const QSize &size, int marginWidth, int marginHeight) const
+{
+    return size + 2 * QSize(marginWidth, marginHeight);
+}
+
+bool Style::isVerticalTab(const QStyleOptionTab *option) const
+{
+    return isVerticalTab(option->shape);
+}
+
+bool Style::isVerticalTab(const QTabBar::Shape &shape) const
+{
+    return shape == QTabBar::RoundedEast
+            || shape == QTabBar::RoundedWest
+            || shape == QTabBar::TriangularEast
+            || shape == QTabBar::TriangularWest;
+
+}
+
+QRect Style::visualRect(const QStyleOption *opt, const QRect &subRect) const
+{
+    return ParentStyleClass::visualRect(opt->direction, opt->rect, subRect);
+}
+
+QRect Style::centerRect(const QRect &rect, const QSize &size) const
+{
+    return centerRect(rect, size.width(), size.height());
+}
+
+QRect Style::centerRect(const QRect &rect, int width, int height) const
+{
+    return QRect(rect.left() + (rect.width() - width) / 2, rect.top() + (rect.height() - height) / 2, width, height);
+}
+
 //____________________________________________________________________
 bool Style::showIconsInMenuItems(void) const
 {
@@ -7759,6 +7885,48 @@ bool Style::hasAlteredBackground(const QWidget *widget) const
     }
     const_cast<QWidget *>(widget)->setProperty(PropertyNames::alteredBackground, hasAlteredBackground);
     return hasAlteredBackground;
+}
+
+bool Graceful::Style::preceeds(const QPoint &point, const QRect &bound, const QStyleOption *option) const
+{
+
+    if (option->state & QStyle::State_Horizontal) {
+        if (option->direction == Qt::LeftToRight)
+            return point.x() < bound.right();
+        else
+            return point.x() > bound.x();
+
+    } else
+        return point.y() < bound.y();
+}
+
+QStyle::SubControl Graceful::Style::scrollBarHitTest(const QRect &rect, const QPoint &point, const QStyleOption *option) const
+{
+
+    if (option->state & QStyle::State_Horizontal) {
+        if (option->direction == Qt::LeftToRight)
+            return point.x() < rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
+        else
+            return point.x() > rect.center().x() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
+
+    } else
+        return point.y() < rect.center().y() ? QStyle::SC_ScrollBarSubLine : QStyle::SC_ScrollBarAddLine;
+}
+
+bool Graceful::Style::hasParent(const QWidget *widget, const char *className) const
+{
+
+
+    if (!widget)
+        return false;
+
+    while ((widget = widget->parentWidget())) {
+        if (widget->inherits(className))
+            return true;
+    }
+
+    return false;
+
 }
 
 } // namespace Graceful

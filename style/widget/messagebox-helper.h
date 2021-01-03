@@ -32,6 +32,8 @@ private:
 
     float               mPixSize        = 24;
 
+    // qmessage 里包含的控件
+
 };
 
 #endif // MESSAGEBOXHELPER_H

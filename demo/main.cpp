@@ -10,9 +10,16 @@ int main(int argc, char *argv[])
 //    WidgetFactory fact;
 //    fact.show();
 
-#if 1
+#if 0
     //
     QMessageBox w(QMessageBox::NoIcon, "title", "text sssssddddddddddddddddddddfsdf ddddsdfs sfsdfssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+                   QMessageBox::Ok | QMessageBox::No);
+#endif
+
+    // question box
+#if 1
+    //
+    QMessageBox w(QMessageBox::Question, "title", "text sssssddddddddddddddddddddfsdf ddddsdfs sfsdfssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
                    QMessageBox::Ok | QMessageBox::No);
 #endif
 
